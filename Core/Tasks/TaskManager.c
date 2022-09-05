@@ -15,4 +15,8 @@
 void RunTaskManager( void )
 {
 	InitSafetyTask();
+	InitSystemInfoTask();
+	InitUserInputTask();
+	InitThrottleTask();
+
 }

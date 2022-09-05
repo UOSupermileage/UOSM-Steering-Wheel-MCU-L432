@@ -13,7 +13,7 @@
 
 #include <stdint.h>
 
-#define STACK_SIZE 128*4
+#define STACK_SIZE 128
 #define SAFETY_TASK_PRIORITY (osPriority_t) osPriorityHigh
 #define TIMER_SAFETY_TASK 1000UL
 
@@ -44,7 +44,7 @@ PRIVATE void SafetyTask(void *argument)
 	{
 		cycleTick += TIMER_SAFETY_TASK;
 		osDelayUntil(cycleTick);
-		HAL_UART_Transmit(&huart2, "msg!\n\r", 6, HAL_MAX_DELAY);
+		HAL_UART_Transmit(&huart2, "safety loop\n\r", 13, HAL_MAX_DELAY);
 
 	}
 }
