@@ -10,12 +10,14 @@
 
 #include "ThrottleTask.h"
 #include "ThrottleModule.h"
+#include "SerialDebugDriver.h"
 
-#define STACK_SIZE 128
+// Function alias - replace with the driver api
+#define DebugPrint(...) SerialPrintln(__VA_ARGS__)
+
+#define STACK_SIZE 128*4
 #define THROTTLE_TASK_PRIORITY (osPriority_t) osPriorityHigh1
 #define TIMER_THROTTLE_TASK 1000UL
-
-extern UART_HandleTypeDef huart2;
 
 PUBLIC void InitThrottleTask(void);
 PRIVATE void ThrottleTask(void *argument);
@@ -36,13 +38,13 @@ PUBLIC void InitThrottleTask(void)
 PRIVATE void ThrottleTask(void *argument)
 {
 	uint32_t cycleTick = osKernelGetTickCount();
-	HAL_UART_Transmit(&huart2, "throttle\n\r", 10, HAL_MAX_DELAY);
+	DebugPrint("throttle");
 
 	for(;;)
 	{
 		cycleTick += TIMER_THROTTLE_TASK;
 		osDelayUntil(cycleTick);
-		HAL_UART_Transmit(&huart2, "throttle loop\n\r", 15, HAL_MAX_DELAY);
+		DebugPrint("throttle loop");
 
 	}
 }

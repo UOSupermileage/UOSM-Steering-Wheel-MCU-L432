@@ -9,9 +9,13 @@
 
 #include "UserInputTask.h"
 #include "UserButtonsModule.h"
+#include "SerialDebugDriver.h"
+
+// Function alias - replace with the driver api
+#define DebugPrint(...) SerialPrintln(__VA_ARGS__)
 
 
-#define STACK_SIZE 128
+#define STACK_SIZE 128*4
 #define USER_INPUT_TASK_PRIORITY (osPriority_t) osPriorityHigh3
 #define TIMER_USER_INPUT_TASK 700UL
 
@@ -37,13 +41,13 @@ PUBLIC void InitUserInputTask(void)
 PRIVATE void UserInputTask(void *argument)
 {
 	uint32_t cycleTick = osKernelGetTickCount();
-	HAL_UART_Transmit(&huart2, "user input\n\r", 11, HAL_MAX_DELAY);
+	DebugPrint("user input");
 
 	for(;;)
 	{
 		cycleTick += TIMER_USER_INPUT_TASK;
 		osDelayUntil(cycleTick);
-		HAL_UART_Transmit(&huart2, "user input loop\n\r", 17, HAL_MAX_DELAY);
+		DebugPrint("user input loop: %d", cycleTick);
 
 	}
 }

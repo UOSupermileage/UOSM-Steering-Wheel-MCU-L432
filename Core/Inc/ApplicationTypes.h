@@ -15,4 +15,6 @@
 #define PUBLIC
 #define PRIVATE
 
+typedef uint16_t length_t;
+
 #endif /* _APPLICATIONTYPES_H_ */

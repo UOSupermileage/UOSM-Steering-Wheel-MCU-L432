@@ -13,13 +13,14 @@
 #include "ThrottleModule.h"
 #include "DisplayModule.h"
 #include "ClockModule.h"
+#include "SerialDebugDriver.h"
 
+// Function alias - replace with the driver api
+#define DebugPrint(...) SerialPrintln(__VA_ARGS__)
 
-#define STACK_SIZE 128
+#define STACK_SIZE 128*4
 #define SYSTEM_INFO_PRIORITY (osPriority_t) osPriorityHigh2
 #define TIMER_SYSTEM_INFO_TASK 1500UL
-
-extern UART_HandleTypeDef huart2;
 
 PUBLIC void InitSystemInfoTask(void);
 PRIVATE void SystemInfoTask(void *argument);
@@ -41,13 +42,13 @@ PUBLIC void InitSystemInfoTask(void)
 PRIVATE void SystemInfoTask(void *argument)
 {
 	uint32_t cycleTick = osKernelGetTickCount();
-	HAL_UART_Transmit(&huart2, "sysinfo\n\r", 9, HAL_MAX_DELAY);
+	DebugPrint("sysinfo");
 
 	for(;;)
 	{
 		cycleTick += TIMER_SYSTEM_INFO_TASK;
 		osDelayUntil(cycleTick);
-		HAL_UART_Transmit(&huart2, "sys loop\n\r", 12, HAL_MAX_DELAY);
+		DebugPrint("sys loop");
 
 	}
 }

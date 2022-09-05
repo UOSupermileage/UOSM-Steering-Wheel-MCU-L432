@@ -13,11 +13,14 @@
 
 #include <stdint.h>
 
-#define STACK_SIZE 128
+#include "SerialDebugDriver.h"
+
+// Function alias - replace with the driver api
+#define DebugPrint(...) SerialPrintln(__VA_ARGS__)
+
+#define STACK_SIZE 128*4
 #define SAFETY_TASK_PRIORITY (osPriority_t) osPriorityHigh
 #define TIMER_SAFETY_TASK 1000UL
-
-extern UART_HandleTypeDef huart2;
 
 PUBLIC void InitSafetyTask(void);
 PRIVATE void SafetyTask(void *argument);
@@ -38,13 +41,13 @@ PUBLIC void InitSafetyTask(void)
 PRIVATE void SafetyTask(void *argument)
 {
 	uint32_t cycleTick = osKernelGetTickCount();
-	HAL_UART_Transmit(&huart2, "safety\n\r", 8, HAL_MAX_DELAY);
+	DebugPrint("safety");
 
 	for(;;)
 	{
 		cycleTick += TIMER_SAFETY_TASK;
 		osDelayUntil(cycleTick);
-		HAL_UART_Transmit(&huart2, "safety loop\n\r", 13, HAL_MAX_DELAY);
+		DebugPrint("safety loop");
 
 	}
 }
