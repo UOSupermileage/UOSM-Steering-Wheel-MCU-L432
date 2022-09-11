@@ -8,8 +8,8 @@
  *  Can only import Module files
  */
 
+#include <InternalCommsModule.h>
 #include "SystemInfoTask.h"
-#include "SystemInfoModule.h"
 #include "ThrottleModule.h"
 #include "DisplayModule.h"
 #include "ClockModule.h"

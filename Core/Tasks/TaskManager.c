@@ -11,6 +11,7 @@
 #include "SystemInfoTask.h"
 #include "ThrottleTask.h"
 #include "UserInputTask.h"
+#include "InternalCommsTask.h"
 
 void RunTaskManager( void )
 {
@@ -18,5 +19,5 @@ void RunTaskManager( void )
 	InitSystemInfoTask();
 	InitUserInputTask();
 	InitThrottleTask();
-
+	InitInternalCommsTask();
 }
