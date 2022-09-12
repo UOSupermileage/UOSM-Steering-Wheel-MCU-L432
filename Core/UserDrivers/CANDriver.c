@@ -5,9 +5,9 @@
  *      Author: mingy
  */
 #include "CANDriver.h"
-
+#include "ApplicationTypes.h"
 #include "MCP2515.h"
-
+#include "SerialDebugDriver.h"
 /** Local Function Prototypes */
 static uint32_t convertReg2ExtendedCANid(uint8_t tempRXBn_EIDH, uint8_t tempRXBn_EIDL, uint8_t tempRXBn_SIDH, uint8_t tempRXBn_SIDL);
 static uint32_t convertReg2StandardCANid(uint8_t tempRXBn_SIDH, uint8_t tempRXBn_SIDL) ;
@@ -132,103 +132,128 @@ bool CANSPI_Initialize(void)
 }
 
 /* CAN 메시지 전송 */
-uint8_t CANSPI_Transmit(uCAN_MSG *tempCanMsg)
+uint8_t CANSPI_Transmit(iCommsMessage_t * txMsg)
 {
-  uint8_t returnValue = 0;
+	// Pack message into uCAN_MSG to be transmitted by the driver
+	uCAN_MSG tempCanMsg;
+	tempCanMsg.frame.idType = dSTANDARD_CAN_MSG_ID_2_0B;
+	tempCanMsg.frame.id = txMsg->standardMessageID;
+	tempCanMsg.frame.dlc = txMsg->dataLength;
 
-  idReg.tempSIDH = 0;
-  idReg.tempSIDL = 0;
-  idReg.tempEID8 = 0;
-  idReg.tempEID0 = 0;
+	for(uint8_t i=0; i < txMsg->dataLength; i++)
+	{
+		tempCanMsg.frame.data[i] = txMsg->data[i];
+	}
+	// fill rest of the data with zeros
+	for(uint8_t i=txMsg->dataLength; i <8 ; i++)
+	{
+		tempCanMsg.frame.data[i] = 0;
+	}
+	uint8_t returnValue = 0;
 
-  ctrlStatus.ctrl_status = MCP2515_ReadStatus();
+	idReg.tempSIDH = 0;
+	idReg.tempSIDL = 0;
+	idReg.tempEID8 = 0;
+	idReg.tempEID0 = 0;
 
-  /* 현재 Transmission 이 Pending 되지 않은 버퍼를 찾아서 전송한다. */
-  // check which register is available by checking the TXREQ bit which indicates whether a tx message is pending
-  if (ctrlStatus.TXB0REQ != 1)
-  {
-    /* ID Type에 맞게 변환 */
-    convertCANid2Reg(tempCanMsg->frame.id, tempCanMsg->frame.idType, &idReg);
+	ctrlStatus.ctrl_status = MCP2515_ReadStatus();
 
-    /* Tx Buffer에 전송할 데이터 Loading */
-    MCP2515_LoadTxSequence(MCP2515_LOAD_TXB0SIDH, &(idReg.tempSIDH), tempCanMsg->frame.dlc, &(tempCanMsg->frame.data[0]));
+	/* 현재 Transmission 이 Pending 되지 않은 버퍼를 찾아서 전송한다. */
+	// check which register is available by checking the TXREQ bit which indicates whether a tx message is pending
+	if (ctrlStatus.TXB0REQ != 1)
+	{
+	/* ID Type에 맞게 변환 */
+	convertCANid2Reg(tempCanMsg.frame.id, tempCanMsg.frame.idType, &idReg);
 
-    /* Tx Buffer의 데이터 전송요청 */
-    MCP2515_RequestToSend(MCP2515_RTS_TX0);
+	/* Tx Buffer에 전송할 데이터 Loading */
+	MCP2515_LoadTxSequence(MCP2515_LOAD_TXB0SIDH, &(idReg.tempSIDH), tempCanMsg.frame.dlc, &(tempCanMsg.frame.data[0]));
 
-    returnValue = 1;
-  }
-  else if (ctrlStatus.TXB1REQ != 1)
-  {
-    convertCANid2Reg(tempCanMsg->frame.id, tempCanMsg->frame.idType, &idReg);
+	/* Tx Buffer의 데이터 전송요청 */
+	MCP2515_RequestToSend(MCP2515_RTS_TX0);
 
-    MCP2515_LoadTxSequence(MCP2515_LOAD_TXB1SIDH, &(idReg.tempSIDH), tempCanMsg->frame.dlc, &(tempCanMsg->frame.data[0]));
-    MCP2515_RequestToSend(MCP2515_RTS_TX1);
+	returnValue = 1;
+	}
+	else if (ctrlStatus.TXB1REQ != 1)
+	{
+	convertCANid2Reg(tempCanMsg.frame.id, tempCanMsg.frame.idType, &idReg);
 
-    returnValue = 1;
-  }
-  else if (ctrlStatus.TXB2REQ != 1)
-  {
-    convertCANid2Reg(tempCanMsg->frame.id, tempCanMsg->frame.idType, &idReg);
+	MCP2515_LoadTxSequence(MCP2515_LOAD_TXB1SIDH, &(idReg.tempSIDH), tempCanMsg.frame.dlc, &(tempCanMsg.frame.data[0]));
+	MCP2515_RequestToSend(MCP2515_RTS_TX1);
 
-    MCP2515_LoadTxSequence(MCP2515_LOAD_TXB2SIDH, &(idReg.tempSIDH), tempCanMsg->frame.dlc, &(tempCanMsg->frame.data[0]));
-    MCP2515_RequestToSend(MCP2515_RTS_TX2);
+	returnValue = 1;
+	}
+	else if (ctrlStatus.TXB2REQ != 1)
+	{
+	convertCANid2Reg(tempCanMsg.frame.id, tempCanMsg.frame.idType, &idReg);
 
-    returnValue = 1;
-  }
+	MCP2515_LoadTxSequence(MCP2515_LOAD_TXB2SIDH, &(idReg.tempSIDH), tempCanMsg.frame.dlc, &(tempCanMsg.frame.data[0]));
+	MCP2515_RequestToSend(MCP2515_RTS_TX2);
 
-  return (returnValue);
+	returnValue = 1;
+	}
+
+	return (returnValue);
 }
 
 /* CAN 메시지 수신 */
-uint8_t CANSPI_Receive(uCAN_MSG *tempCanMsg)
+uint8_t CANSPI_Receive(iCommsMessage_t * rxMsg)
 {
-  uint8_t returnValue = 0;
-  rx_reg_t rxReg;
-  ctrl_rx_status_t rxStatus;
+	uCAN_MSG tempCanMsg;
 
-  rxStatus.ctrl_rx_status = MCP2515_GetRxStatus();
+	uint8_t returnValue = 0;
+	rx_reg_t rxReg;
+	ctrl_rx_status_t rxStatus;
 
-  /* 버퍼에 수신된 메시지가 있는지 확인 */
-  if (rxStatus.rxBuffer != 0)
-  {
-    /* 어떤 버퍼에 메시지가 있는지 확인 후 처리 */
-    if ((rxStatus.rxBuffer == MSG_IN_RXB0)|(rxStatus.rxBuffer == MSG_IN_BOTH_BUFFERS))
-    {
-      MCP2515_ReadRxSequence(MCP2515_READ_RXB0SIDH, rxReg.rx_reg_array, sizeof(rxReg.rx_reg_array));
-    }
-    else if (rxStatus.rxBuffer == MSG_IN_RXB1)
-    {
-      MCP2515_ReadRxSequence(MCP2515_READ_RXB1SIDH, rxReg.rx_reg_array, sizeof(rxReg.rx_reg_array));
-    }
+	rxStatus.ctrl_rx_status = MCP2515_GetRxStatus();
 
-    /* Extended 타입 */
-    if (rxStatus.msgType == dEXTENDED_CAN_MSG_ID_2_0B)
-    {
-      tempCanMsg->frame.idType = (uint8_t) dEXTENDED_CAN_MSG_ID_2_0B;
-      tempCanMsg->frame.id = convertReg2ExtendedCANid(rxReg.RXBnEID8, rxReg.RXBnEID0, rxReg.RXBnSIDH, rxReg.RXBnSIDL);
-    }
-    else
-    {
-      /* Standard 타입 */
-      tempCanMsg->frame.idType = (uint8_t) dSTANDARD_CAN_MSG_ID_2_0B;
-      tempCanMsg->frame.id = convertReg2StandardCANid(rxReg.RXBnSIDH, rxReg.RXBnSIDL);
-    }
+	/* 버퍼에 수신된 메시지가 있는지 확인 */
+	if (rxStatus.rxBuffer != 0)
+	{
+	/* 어떤 버퍼에 메시지가 있는지 확인 후 처리 */
+	if ((rxStatus.rxBuffer == MSG_IN_RXB0)|(rxStatus.rxBuffer == MSG_IN_BOTH_BUFFERS))
+	{
+	  MCP2515_ReadRxSequence(MCP2515_READ_RXB0SIDH, rxReg.rx_reg_array, sizeof(rxReg.rx_reg_array));
+	}
+	else if (rxStatus.rxBuffer == MSG_IN_RXB1)
+	{
+	  MCP2515_ReadRxSequence(MCP2515_READ_RXB1SIDH, rxReg.rx_reg_array, sizeof(rxReg.rx_reg_array));
+	}
 
-    tempCanMsg->frame.dlc   = rxReg.RXBnDLC;
-    tempCanMsg->frame.data[0] = rxReg.RXBnD0;
-    tempCanMsg->frame.data[1] = rxReg.RXBnD1;
-    tempCanMsg->frame.data[2] = rxReg.RXBnD2;
-    tempCanMsg->frame.data[3] = rxReg.RXBnD3;
-    tempCanMsg->frame.data[4] = rxReg.RXBnD4;
-    tempCanMsg->frame.data[5] = rxReg.RXBnD5;
-    tempCanMsg->frame.data[6] = rxReg.RXBnD6;
-    tempCanMsg->frame.data[7] = rxReg.RXBnD7;
+	/* Extended 타입 */
+	if (rxStatus.msgType == dEXTENDED_CAN_MSG_ID_2_0B)
+	{
+	  tempCanMsg.frame.idType = (uint8_t) dEXTENDED_CAN_MSG_ID_2_0B;
+	  tempCanMsg.frame.id = convertReg2ExtendedCANid(rxReg.RXBnEID8, rxReg.RXBnEID0, rxReg.RXBnSIDH, rxReg.RXBnSIDL);
+	}
+	else
+	{
+	  /* Standard 타입 */
+	  tempCanMsg.frame.idType = (uint8_t) dSTANDARD_CAN_MSG_ID_2_0B;
+	  tempCanMsg.frame.id = convertReg2StandardCANid(rxReg.RXBnSIDH, rxReg.RXBnSIDL);
+	}
 
-    returnValue = 1;
-  }
+	tempCanMsg.frame.dlc   = rxReg.RXBnDLC;
+	tempCanMsg.frame.data[0] = rxReg.RXBnD0;
+	tempCanMsg.frame.data[1] = rxReg.RXBnD1;
+	tempCanMsg.frame.data[2] = rxReg.RXBnD2;
+	tempCanMsg.frame.data[3] = rxReg.RXBnD3;
+	tempCanMsg.frame.data[4] = rxReg.RXBnD4;
+	tempCanMsg.frame.data[5] = rxReg.RXBnD5;
+	tempCanMsg.frame.data[6] = rxReg.RXBnD6;
+	tempCanMsg.frame.data[7] = rxReg.RXBnD7;
 
-  return (returnValue);
+	// Pack into iCommsMessage_t
+	rxMsg->standardMessageID = tempCanMsg.frame.id;
+	rxMsg->dataLength = tempCanMsg.frame.dlc;
+
+	for(uint8_t i=0; i<tempCanMsg.frame.dlc; i++)
+	{
+		rxMsg->data[i] = tempCanMsg.frame.data[i];
+	}
+	returnValue = 1;
+	}
+
+	return (returnValue);
 }
 
 /* 수신 버퍼에 메시지가 있는지 체크 */

@@ -87,25 +87,12 @@ PUBLIC uint8_t ICommsMessageAvailable()
 }
 PUBLIC result_t ICommsTransmit(iCommsMessage_t * txMsg)
 {
-	uCAN_MSG txCANMessage;
-
-	txCANMessage.frame.idType = dSTANDARD_CAN_MSG_ID_2_0B;
-	txCANMessage.frame.id = txMsg->standardMessageID;
-	txCANMessage.frame.dlc = txMsg->dataLength;
-	for(uint8_t i=0; i < txMsg->dataLength; i++)
-	{
-		txCANMessage.frame.data[i] = txMsg->data[i];
-	}
-	// fill rest of the data with zeros
-	for(uint8_t i=txMsg->dataLength; i <8 ; i++)
-	{
-		txCANMessage.frame.data[i] = 0;
-	}
-	result_t ret = ICOMMS_DRIVER_TRANSMIT_MESSAGE(&txCANMessage);
+	result_t ret = ICOMMS_DRIVER_TRANSMIT_MESSAGE(txMsg);
 	return ret;
 }
 PUBLIC result_t ICommsReceive(iCommsMessage_t * rxMsg)
 {
-
+	result_t ret = ICOMMS_DRIVER_RECEIVE_MESSAGE(rxMsg);
+	return ret;
 }
 

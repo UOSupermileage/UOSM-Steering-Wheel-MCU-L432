@@ -28,8 +28,8 @@ typedef union {
 
 PUBLIC bool CANSPI_Initialize(void);
 PUBLIC void CANSPI_Sleep(void);
-PUBLIC uint8_t CANSPI_Transmit(uCAN_MSG *tempCanMsg);
-PUBLIC uint8_t CANSPI_Receive(uCAN_MSG *tempCanMsg);
+PUBLIC uint8_t CANSPI_Transmit(iCommsMessage_t * txMsg);
+PUBLIC uint8_t CANSPI_Receive(iCommsMessage_t * rxMsg);
 PUBLIC uint8_t CANSPI_messagesInBuffer(void);
 PUBLIC uint8_t CANSPI_isBussOff(void);
 PUBLIC uint8_t CANSPI_isRxErrorPassive(void);
