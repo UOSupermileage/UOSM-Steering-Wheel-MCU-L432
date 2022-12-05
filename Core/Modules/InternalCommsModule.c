@@ -96,3 +96,35 @@ PUBLIC result_t ICommsReceive(iCommsMessage_t * rxMsg)
 	return ret;
 }
 
+/*********************************************************************************
+ *
+ * 		Circular queue for messages
+ *
+ **********************************************************************************/
+void iCommMessageQueue_init( iCommsMessageQueue_t * q )
+{
+	q->head = 0;
+	q->count = 0;
+	q->tail = 0;
+}
+
+void iCommMessageQueue_enqueue( iCommsMessageQueue_t * q, iCommsMessage_t * returnValue )
+{
+	if(q->count < QUEUE_MAX)
+	{
+		q->data[q->tail] = *returnValue;
+		q->count ++;
+		q->tail = q->count % QUEUE_MAX;
+	}
+}
+
+void iCommMessageQueue_dequeue( iCommsMessageQueue_t * q, iCommsMessage_t * value )
+{
+	if(q->count > 0)
+	{
+		*value = q->data[q->head];
+		q->count --;
+		q->head = (q->head + 1) % QUEUE_MAX;
+	}
+}
+

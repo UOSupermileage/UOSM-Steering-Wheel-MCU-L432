@@ -6,6 +6,7 @@
  */
 
 #include "InternalCommsModule.h"
+#include "CANMessageLookUpModule.h"
 #include "InternalCommsTask.h"
 #include "SerialDebugDriver.h"
 
@@ -44,17 +45,30 @@ PRIVATE void InternalCommsTask(void *argument)
 		osDelayUntil(cycleTick);
 		DebugPrint("icomms loop");
 
-		iCommsMessage_t txMsg, rxMsg;
-		txMsg.standardMessageID = 0x0F;
-		txMsg.dataLength = 4;
-		txMsg.data[0] = 1;
-		txMsg.data[1] = 2;
-		txMsg.data[2] = 3;
-		txMsg.data[3] = 4;
-		/*txMsg.data[4] = 5;
-		txMsg.data[5] = 6;
-		txMsg.data[6] = 7;
-		txMsg.data[7] = 8;*/
+		// Check for new messages
+		while(ICommsMessageAvailable() > 0)
+		{
+			iCommsMessage_t tempMsg;
+			ICommsReceive(&tempMsg);
+
+		}
+
+		// Send messages that are in the queue
+
+
+
+		/*
+//		iCommsMessage_t txMsg, rxMsg;
+//		txMsg.standardMessageID = 0x0F;
+//		txMsg.dataLength = 4;
+//		txMsg.data[0] = 1;
+//		txMsg.data[1] = 2;
+//		txMsg.data[2] = 3;
+//		txMsg.data[3] = 4;
+//		txMsg.data[4] = 5;
+//		txMsg.data[5] = 6;
+//		txMsg.data[6] = 7;
+//		txMsg.data[7] = 8;
 		testTxCounter++;
 		if(testTxCounter == 25)
 		{
@@ -70,6 +84,6 @@ PRIVATE void InternalCommsTask(void *argument)
 			DebugPrint("DLC: %d", rxMsg.dataLength);
 			for(uint8_t i=0; i<rxMsg.dataLength; i++) DebugPrint("Data[%d]: %d", i, rxMsg.data[i]);
 		}
-
+		*/
 	}
 }

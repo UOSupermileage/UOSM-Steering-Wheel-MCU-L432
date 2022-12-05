@@ -8,4 +8,29 @@
  */
 
 #include "ThrottleModule.h"
+#include "ADCDriver.h"
+#include "SerialDebugDriver.h"
 
+// Function alias - replace with the driver api
+#define DebugPrint(...) SerialPrintln(__VA_ARGS__)
+
+throttle_raw_t adcThrottleRaw;
+
+PUBLIC result_t Throttle_UpdateThrottle()
+{
+	result_t resultStatus;
+	resultStatus = ADCGetThrottleRaw(&adcThrottleRaw);
+	if(resultStatus == RESULT_FAIL)
+	{
+		DebugPrint("ERROR ADCGetThrottleRaw");
+		return RESULT_FAIL;
+	}
+	SystemSetThrottleRaw(adcThrottleRaw);
+	return RESULT_OK;
+}
+PUBLIC result_t Throttle_BroadcastThrottleRaw()
+{
+	adcThrottleRaw = SystemGetSpeed();
+	DebugPrint("Transmitting Throttle");
+
+}

@@ -7,6 +7,7 @@
  *  This Task manages all other tasks by checking flags and running the appropriate tasks
  */
 #include "TaskManager.h"
+#include "DataAggregation.h"
 #include "SafetyTask.h"
 #include "SystemInfoTask.h"
 #include "ThrottleTask.h"
@@ -15,6 +16,7 @@
 
 void RunTaskManager( void )
 {
+	InitDataAggregator();
 	InitSafetyTask();
 	InitSystemInfoTask();
 	InitUserInputTask();
