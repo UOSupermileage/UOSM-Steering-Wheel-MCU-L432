@@ -8,18 +8,14 @@
  */
 #include "TaskManager.h"
 #include "DataAggregation.h"
-#include "SafetyTask.h"
-#include "SystemInfoTask.h"
+#include "SystemTask.h"
 #include "ThrottleTask.h"
-#include "UserInputTask.h"
 #include "InternalCommsTask.h"
 
 void RunTaskManager( void )
 {
 	InitDataAggregator();
-	InitSafetyTask();
-	InitSystemInfoTask();
-	InitUserInputTask();
+	InitSystemTask();
 	InitThrottleTask();
 	InitInternalCommsTask();
 }
