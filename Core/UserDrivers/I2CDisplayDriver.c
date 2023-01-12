@@ -7,7 +7,7 @@
 #include "I2CDisplayDriver.h"
 #include "ht16k33.h"
 
-DisplayStatus currentStatus = DISPLAY_STATUS_UNINTIALIZED;
+DisplayStatusID_t currentStatus = DISPLAY_STATUS_UNINTIALIZED;  //Error code status of the Display
 
 PUBLIC void Seg_Display_Initialize(void) {
     seg7_init();

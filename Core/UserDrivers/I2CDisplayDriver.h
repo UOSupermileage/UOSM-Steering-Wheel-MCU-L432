@@ -11,9 +11,8 @@
 
 #define PUBLIC
 #define PRIVATE
-#define currentStatus //Error code status of the Display
 
-enum DisplayStatus {
+typedef enum  {
 
     DISPLAY_ERROR_CHAR_VALUE_NOT_FOUND,
 
@@ -27,7 +26,7 @@ enum DisplayStatus {
 
     DISPLAY_STATUS_INITIALIZED,
 
-}
+}DisplayStatusID_t;
 
 PUBLIC void Seg_Display_DisplayFloat(float number);  //Prints a float number on the 7 segment display
 
