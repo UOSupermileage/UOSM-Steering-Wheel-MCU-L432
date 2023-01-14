@@ -5,7 +5,7 @@
  *      Author: mingye chen
  */
 
-
+#include <stdint.h>
 #ifndef USERDRIVERS_I2CDISPLAYDRIVER_H_
 #define USERDRIVERS_I2CDISPLAYDRIVER_H_
 
@@ -27,12 +27,13 @@ typedef enum  {
     DISPLAY_STATUS_INITIALIZED,
 
 }DisplayStatusID_t;
+PUBLIC DisplayStatusID_t Seg_Display_Initialize(void);
 
-PUBLIC void Seg_Display_DisplayFloat(float number);  //Prints a float number on the 7 segment display
+PUBLIC DisplayStatusID_t Seg_Display_Float(float number);  //Prints a float number on the 7 segment display
 
 PRIVATE uint8_t digitCtr(uint8_t number); //Returns the number of digits present in an 8 bit integer
 
-PUBLIC void Seg_Display_SystemError(char alpha); 
+PUBLIC DisplayStatusID_t Seg_Display_SystemError(char alpha);
 
 
 #endif /* USERDRIVERS_I2CDISPLAYDRIVER_H_ */
