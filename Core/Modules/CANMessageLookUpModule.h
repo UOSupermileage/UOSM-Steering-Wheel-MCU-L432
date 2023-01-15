@@ -29,9 +29,10 @@ typedef struct
 	ICommsMessageLookUpIndex index;
 	MessageCANID_t messageID;
 	uint8_t numberOfBytes;
-
+	void (*canMessageCallback)(iCommsMessage_t msg);
 
 } ICommsMessageInfo;
 
+extern const ICommsMessageInfo CANMessageLookUpTable[NUMBER_CAN_MESSAGE_IDS];
 
 #endif /* MODULES_CANMESSAGELOOKUPMODULE_H_ */

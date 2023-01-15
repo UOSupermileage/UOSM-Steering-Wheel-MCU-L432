@@ -9,6 +9,7 @@
 //#include "CANMessageLookUpModule.h"
 #include "InternalCommsTask.h"
 #include "InternalCommsModule.h"
+#include "CANMessageLookUpModule.h"
 #include "SerialDebugDriver.h"
 
 // Function alias - replace with the driver api
@@ -66,6 +67,7 @@ PRIVATE void InternalCommsTask(void *argument)
 		}
 
 		IComms_Update();
+		uint16_t lookupTableIndex = 0;
 		while(IComms_HasRxMessage())
 		{
 			iCommsMessage_t rxMsg;
@@ -78,6 +80,22 @@ PRIVATE void InternalCommsTask(void *argument)
 				DebugPrint("#ICT: Standard ID: %d", rxMsg.standardMessageID);
 				DebugPrint("#ICT: DLC: %d", rxMsg.dataLength);
 				for(uint8_t i=0; i<rxMsg.dataLength; i++) DebugPrint("#ICT: Data[%d]: %d", i, rxMsg.data[i]);
+
+				// NOTE: with the current polling, new messages incoming while processing this batch of messages will not be processed until the next cycle.
+				// lookup can message in table
+				// Exit if message found or if end of table reached
+				while(rxMsg.standardMessageID != CANMessageLookUpTable[lookupTableIndex].messageID && lookupTableIndex < NUMBER_CAN_MESSAGE_IDS)
+				{
+					lookupTableIndex++;
+
+				}
+				// handle the case where the message is no recognized by the look up table
+				if(lookupTableIndex < NUMBER_CAN_MESSAGE_IDS)
+				{
+					CANMessageLookUpTable[lookupTableIndex].canMessageCallback(rxMsg);
+				}
+
+
 			}
 
 		}
