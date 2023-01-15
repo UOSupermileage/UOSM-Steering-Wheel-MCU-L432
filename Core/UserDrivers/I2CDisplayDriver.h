@@ -9,24 +9,17 @@
 #ifndef USERDRIVERS_I2CDISPLAYDRIVER_H_
 #define USERDRIVERS_I2CDISPLAYDRIVER_H_
 
-#define PUBLIC
-#define PRIVATE
+#include "ApplicationTypes.h"
 
 typedef enum  {
-
+	DISPLAY_STATUS_OK,
     DISPLAY_ERROR_CHAR_VALUE_NOT_FOUND,
-
     DISPLAY_ERROR_FLOAT_VALUE,
-
     DISPLAY_ERROR_UNABLE_TO_DISPLAY_FAIL,
-    
-    DISPLAY_STATUS_OK,
-
     DISPLAY_STATUS_UNINTIALIZED,
-
     DISPLAY_STATUS_INITIALIZED,
 
-}DisplayStatusID_t;
+}DisplayErrorCode_t;
 
 PUBLIC void Seg_Display_DisplayFloat(float number);  //Prints a float number on the 7 segment display
 

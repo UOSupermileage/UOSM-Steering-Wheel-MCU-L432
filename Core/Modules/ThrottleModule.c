@@ -11,6 +11,8 @@
 #include "ADCDriver.h"
 #include "SerialDebugDriver.h"
 
+const char DBG_TAG[] = "#THM:";
+
 // Function alias - replace with the driver api
 #define DebugPrint(...) SerialPrintln(__VA_ARGS__)
 
@@ -22,15 +24,11 @@ PUBLIC result_t Throttle_UpdateThrottle()
 	resultStatus = ADCGetThrottleRaw(&adcThrottleRaw);
 	if(resultStatus == RESULT_FAIL)
 	{
-		DebugPrint("ERROR ADCGetThrottleRaw");
+		DebugPrint("%s ERROR ADCGetThrottleRaw", DBG_TAG);
 		return RESULT_FAIL;
 	}
+	DebugPrint("%s ADC value %d", DBG_TAG, adcThrottleRaw);
 	SystemSetThrottleRaw(adcThrottleRaw);
 	return RESULT_OK;
 }
-PUBLIC result_t Throttle_BroadcastThrottleRaw()
-{
-	adcThrottleRaw = SystemGetSpeed();
-	DebugPrint("Transmitting Throttle");
 
-}

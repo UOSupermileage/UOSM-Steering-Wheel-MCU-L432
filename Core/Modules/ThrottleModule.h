@@ -13,6 +13,5 @@
 #include "DataAggregation.h"
 
 PUBLIC result_t Throttle_UpdateThrottle();
-PUBLIC result_t Throttle_BroadcastThrottleRaw();
 
 #endif /* MODULES_THROTTLEMODULE_H_ */

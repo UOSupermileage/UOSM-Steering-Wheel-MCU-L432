@@ -30,6 +30,7 @@ typedef struct
 	MessageCANID_t messageID;
 	uint8_t numberOfBytes;
 
+
 } ICommsMessageInfo;
 
 

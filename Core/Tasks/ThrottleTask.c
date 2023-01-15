@@ -20,6 +20,8 @@
 #define THROTTLE_TASK_PRIORITY (osPriority_t) osPriorityHigh1
 #define TIMER_THROTTLE_TASK 1000UL
 
+const char THT_TAG[] = "#THT:";
+
 PUBLIC void InitThrottleTask(void);
 PRIVATE void ThrottleTask(void *argument);
 
@@ -39,13 +41,15 @@ PUBLIC void InitThrottleTask(void)
 PRIVATE void ThrottleTask(void *argument)
 {
 	uint32_t cycleTick = osKernelGetTickCount();
+	throttle_raw_t throttleVal= 0;
 	DebugPrint("throttle");
 
 	for(;;)
 	{
 		cycleTick += TIMER_THROTTLE_TASK;
 		osDelayUntil(cycleTick);
-		DebugPrint("throttle loop");
+		DebugPrint("%s throttle loop", THT_TAG);
+		Throttle_UpdateThrottle(&throttleVal);
 
 	}
 }
