@@ -13,7 +13,7 @@
 
 #define ADC_MAX_THROTTLE (throttle_raw_t) 1660
 #define ADC_MIN_THROTTLE (throttle_raw_t) 0
-#define ADC_MAX_PERCENTAGE (percentage_t) 1000
+#define ADC_MAX_PERCENTAGE (percentage_t) 1000 // Percentage in 0.1% increments. Ex: 0 = 0%. 500 = 50%. 1000 = 100%.
 #define ADC_MIN_PERCENTAGE (percentage_t) 0
 
 PUBLIC result_t ADCGetThrottleRaw(throttle_raw_t * throttleRaw);
