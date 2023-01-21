@@ -24,6 +24,7 @@ typedef enum
 typedef uint16_t length_t;
 typedef uint16_t throttle_raw_t;
 typedef uint16_t speed_t;
+typedef uint16_t percentage_t;
 
 
 typedef struct

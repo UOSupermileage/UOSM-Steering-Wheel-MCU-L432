@@ -50,6 +50,5 @@ PRIVATE void ThrottleTask(void *argument)
 		osDelayUntil(cycleTick);
 		DebugPrint("%s throttle loop", THT_TAG);
 		Throttle_UpdateThrottle(&throttleVal);
-
 	}
 }

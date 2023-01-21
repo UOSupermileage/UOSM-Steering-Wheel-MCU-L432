@@ -34,6 +34,7 @@ void InitDataAggregator();
 
 speed_t SystemGetSpeed();
 throttle_raw_t SystemGetThrottleRaw();
+percentage_t SystemGetThrottlePercentage();
 flag_status_t SystemGetRightSignal();
 flag_status_t SystemGetLeftSignal();
 flag_status_t SystemGetHazardSignal();

@@ -26,3 +26,16 @@ PUBLIC result_t ADCGetThrottleRaw(throttle_raw_t * throttleRaw)
 
 	return RESULT_OK;
 }
+
+PUBLIC percentage_t ADCConvertThrottle(throttle_raw_t *throttleRaw) {
+
+	if (*throttleRaw > ADC_MAX_THROTTLE) {
+		return 1000;
+	}
+
+	if (*throttleRaw <= ADC_MIN_THROTTLE) {
+		return 0;
+	}
+
+	return (*throttleRaw - ADC_MIN_THROTTLE) * ADC_MAX_PERCENTAGE / ADC_MAX_THROTTLE;
+}
