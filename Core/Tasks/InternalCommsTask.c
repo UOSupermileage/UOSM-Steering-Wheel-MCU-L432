@@ -20,7 +20,9 @@
 #define INTERNAL_COMMS_TASK_PRIORITY (osPriority_t) osPriorityRealtime
 #define TIMER_INTERNAL_COMMS_TASK 50UL
 
-#define THROTTLE_RATE 25
+#define THROTTLE_RATE 4
+
+const char ICT_TAG[] = "#ICT:";
 
 PUBLIC void InitInternalCommsTask(void);
 PRIVATE void InternalCommsTask(void *argument);
@@ -45,6 +47,7 @@ PRIVATE void InternalCommsTask(void *argument)
 	//ICommsInit();
 //	uint8_t testTxCounter = 0;
 
+	const ICommsMessageInfo* throttleInfo = CANMessageLookUpGetInfo(THROTTLE_DATA_ID);
 	uint8_t throttleTxCounter = 0;
 
 	IComms_Init();
@@ -74,18 +77,8 @@ PRIVATE void InternalCommsTask(void *argument)
 
 		throttleTxCounter++;
 		if (throttleTxCounter == THROTTLE_RATE) {
-			DebugPrint("#ICT: Sending Throttle!");
-
-			iCommsMessage_t throttleTxMsg;
-			throttleTxMsg.standardMessageID = 0x0001;
-			throttleTxMsg.dataLength = 2;
-			percentage_t p = SystemGetThrottlePercentage();
-			throttleTxMsg.data[0] = p;
-			throttleTxMsg.data[1] = p >> 8 & 0xFF;
-
-			DebugPrint("data[0] = %x", throttleTxMsg.data[0]);
-			DebugPrint("data[1] = %x", throttleTxMsg.data[1]);
-
+			DebugPrint("%s Sending Throttle!", ICT_TAG);
+			iCommsMessage_t throttleTxMsg = IComms_CreatePercentageMessage(throttleInfo->messageID, SystemGetThrottlePercentage());
 			IComms_Transmit(&throttleTxMsg);
 			throttleTxCounter = 0;
 		}
@@ -98,12 +91,12 @@ PRIVATE void InternalCommsTask(void *argument)
 			result_t ret = IComms_ReceiveNextMessage(&rxMsg);
 			if(ret == RESULT_FAIL)
 			{
-				DebugPrint("#ICT: Error Retrieving next message");
+				DebugPrint("%s Error Retrieving next message", ICT_TAG);
 			}
 			else{
-				DebugPrint("#ICT: Standard ID: %d", rxMsg.standardMessageID);
-				DebugPrint("#ICT: DLC: %d", rxMsg.dataLength);
-				for(uint8_t i=0; i<rxMsg.dataLength; i++) DebugPrint("#ICT: Data[%d]: %d", i, rxMsg.data[i]);
+				DebugPrint("%s Standard ID: %d", rxMsg.standardMessageID, ICT_TAG);
+				DebugPrint("%s: DLC: %d", rxMsg.dataLength, ICT_TAG);
+				for(uint8_t i=0; i<rxMsg.dataLength; i++) DebugPrint("%s Data[%d]: %d", ICT_TAG, i, rxMsg.data[i]);
 
 				// NOTE: with the current polling, new messages incoming while processing this batch of messages will not be processed until the next cycle.
 				// lookup can message in table

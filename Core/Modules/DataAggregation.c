@@ -23,7 +23,7 @@ throttle_raw_t SystemGetThrottleRaw()
 
 percentage_t SystemGetThrottlePercentage()
 {
-	return ADCConvertThrottle(&SystemData.throttle);
+	return ADCConvertThrottle(SystemData.throttle);
 }
 
 flag_status_t SystemGetRightSignal()
