@@ -44,12 +44,5 @@ void MotorTemperatureCallback(iCommsMessage_t msg)
 }
 
 PUBLIC const ICommsMessageInfo* CANMessageLookUpGetInfo(ICommsMessageLookUpIndex id) {
-	for (int i = 0; i < NUMBER_CAN_MESSAGE_IDS; i++) {
-		if (CANMessageLookUpTable[i].index == id) {
-			return &CANMessageLookUpTable[i];
-		}
-	}
-
-	DebugPrint("%s Error! Index [%d] is not defined in lookup!", CLM_TAG, id);
-	return 0;
+	return &CANMessageLookUpTable[id];
 }
