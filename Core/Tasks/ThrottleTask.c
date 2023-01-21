@@ -18,7 +18,7 @@
 
 #define STACK_SIZE 128*4
 #define THROTTLE_TASK_PRIORITY (osPriority_t) osPriorityHigh1
-#define TIMER_THROTTLE_TASK 1000UL
+#define TIMER_THROTTLE_TASK 100UL
 
 const char THT_TAG[] = "#THT:";
 
@@ -50,6 +50,5 @@ PRIVATE void ThrottleTask(void *argument)
 		osDelayUntil(cycleTick);
 		DebugPrint("%s throttle loop", THT_TAG);
 		Throttle_UpdateThrottle(&throttleVal);
-
 	}
 }

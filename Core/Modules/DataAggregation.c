@@ -5,6 +5,7 @@
  *      Author: mingy
  */
 #include "DataAggregation.h"
+#include "ADCDriver.h"
 
 // Global Variables
 SystemData_t SystemData;
@@ -19,6 +20,12 @@ throttle_raw_t SystemGetThrottleRaw()
 {
 	return SystemData.throttle;
 }
+
+percentage_t SystemGetThrottlePercentage()
+{
+	return ADCConvertThrottle(SystemData.throttle);
+}
+
 flag_status_t SystemGetRightSignal()
 {
 	return EventFlags.rightSignal;

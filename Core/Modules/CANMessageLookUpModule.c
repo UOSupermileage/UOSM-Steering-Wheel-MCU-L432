@@ -10,6 +10,8 @@
 
 #define DebugPrint(...) SerialPrintln(__VA_ARGS__)
 
+const char CLM_TAG[] = "#CLM:";
+
 // Callbacks
 void ThrottleDataCallback(iCommsMessage_t msg);
 void SpeedDataCallback(iCommsMessage_t msg);
@@ -39,4 +41,8 @@ void SpeedDataCallback(iCommsMessage_t msg)
 void MotorTemperatureCallback(iCommsMessage_t msg)
 {
 	DebugPrint("MotorTemperatureCallback! %d", msg.standardMessageID);
+}
+
+PUBLIC const ICommsMessageInfo* CANMessageLookUpGetInfo(ICommsMessageLookUpIndex id) {
+	return &CANMessageLookUpTable[id];
 }
