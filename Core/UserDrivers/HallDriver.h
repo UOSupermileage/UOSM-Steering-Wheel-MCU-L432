@@ -16,6 +16,6 @@
 #define HALL_RADIUS	0.2667
 
 PUBLIC void HallPeriodicJob();
-PUBLIC speed_t HallGetSpeed();
+PUBLIC result_t HallGetSpeed(speed_t * speed);
 
 #endif /* USERDRIVERS_HALLDRIVER_H_ */

@@ -16,16 +16,16 @@ PUBLIC void HallPeriodicJob() {
 	lastHallTick = osKernelGetTickCount();
 }
 
-PUBLIC speed_t HallGetSpeed() {
+PUBLIC result_t HallGetSpeed(speed_t *speed) {
 
 	//Angular velocity in radians/second.
-	speed_t speed = 1.00/(milisecondsPerRevolution * HALL_BOLTS / 1000.00) * PI_T2 ;
+	*speed = 1.00/(milisecondsPerRevolution * HALL_BOLTS / 1000.00) * PI_T2 ;
 
 	// Convert to meters/second. rads/s * m/rads = m/s
-	speed *= HALL_RADIUS;
+	*speed *= HALL_RADIUS;
 
 	// Convert to km/h
-	speed *= 3.6;
+	*speed *= 3.6;
 
-	return speed;
+	return RESULT_OK;
 }

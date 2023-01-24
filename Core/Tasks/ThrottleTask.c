@@ -41,7 +41,6 @@ PUBLIC void InitThrottleTask(void)
 PRIVATE void ThrottleTask(void *argument)
 {
 	uint32_t cycleTick = osKernelGetTickCount();
-	throttle_raw_t throttleVal= 0;
 	DebugPrint("throttle");
 
 	for(;;)
@@ -49,6 +48,6 @@ PRIVATE void ThrottleTask(void *argument)
 		cycleTick += TIMER_THROTTLE_TASK;
 		osDelayUntil(cycleTick);
 		DebugPrint("%s throttle loop", THT_TAG);
-		Throttle_UpdateThrottle(&throttleVal);
+		Throttle_UpdateThrottle();
 	}
 }

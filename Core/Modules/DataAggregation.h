@@ -27,6 +27,7 @@ typedef union
 
 typedef struct
 {
+	speed_t speed;
 	throttle_raw_t throttle;
 } SystemData_t;
 
@@ -41,6 +42,7 @@ flag_status_t SystemGetHazardSignal();
 flag_status_t SystemGetTimerStart();
 flag_status_t SystemGetTimerStop();
 
+void SystemSetSpeed(speed_t speed);
 void SystemSetThrottleRaw(throttle_raw_t throttleRaw);
 void SystemSetRightSignal(flag_status_t status);
 void SystemSetLeftSignal(flag_status_t status);

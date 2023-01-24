@@ -14,7 +14,7 @@ Events_t EventFlags;
 
 speed_t SystemGetSpeed()
 {
-	return HallGetSpeed();
+	return SystemData.speed;
 }
 
 throttle_raw_t SystemGetThrottleRaw()
@@ -48,6 +48,10 @@ flag_status_t SystemGetTimerStop()
 	return EventFlags.timerStop;
 }
 
+void SystemSetSpeed(speed_t speed)
+{
+	SystemData.speed = speed;
+}
 void SystemSetThrottleRaw(throttle_raw_t throttleRaw)
 {
 	SystemData.throttle = throttleRaw;
