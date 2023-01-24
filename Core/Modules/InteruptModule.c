@@ -48,6 +48,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
 	switch (GPIO_Pin) {
 		case GPIO_PIN_0:
+			DebugPrint("Fire hall interupt");
 			InteruptTriggerCallback(INTERUPT_HALL_ID);
 			return;
 		default:

@@ -6,26 +6,31 @@
  */
 
 #include "HallDriver.h"
+#include "DataAggregation.h"
+#include "SerialDebugDriver.h"
+
+#define DebugPrint(...) SerialPrintln(__VA_ARGS__)
 
 static uint32_t milisecondsPerRevolution = 0;
 static uint32_t lastHallTick = 0;
 
 PUBLIC void HallPeriodicJob() {
 	// TODO: What happens when tick overflows and goes back to 0?
-	milisecondsPerRevolution = osKernelGetTickCount() - lastHallTick;
+	milisecondsPerRevolution = (osKernelGetTickCount() - lastHallTick) * HALL_BOLTS;
 	lastHallTick = osKernelGetTickCount();
 }
 
-PUBLIC result_t HallGetSpeed(speed_t *speed) {
+PUBLIC result_t HallConvertSpeed() {
+
+
+	DebugPrint("Miliseconds Per Revolution: %d", milisecondsPerRevolution);
+
+	DebugPrint("RPM: [%d]", 60000/(milisecondsPerRevolution));
 
 	//Angular velocity in radians/second.
-	*speed = 1.00/(milisecondsPerRevolution * HALL_BOLTS / 1000.00) * PI_T2 ;
+	speed_t speed = 60000/(milisecondsPerRevolution) * HALL_CIRC * 60 / 1000 ;
 
-	// Convert to meters/second. rads/s * m/rads = m/s
-	*speed *= HALL_RADIUS;
-
-	// Convert to km/h
-	*speed *= 3.6;
+	SystemSetSpeed(speed);
 
 	return RESULT_OK;
 }

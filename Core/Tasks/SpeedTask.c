@@ -10,6 +10,7 @@
 
 #include "SpeedTask.h"
 #include "SpeedModule.h"
+#include "DataAggregation.h"
 #include "SerialDebugDriver.h"
 
 // Function alias - replace with the driver api
@@ -45,5 +46,6 @@ PRIVATE void SpeedTask(void *argument)
 		osDelayUntil(cycleTick);
 		DebugPrint("%s speed loop", SPT_TAG);
 		Speed_UpdateSpeed();
+		DebugPrint("%s Speed: %d", SPT_TAG, SystemGetSpeed());
 	}
 }

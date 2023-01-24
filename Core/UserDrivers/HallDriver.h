@@ -14,8 +14,9 @@
 
 #define HALL_BOLTS  4
 #define HALL_RADIUS	0.2667
+#define HALL_CIRC HALL_RADIUS * PI_T2
 
 PUBLIC void HallPeriodicJob();
-PUBLIC result_t HallGetSpeed(speed_t * speed);
+PUBLIC result_t HallConvertSpeed();
 
 #endif /* USERDRIVERS_HALLDRIVER_H_ */
