@@ -15,6 +15,8 @@
 #define PUBLIC
 #define PRIVATE
 
+#define PI_T2 6.28318530718      // Pi * 2
+
 typedef enum
 {
 	RESULT_FAIL,

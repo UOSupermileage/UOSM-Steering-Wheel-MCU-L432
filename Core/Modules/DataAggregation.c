@@ -6,6 +6,7 @@
  */
 #include "DataAggregation.h"
 #include "ADCDriver.h"
+#include "HallDriver.h"
 
 // Global Variables
 SystemData_t SystemData;
@@ -13,7 +14,7 @@ Events_t EventFlags;
 
 speed_t SystemGetSpeed()
 {
-	return SystemData.speed;
+	return HallGetSpeed();
 }
 
 throttle_raw_t SystemGetThrottleRaw()
@@ -47,10 +48,6 @@ flag_status_t SystemGetTimerStop()
 	return EventFlags.timerStop;
 }
 
-void SystemSetSpeed(speed_t speed)
-{
-	SystemData.speed = speed;
-}
 void SystemSetThrottleRaw(throttle_raw_t throttleRaw)
 {
 	SystemData.throttle = throttleRaw;
