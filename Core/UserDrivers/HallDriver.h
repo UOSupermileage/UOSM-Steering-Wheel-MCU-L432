@@ -9,6 +9,7 @@
 #define USERDRIVERS_HALLDRIVER_H_
 
 #include <stm32l4xx_hal.h>
+#include "cmsis_os.h"
 #include "ApplicationTypes.h"
 
 #define HALL_BOLTS  4

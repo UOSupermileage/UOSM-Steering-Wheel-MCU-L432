@@ -76,6 +76,5 @@ void SystemSetTimerStop(flag_status_t status)
 void InitDataAggregator()
 {
 	EventFlags.all = 0;
-	SystemData.speed = 0;
 	SystemData.throttle = 0;
 }

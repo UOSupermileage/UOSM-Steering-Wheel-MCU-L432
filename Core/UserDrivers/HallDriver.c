@@ -8,11 +8,12 @@
 #include "HallDriver.h"
 
 static uint32_t milisecondsPerRevolution = 0;
-static uint32_t lastHallTick = osKernelGetTickCount();
+static uint32_t lastHallTick = 0;
 
 PUBLIC void HallPeriodicJob() {
 	// TODO: What happens when tick overflows and goes back to 0?
-	milisecondsPerRevolution = lastHallTick - osKernelGetTickCount();
+	milisecondsPerRevolution = osKernelGetTickCount() - lastHallTick;
+	lastHallTick = osKernelGetTickCount();
 }
 
 PUBLIC speed_t HallGetSpeed() {

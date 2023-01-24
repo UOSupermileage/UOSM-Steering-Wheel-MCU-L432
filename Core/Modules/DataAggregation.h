@@ -11,6 +11,7 @@
 #include "ApplicationTypes.h"
 
 typedef enum {Set, Clear} flag_status_t;
+
 typedef union
 {
 	uint32_t all;
