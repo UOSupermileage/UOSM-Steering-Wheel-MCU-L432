@@ -28,7 +28,7 @@ PUBLIC result_t HallConvertSpeed() {
 	DebugPrint("RPM: [%d]", 60000/(milisecondsPerRevolution));
 
 	//Angular velocity in radians/second.
-	speed_t speed = 60000/(milisecondsPerRevolution) * HALL_CIRC * 60 / 1000 ;
+	speed_t speed = 60000/milisecondsPerRevolution * HALL_CIRC * 60 / 1000 ;
 
 	SystemSetSpeed(speed);
 

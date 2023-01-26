@@ -12,6 +12,8 @@
 #include "SpeedModule.h"
 #include "DataAggregation.h"
 #include "SerialDebugDriver.h"
+#include "InteruptModule.h"
+#include "HallDriver.h"
 
 // Function alias - replace with the driver api
 #define DebugPrint(...) SerialPrintln(__VA_ARGS__)
@@ -39,6 +41,8 @@ PRIVATE void SpeedTask(void *argument)
 {
 	uint32_t cycleTick = osKernelGetTickCount();
 	DebugPrint("speed");
+
+	InteruptRegisterCallback(INTERUPT_GPIO_8_ID, HallPeriodicJob);
 
 	for(;;)
 	{

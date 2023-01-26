@@ -24,9 +24,6 @@
 #include "DisplayModule.h"
 #include "ClockModule.h"
 
-// User interface imports
-#include "UserButtonsModule.h"
-
 // Safety imports
 #include "LightsModule.h"
 
