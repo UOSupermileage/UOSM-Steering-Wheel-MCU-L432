@@ -66,6 +66,9 @@ PRIVATE void SystemTask(void *argument)
 
 		// Check timer
 
+		if (SystemGetTimerRunning()) {
+			DebugPrint("Timer %ds", SystemGetRunTime());
+		}
 	}
 }
 

@@ -27,6 +27,11 @@ percentage_t SystemGetThrottlePercentage()
 	return ADCConvertThrottle(SystemData.throttle);
 }
 
+seconds_t SystemGetRunTime()
+{
+	return SystemData.runTime;
+}
+
 flag_status_t SystemGetRightSignal()
 {
 	return EventFlags.rightSignal;
@@ -39,14 +44,11 @@ flag_status_t SystemGetHazardSignal()
 {
 	return EventFlags.hazardSignal;
 }
-flag_status_t SystemGetTimerStart()
+flag_status_t SystemGetTimerRunning()
 {
-	return EventFlags.timerStart;
+	return EventFlags.timerRunning;
 }
-flag_status_t SystemGetTimerStop()
-{
-	return EventFlags.timerStop;
-}
+
 
 void SystemSetSpeed(speed_t speed)
 {
@@ -55,6 +57,14 @@ void SystemSetSpeed(speed_t speed)
 void SystemSetThrottleRaw(throttle_raw_t throttleRaw)
 {
 	SystemData.throttle = throttleRaw;
+}
+void SystemClearRunTime()
+{
+	SystemData.runTime = 0;
+}
+void SystemIncrementRunTime(seconds_t time)
+{
+	SystemData.runTime += time;
 }
 void SystemSetRightSignal(flag_status_t status)
 {
@@ -68,13 +78,9 @@ void SystemSetHazardSignal(flag_status_t status)
 {
 	EventFlags.hazardSignal = status;
 }
-void SystemSetTimerStart(flag_status_t status)
+void SystemSetTimerRunning(flag_status_t status)
 {
-	EventFlags.timerStart = status;
-}
-void SystemSetTimerStop(flag_status_t status)
-{
-	EventFlags.timerStop = status;
+	EventFlags.timerRunning = status;
 }
 
 void InitDataAggregator()
