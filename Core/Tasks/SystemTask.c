@@ -67,6 +67,8 @@ PRIVATE void SystemTask(void *argument)
 		osDelayUntil(cycleTick);
 		DebugPrint("sys loop");
 
+		// Check timer
+
 	}
 }
 

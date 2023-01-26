@@ -2,7 +2,7 @@
  * I2CDisplayDriver.c
  *
  *  Created on: Aug 6, 2022
- *      Author: mingye chen
+ *      Author: saurav g
  */
 #include "I2CDisplayDriver.h"
 #include "ht16k33.h"
