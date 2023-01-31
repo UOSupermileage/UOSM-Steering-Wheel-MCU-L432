@@ -17,7 +17,6 @@
 #define DebugPrint(...) SerialPrintln(__VA_ARGS__)
 
 static uint32_t lastTick = 0;
-static uint32_t lastEnable = 0;
 
 PUBLIC void ClockModule_Init() {
 	InteruptRegisterCallback(INTERUPT_GPIO_6_ID, ClockModule_ToggleCallback, 1000);
@@ -33,17 +32,13 @@ PUBLIC void ClockModule_Update() {
 
 PRIVATE void ClockModule_ToggleCallback() {
 
-	if (osKernelGetTickCount() - lastEnable > 100) {
+	DebugPrint("Clock Toggle");
 
-		lastEnable = osKernelGetTickCount();
-
-		DebugPrint("Clock Toggle");
-
-		if (SystemGetTimerRunning() == Clear) {
-			// If timer is stopped. Clear it.
-			SystemClearRunTime();
-		}
-
-		SystemSetTimerRunning(SystemGetTimerRunning() == Clear ? Set : Clear);
+	if (SystemGetTimerRunning() == Clear) {
+		// If timer is stopped. Clear it.
+		SystemClearRunTime();
 	}
+
+	SystemSetTimerRunning(SystemGetTimerRunning() == Clear ? Set : Clear);
+
 }
