@@ -10,6 +10,8 @@
 
 #include "ApplicationTypes.h"
 
+#include "cmsis_os.h"
+
 // Interupt IDs for each piece of data
 #define NUMBER_INTERUPT_IDS 16
 
@@ -39,7 +41,8 @@ typedef struct
 {
 	InteruptLookUpIndex index;
 	InteruptCallback callback;
-
+	uint32_t debounce;
+	uint32_t lastTriggered;
 } InteruptInfo;
 
 PUBLIC void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin);
@@ -47,8 +50,10 @@ PUBLIC void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin);
 /**
  * Register a callback function with an interupt. This will override existing registered function callback.
  */
-PUBLIC void InteruptRegisterCallback(InteruptLookUpIndex id, InteruptCallback callback);
+PUBLIC void InteruptRegisterCallback(InteruptLookUpIndex id, InteruptCallback callback, uint16_t debounce);
 
 PRIVATE void InteruptTriggerCallback(InteruptLookUpIndex id);
+
+PRIVATE InteruptLookUpIndex ConvertPinToLookupIndex(uint16_t pin);
 
 #endif /* MODULES_INTERUPTMODULE_H_ */

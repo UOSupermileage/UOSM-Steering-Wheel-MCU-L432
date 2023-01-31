@@ -29,7 +29,6 @@
 
 #include "SerialDebugDriver.h"
 
-// Function alias - replace with the driver api
 #define DebugPrint(...) SerialPrintln(__VA_ARGS__)
 
 #define STACK_SIZE 128*4
@@ -58,17 +57,19 @@ PRIVATE void SystemTask(void *argument)
 	uint32_t cycleTick = osKernelGetTickCount();
 	DebugPrint("system");
 
+	ClockModule_Init();
+
 	for(;;)
 	{
 		cycleTick += TIMER_SYSTEM_TASK;
 		osDelayUntil(cycleTick);
 		DebugPrint("sys loop");
 
-		// Check timer
+		DebugPrint("Timer Running [%d], Time: [%d]", SystemGetTimerRunning() == Set, SystemGetRunTime());
 
-		if (SystemGetTimerRunning()) {
-			DebugPrint("Timer %ds", SystemGetRunTime());
-		}
+
+		// Check timer
+		ClockModule_Update();
 	}
 }
 
