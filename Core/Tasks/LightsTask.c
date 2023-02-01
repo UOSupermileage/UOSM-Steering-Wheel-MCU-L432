@@ -67,7 +67,7 @@ PRIVATE void LightsTask(void *argument)
 			}
 
 			// Clear any notifications that may have arrived while in the while loop.
-			// TODO: May need to be replaced wiht xTaskGetCurrentTaskHandle(); Confirm on an STM32.
+			// TODO: May need to replace LightsTaskHandle wiht xTaskGetCurrentTaskHandle(); Confirm on an STM32.
 			xTaskNotifyStateClear(LightsTaskHandle);
 		}
 	}
