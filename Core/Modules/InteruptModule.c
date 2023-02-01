@@ -12,6 +12,8 @@
 
 #define DebugPrint(...) SerialPrintln(__VA_ARGS__)
 
+#define DEBOUNCE
+
 const char ITM_TAG[] = "#ITM:";
 
 /*********************************************************************************
@@ -69,6 +71,8 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
 	InteruptLookUpIndex index = ConvertPinToLookupIndex(GPIO_Pin);
 
+#ifdef DEBOUNCE
+
 	// If debouncing is enabled for interupt
 	if (interuptLookUpTable[index].debounce > 0) {
 
@@ -84,6 +88,8 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	} else {
 		DebugPrint("%s Debounce disabled for GPIO [%d]", ITM_TAG, index);
 	}
+
+#endif
 
 	InteruptTriggerCallback(index);
 }
