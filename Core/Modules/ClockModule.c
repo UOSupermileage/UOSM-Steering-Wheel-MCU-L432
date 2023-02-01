@@ -19,7 +19,7 @@
 static uint32_t lastTick = 0;
 
 PUBLIC void ClockModule_Init() {
-	InteruptRegisterCallback(INTERUPT_GPIO_6_ID, ClockModule_ToggleCallback, 1000);
+	InteruptRegisterCallback(INTERUPT_GPIO_0_ID, ClockModule_ToggleCallback, 1000);
 }
 
 PUBLIC void ClockModule_Update() {

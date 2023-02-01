@@ -117,10 +117,10 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
     /**ADC1 GPIO Configuration
     PA4     ------> ADC1_IN9
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_4;
+    GPIO_InitStruct.Pin = Throttle_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG_ADC_CONTROL;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    HAL_GPIO_Init(Throttle_GPIO_Port, &GPIO_InitStruct);
 
   /* USER CODE BEGIN ADC1_MspInit 1 */
 
@@ -148,7 +148,7 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
     /**ADC1 GPIO Configuration
     PA4     ------> ADC1_IN9
     */
-    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_4);
+    HAL_GPIO_DeInit(Throttle_GPIO_Port, Throttle_Pin);
 
   /* USER CODE BEGIN ADC1_MspDeInit 1 */
 
@@ -187,7 +187,7 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
     PA9     ------> I2C1_SCL
     PA10     ------> I2C1_SDA
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_9|GPIO_PIN_10;
+    GPIO_InitStruct.Pin = Seven_Segs_Pin|Seven_SegsA10_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
@@ -223,9 +223,9 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef* hi2c)
     PA9     ------> I2C1_SCL
     PA10     ------> I2C1_SDA
     */
-    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_9);
+    HAL_GPIO_DeInit(Seven_Segs_GPIO_Port, Seven_Segs_Pin);
 
-    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_10);
+    HAL_GPIO_DeInit(Seven_SegsA10_GPIO_Port, Seven_SegsA10_Pin);
 
   /* USER CODE BEGIN I2C1_MspDeInit 1 */
 
