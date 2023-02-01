@@ -11,10 +11,12 @@
 #include "ApplicationTypes.h"
 
 // TO DO: fill these functions
-PUBLIC void TurnLightsOff();
-PUBLIC void LeftTurnLightOn();
-PUBLIC void RightTurnLightOn();
-PUBLIC void HazardLightOn();
+//PUBLIC void TurnLightsOff();
+//PUBLIC void LeftTurnLightOn();
+//PUBLIC void RightTurnLightOn();
+//PUBLIC void HazardLightOn();
+
+PUBLIC void LightsModule_Init();
 
 PUBLIC void LeftTurnCallback(); // When the interrupt is called for left turn, the callback triggers
 PUBLIC void RightTurnCallback();
