@@ -7,6 +7,10 @@
 
 
 #include "LightsTask.h"
+
+#include "LightsModule.h"
+#include "DataAggregation.h"
+
 #include "SerialDebugDriver.h"
 
 // Function alias - replace with the driver api
@@ -15,7 +19,9 @@
 #define STACK_SIZE 128*4
 #define SPEED_TASK_PRIORITY (osPriority_t) osPriorityHigh3
 
-const char SPT_TAG[] = "#LIT:";
+#define LIGHTS_BLINK_INTERVAL 250UL
+
+const char LIT_TAG[] = "#LIT:";
 
 osThreadId_t LightsTaskHandle;
 const osThreadAttr_t LightsTask_attributes = {
@@ -32,18 +38,36 @@ PUBLIC void InitLightsTask(void)
 }
 PRIVATE void LightsTask(void *argument)
 {
-	uint32_t cycleTick = osKernelGetTickCount();
-	DebugPrint("speed");
+	DebugPrint("lights");
 
-	// Pass 0 as debounce to disable debouncing
-	InteruptRegisterCallback(INTERUPT_GPIO_8_ID, HallPeriodicJob, 0);
+	static uint32_t lights_notification;
+
+	LightsModule_Init();
 
 	for(;;)
 	{
-		cycleTick += TIMER_SPEED_TASK;
-		osDelayUntil(cycleTick);
-		DebugPrint("%s speed loop", SPT_TAG);
-		Speed_UpdateSpeed();
-		DebugPrint("%s Speed: %d", SPT_TAG, SystemGetSpeed());
+		/**
+		 * Sleep until we are notified of a state change by an interrupt handler.
+		 *
+		 * pdTrue will clear the notification value back to 0. This effectivly makes the notification value act like a binary (rather than a counting) semaphore.
+		 */
+
+		lights_notification = ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+
+		if (lights_notification){
+			uint32_t cycleTick = osKernelGetTickCount();
+
+			// Action upon lights until all signals are disabled
+			while (SystemGetLeftSignal() == Set || SystemGetRightSignal() == Set || SystemGetHazardSignal() == Set) {
+
+				cycleTick += LIGHTS_BLINK_INTERVAL;
+				osDelayUntil(cycleTick);
+
+				LightsModule_PeriodicJob();
+			}
+
+			// TODO: May need to be replaced wiht xTaskGetCurrentTaskHandle(); Confirm on an STM32.
+			xTaskNotifyStateClear(LightsTaskHandle);
+		}
 	}
 }

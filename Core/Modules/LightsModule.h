@@ -9,17 +9,18 @@
 #define MODULES_LIGHTSMODULE_H_
 
 #include "ApplicationTypes.h"
+#include "stm32l4xx_hal.h"
 
-// TO DO: fill these functions
-//PUBLIC void TurnLightsOff();
-//PUBLIC void LeftTurnLightOn();
-//PUBLIC void RightTurnLightOn();
-//PUBLIC void HazardLightOn();
-
+/**
+ * Initialize lights module and interupts.
+ *
+ * MUST BE CALLED BY THE LIGHTS TASK!
+ */
 PUBLIC void LightsModule_Init();
 
-PUBLIC void LeftTurnCallback(); // When the interrupt is called for left turn, the callback triggers
-PUBLIC void RightTurnCallback();
-PUBLIC void HazardLightsCallback();
+/**
+ * Action upon state of lights in the Data Aggregate
+ */
+PUBLIC void LightsModule_PeriodicJob();
 
 #endif /* MODULES_LIGHTSMODULE_H_ */

@@ -47,8 +47,11 @@ void SystemSetThrottleRaw(throttle_raw_t throttleRaw);
 void SystemClearRunTime();
 void SystemIncrementRunTime(seconds_t time);
 void SystemSetRightSignal(flag_status_t status);
+void SystemToggleRightSignal();
 void SystemSetLeftSignal(flag_status_t status);
+void SystemToggleLeftSignal();
 void SystemSetHazardSignal(flag_status_t status);
+void SystemToggleHazardSignal();
 void SystemSetTimerRunning(flag_status_t status);
 
 #endif /* MODULES_DATAAGGREGATION_H_ */

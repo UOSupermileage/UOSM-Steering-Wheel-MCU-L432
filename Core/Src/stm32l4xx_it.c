@@ -181,7 +181,7 @@ void EXTI1_IRQHandler(void)
   /* USER CODE BEGIN EXTI1_IRQn 0 */
 
   /* USER CODE END EXTI1_IRQn 0 */
-  HAL_GPIO_EXTI_IRQHandler(Hazard_Lights_Pin);
+  HAL_GPIO_EXTI_IRQHandler(Hazard_Lights_Input_Pin);
   /* USER CODE BEGIN EXTI1_IRQn 1 */
 
   /* USER CODE END EXTI1_IRQn 1 */
@@ -195,7 +195,7 @@ void EXTI4_IRQHandler(void)
   /* USER CODE BEGIN EXTI4_IRQn 0 */
 
   /* USER CODE END EXTI4_IRQn 0 */
-  HAL_GPIO_EXTI_IRQHandler(Turn_Signal_Left_Pin);
+  HAL_GPIO_EXTI_IRQHandler(Turn_Signal_Left_Input_Pin);
   /* USER CODE BEGIN EXTI4_IRQn 1 */
 
   /* USER CODE END EXTI4_IRQn 1 */
@@ -209,7 +209,7 @@ void EXTI9_5_IRQHandler(void)
   /* USER CODE BEGIN EXTI9_5_IRQn 0 */
 
   /* USER CODE END EXTI9_5_IRQn 0 */
-  HAL_GPIO_EXTI_IRQHandler(Turn_Signal_Right_Pin);
+  HAL_GPIO_EXTI_IRQHandler(Turn_Signal_Right_Input_Pin);
   HAL_GPIO_EXTI_IRQHandler(Hall_Effect_Pin);
   /* USER CODE BEGIN EXTI9_5_IRQn 1 */
 
