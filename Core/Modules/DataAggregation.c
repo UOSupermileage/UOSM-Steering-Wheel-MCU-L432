@@ -71,21 +71,21 @@ void SystemSetRightSignal(flag_status_t status)
 	EventFlags.rightSignal = status;
 }
 void SystemToggleRightSignal() {
-	SystemSetRightSignal(SystemGetRightSignal() == Set ? Clear : Set);
+	EventFlags.rightSignal = !EventFlags.rightSignal;
 }
 void SystemSetLeftSignal(flag_status_t status)
 {
 	EventFlags.leftSignal = status;
 }
 void SystemToggleLeftSignal() {
-	SystemSetLeftSignal(SystemGetLeftSignal() == Set ? Clear : Set);
+	EventFlags.leftSignal = !EventFlags.leftSignal;
 }
 void SystemSetHazardSignal(flag_status_t status)
 {
 	EventFlags.hazardSignal = status;
 }
 void SystemToggleHazardSignal() {
-	SystemSetHazardSignal(SystemGetHazardSignal() == Set ? Clear : Set);
+	EventFlags.hazardSignal = !EventFlags.hazardSignal;
 }
 void SystemSetTimerRunning(flag_status_t status)
 {
