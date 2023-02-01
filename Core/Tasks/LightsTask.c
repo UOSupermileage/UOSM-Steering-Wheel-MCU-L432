@@ -9,7 +9,6 @@
 #include "LightsTask.h"
 
 #include "LightsModule.h"
-#include "DataAggregation.h"
 
 #include "SerialDebugDriver.h"
 
@@ -38,7 +37,7 @@ PUBLIC void InitLightsTask(void)
 }
 PRIVATE void LightsTask(void *argument)
 {
-	DebugPrint("lights");
+	DebugPrint("%s lights", LIT_TAG);
 
 	static uint32_t lights_notification;
 
@@ -52,22 +51,26 @@ PRIVATE void LightsTask(void *argument)
 		 * pdTrue will clear the notification value back to 0. This effectivly makes the notification value act like a binary (rather than a counting) semaphore.
 		 */
 
+		DebugPrint("%s Awaiting notification for lights...", LIT_TAG);
 		lights_notification = ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
 
 		if (lights_notification){
+			DebugPrint("%s Notification to activate lights received!", LIT_TAG);
+
 			uint32_t cycleTick = osKernelGetTickCount();
 
 			// Action upon lights until all signals are disabled
-			while (SystemGetLeftSignal() == Set || SystemGetRightSignal() == Set || SystemGetHazardSignal() == Set) {
+			while (LightsModule_ShouldBlink()) {
 
 				cycleTick += LIGHTS_BLINK_INTERVAL;
 				osDelayUntil(cycleTick);
 
+				DebugPrint("%s Blinking lights!", LIT_TAG);
 				LightsModule_PeriodicJob();
 			}
 
 			// Clear any notifications that may have arrived while in the while loop.
-			// TODO: May need to replace LightsTaskHandle wiht xTaskGetCurrentTaskHandle(); Confirm on an STM32.
+			// TODO: May need to replace LightsTaskHandle with xTaskGetCurrentTaskHandle(); Confirm on an STM32.
 			xTaskNotifyStateClear(LightsTaskHandle);
 		}
 	}

@@ -42,6 +42,11 @@ PUBLIC void LightsModule_PeriodicJob() {
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, lightsOn == Set && (SystemGetHazardSignal() == Set || SystemGetRightSignal() == Set) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 }
 
+PUBLIC uint8_t LightsModule_ShouldBlink() {
+	return SystemGetLeftSignal() == Set || SystemGetRightSignal() == Set || SystemGetHazardSignal() == Set;
+}
+
+
 /**
  * Parent callback function for lights. Specific light callbacks will wrap this callback to reduce copies of code.
  */
