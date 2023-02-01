@@ -42,7 +42,8 @@ PRIVATE void SpeedTask(void *argument)
 	uint32_t cycleTick = osKernelGetTickCount();
 	DebugPrint("speed");
 
-	InteruptRegisterCallback(INTERUPT_GPIO_8_ID, HallPeriodicJob);
+	// Pass 0 as debounce to disable debouncing
+	InteruptRegisterCallback(INTERUPT_GPIO_8_ID, HallPeriodicJob, 0);
 
 	for(;;)
 	{
