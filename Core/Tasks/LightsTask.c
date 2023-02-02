@@ -50,7 +50,6 @@ PRIVATE void LightsTask(void *argument)
 		 *
 		 * pdTrue will clear the notification value back to 0. This effectivly makes the notification value act like a binary (rather than a counting) semaphore.
 		 */
-
 		DebugPrint("%s Awaiting notification for lights...", LIT_TAG);
 		lights_notification = ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
 
@@ -70,7 +69,6 @@ PRIVATE void LightsTask(void *argument)
 			}
 
 			// Clear any notifications that may have arrived while in the while loop.
-			// TODO: May need to replace LightsTaskHandle with xTaskGetCurrentTaskHandle(); Confirm on an STM32.
 			xTaskNotifyStateClear(LightsTaskHandle);
 		}
 	}
