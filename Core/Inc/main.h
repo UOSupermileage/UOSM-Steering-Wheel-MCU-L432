@@ -92,10 +92,8 @@ void Error_Handler(void);
 #define LD3_GPIO_Port GPIOB
 #define Turn_Signal_Left_Input_Pin GPIO_PIN_4
 #define Turn_Signal_Left_Input_GPIO_Port GPIOB
-#define Turn_Signal_Left_Input_EXTI_IRQn EXTI4_IRQn
 #define Turn_Signal_Right_Input_Pin GPIO_PIN_5
 #define Turn_Signal_Right_Input_GPIO_Port GPIOB
-#define Turn_Signal_Right_Input_EXTI_IRQn EXTI9_5_IRQn
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

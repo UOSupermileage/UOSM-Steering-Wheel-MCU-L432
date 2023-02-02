@@ -18,7 +18,7 @@
 #define STACK_SIZE 128*4
 #define SPEED_TASK_PRIORITY (osPriority_t) osPriorityHigh3
 
-#define LIGHTS_BLINK_INTERVAL 250UL
+#define TIMER_LIGHTS_TASK 250UL
 
 const char LIT_TAG[] = "#LIT:";
 
@@ -37,39 +37,17 @@ PUBLIC void InitLightsTask(void)
 }
 PRIVATE void LightsTask(void *argument)
 {
-	DebugPrint("%s lights", LIT_TAG);
+	uint32_t cycleTick = osKernelGetTickCount();
 
-	static uint32_t lights_notification;
+	DebugPrint("%s lights", LIT_TAG);
 
 	LightsModule_Init();
 
 	for(;;)
 	{
-		/**
-		 * Sleep until we are notified of a state change by an interrupt handler.
-		 *
-		 * pdTrue will clear the notification value back to 0. This effectivly makes the notification value act like a binary (rather than a counting) semaphore.
-		 */
-		DebugPrint("%s Awaiting notification for lights...", LIT_TAG);
-		lights_notification = ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
-
-		if (lights_notification){
-			DebugPrint("%s Notification to activate lights received!", LIT_TAG);
-
-			uint32_t cycleTick = osKernelGetTickCount();
-
-			// Action upon lights until all signals are disabled
-			while (LightsModule_ShouldBlink()) {
-
-				cycleTick += LIGHTS_BLINK_INTERVAL;
-				osDelayUntil(cycleTick);
-
-				DebugPrint("%s Blinking lights!", LIT_TAG);
-				LightsModule_PeriodicJob();
-			}
-
-			// Clear any notifications that may have arrived while in the while loop.
-			xTaskNotifyStateClear(LightsTaskHandle);
-		}
+		cycleTick += TIMER_LIGHTS_TASK;
+		osDelayUntil(cycleTick);
+		DebugPrint("%s lights loop", LIT_TAG);
+		LightsModule_PeriodicJob();
 	}
 }

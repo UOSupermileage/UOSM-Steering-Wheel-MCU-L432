@@ -13,8 +13,6 @@
 
 /**
  * Initialize lights module and interupts.
- *
- * MUST BE CALLED BY THE LIGHTS TASK!
  */
 PUBLIC void LightsModule_Init();
 
@@ -22,7 +20,5 @@ PUBLIC void LightsModule_Init();
  * Action upon state of lights in the Data Aggregate
  */
 PUBLIC void LightsModule_PeriodicJob();
-
-PUBLIC uint8_t LightsModule_ShouldBlink();
 
 #endif /* MODULES_LIGHTSMODULE_H_ */

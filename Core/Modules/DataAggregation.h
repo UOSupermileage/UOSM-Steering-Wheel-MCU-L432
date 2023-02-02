@@ -17,8 +17,6 @@ typedef union
 	uint32_t all;
 	struct
 	{
-		uint32_t rightSignal;
-		uint32_t leftSignal;
 		uint32_t hazardSignal;
 		uint32_t timerRunning;
 	};
@@ -37,8 +35,6 @@ speed_t SystemGetSpeed();
 throttle_raw_t SystemGetThrottleRaw();
 percentage_t SystemGetThrottlePercentage();
 seconds_t SystemGetRunTime();
-flag_status_t SystemGetRightSignal();
-flag_status_t SystemGetLeftSignal();
 flag_status_t SystemGetHazardSignal();
 flag_status_t SystemGetTimerRunning();
 
@@ -46,10 +42,6 @@ void SystemSetSpeed(speed_t speed);
 void SystemSetThrottleRaw(throttle_raw_t throttleRaw);
 void SystemClearRunTime();
 void SystemIncrementRunTime(seconds_t time);
-void SystemSetRightSignal(flag_status_t status);
-void SystemToggleRightSignal();
-void SystemSetLeftSignal(flag_status_t status);
-void SystemToggleLeftSignal();
 void SystemSetHazardSignal(flag_status_t status);
 void SystemToggleHazardSignal();
 void SystemSetTimerRunning(flag_status_t status);
