@@ -68,9 +68,9 @@ void Error_Handler(void);
 #define Timer_Start_Stop_Pin GPIO_PIN_0
 #define Timer_Start_Stop_GPIO_Port GPIOB
 #define Timer_Start_Stop_EXTI_IRQn EXTI0_IRQn
-#define Hazard_Lights_Pin GPIO_PIN_1
-#define Hazard_Lights_GPIO_Port GPIOB
-#define Hazard_Lights_EXTI_IRQn EXTI1_IRQn
+#define Hazard_Lights_Input_Pin GPIO_PIN_1
+#define Hazard_Lights_Input_GPIO_Port GPIOB
+#define Hazard_Lights_Input_EXTI_IRQn EXTI1_IRQn
 #define Hall_Effect_Pin GPIO_PIN_8
 #define Hall_Effect_GPIO_Port GPIOA
 #define Hall_Effect_EXTI_IRQn EXTI9_5_IRQn
@@ -78,6 +78,10 @@ void Error_Handler(void);
 #define Seven_Segs_GPIO_Port GPIOA
 #define Seven_SegsA10_Pin GPIO_PIN_10
 #define Seven_SegsA10_GPIO_Port GPIOA
+#define Turn_Signal_Left_Output_Pin GPIO_PIN_11
+#define Turn_Signal_Left_Output_GPIO_Port GPIOA
+#define Turn_Signal_Right_Output_Pin GPIO_PIN_12
+#define Turn_Signal_Right_Output_GPIO_Port GPIOA
 #define SWDIO_Pin GPIO_PIN_13
 #define SWDIO_GPIO_Port GPIOA
 #define SWCLK_Pin GPIO_PIN_14
@@ -86,12 +90,10 @@ void Error_Handler(void);
 #define VCP_RX_GPIO_Port GPIOA
 #define LD3_Pin GPIO_PIN_3
 #define LD3_GPIO_Port GPIOB
-#define Turn_Signal_Left_Pin GPIO_PIN_4
-#define Turn_Signal_Left_GPIO_Port GPIOB
-#define Turn_Signal_Left_EXTI_IRQn EXTI4_IRQn
-#define Turn_Signal_Right_Pin GPIO_PIN_5
-#define Turn_Signal_Right_GPIO_Port GPIOB
-#define Turn_Signal_Right_EXTI_IRQn EXTI9_5_IRQn
+#define Turn_Signal_Left_Input_Pin GPIO_PIN_4
+#define Turn_Signal_Left_Input_GPIO_Port GPIOB
+#define Turn_Signal_Right_Input_Pin GPIO_PIN_5
+#define Turn_Signal_Right_Input_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

@@ -12,6 +12,7 @@
 #include "ThrottleTask.h"
 #include "InternalCommsTask.h"
 #include "SpeedTask.h"
+#include "LightsTask.h"
 
 void RunTaskManager( void )
 {
@@ -20,4 +21,5 @@ void RunTaskManager( void )
 	InitThrottleTask();
 	InitInternalCommsTask();
 	InitSpeedTask();
+	InitLightsTask();
 }

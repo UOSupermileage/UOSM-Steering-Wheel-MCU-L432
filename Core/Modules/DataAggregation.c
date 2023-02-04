@@ -32,14 +32,6 @@ seconds_t SystemGetRunTime()
 	return SystemData.runTime;
 }
 
-flag_status_t SystemGetRightSignal()
-{
-	return EventFlags.rightSignal;
-}
-flag_status_t SystemGetLeftSignal()
-{
-	return EventFlags.leftSignal;
-}
 flag_status_t SystemGetHazardSignal()
 {
 	return EventFlags.hazardSignal;
@@ -66,17 +58,12 @@ void SystemIncrementRunTime(seconds_t time)
 {
 	SystemData.runTime += time;
 }
-void SystemSetRightSignal(flag_status_t status)
-{
-	EventFlags.rightSignal = status;
-}
-void SystemSetLeftSignal(flag_status_t status)
-{
-	EventFlags.leftSignal = status;
-}
 void SystemSetHazardSignal(flag_status_t status)
 {
 	EventFlags.hazardSignal = status;
+}
+void SystemToggleHazardSignal() {
+	EventFlags.hazardSignal = !EventFlags.hazardSignal;
 }
 void SystemSetTimerRunning(flag_status_t status)
 {
