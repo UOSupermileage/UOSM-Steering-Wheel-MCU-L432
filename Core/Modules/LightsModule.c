@@ -21,6 +21,8 @@ static const char LTM_TAG[] = "#LTM:";
 
 #define ReadLeftInput() HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_4)
 #define ReadRightInput() HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_5)
+#define WriteLeftLight(ENABLE) 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, ENABLE);
+#define WriteRightLight(ENABLE) HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, ENABLE);
 
 /**
  * Internal flag for blinking the lights.
@@ -37,8 +39,8 @@ PUBLIC void LightsModule_PeriodicJob() {
 
 	lightsOn = !lightsOn;
 
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, lightsOn == Set && (SystemGetHazardSignal() == Set || ReadLeftInput() == GPIO_PIN_SET) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, lightsOn == Set && (SystemGetHazardSignal() == Set || ReadRightInput() == GPIO_PIN_SET) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+	WriteLeftLight (lightsOn == Set && (SystemGetHazardSignal() == Set || ReadLeftInput() == GPIO_PIN_SET) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+	WriteRightLight(lightsOn == Set && (SystemGetHazardSignal() == Set || ReadRightInput() == GPIO_PIN_SET) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 }
 
 static void LightsModule_HazardCallback() {
