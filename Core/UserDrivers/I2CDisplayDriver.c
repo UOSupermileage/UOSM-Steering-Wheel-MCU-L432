@@ -9,7 +9,7 @@
 
 
 PUBLIC DisplayStatusID_t Seg_Display_Initialize(void) {
-	seg7_init();
+	HT16K33_Init();
     return DISPLAY_STATUS_INITIALIZED;
 
 }
@@ -33,7 +33,7 @@ PUBLIC DisplayStatusID_t Seg_Display_Float(float num)
 
     else if (num == 0){
         uint8_t zeroArr[4] = {0,0,0,0};
-        seg7_display(zeroArr);
+        HT16K33_Display(zeroArr);
         return DISPLAY_STATUS_OK;
     }
 
@@ -86,12 +86,12 @@ PUBLIC DisplayStatusID_t Seg_Display_Float(float num)
                 arr[i] = f;
                 f = temp;
             }
-            seg7_displayPoint(arr, 0);
+            HT16K33_DisplayPoint(arr, 0);
             return DISPLAY_STATUS_OK;
         }
         else
         { // regular float, with decimal placement at value of point
-            seg7_displayPoint(arr, point);
+            HT16K33_DisplayPoint(arr, point);
             return DISPLAY_STATUS_OK;
         }
     }
@@ -114,12 +114,12 @@ PUBLIC DisplayStatusID_t Seg_Display_SystemError(char letter){
     }
     if (found == 1){
     	HAL_Delay(500);
-    	seg7_display(fail);
+    	HT16K33_Display(fail);
     	HAL_Delay(500);
-		seg7_displayColon(1);
-		seg7_display(fault);
+		HT16K33_DisplayColon(1);
+		HT16K33_Display(fault);
 		HAL_Delay(1500);
-		seg7_displayColon(0);
+		HT16K33_DisplayColon(0);
 		return DISPLAY_STATUS_OK;
 
     }

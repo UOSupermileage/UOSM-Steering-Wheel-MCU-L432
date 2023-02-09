@@ -5,8 +5,8 @@
  *  Author: Lennart Koepper
  */
 
-#ifndef INC_HT16K33_H_
-#define INC_HT16K33_H_
+#ifndef USERDRIVERS_HT16K33_H_
+#define USERDRIVERS_HT16K33_H_
 
 #include "stdint.h"
 
@@ -42,25 +42,25 @@ extern I2C_HandleTypeDef hi2c1;
 #define SEG7_L                19
 #define SEG7_NONE             99
 
-void seg7_init(void);		// initializes 7-segment-display
-void seg7_reset(void);		// resets 7-segment-display
-void seg7_clearCache(void);	// force clearing of the cache
-void seg7_refresh(void); 	// force writing of cache to display
+void HT16K33_Init(void);		// initializes 7-segment-display
+void HT16K33_Reset(void);		// resets 7-segment-display
+void HT16K33_ClearCache(void);	// force clearing of the cache
+void HT16K33_Refresh(void); 	// force writing of cache to display
 
-void seg7_displayOn(void);	// enable display
-void seg7_displayOff(void);	// disable display, fastest way to darken display
+void HT16K33_DisplayOn(void);	// enable display
+void HT16K33_DisplayOff(void);	// disable display, fastest way to darken display
 
-void seg7_setBrightness(uint8_t value);		// 0 .. 15	  0 = off, 15 = max. brightness
-void seg7_setBlinkRate(uint8_t value);      // 0 .. 3     0 = off, 1 = 2Hz, 2 = 1Hz, 3 = 0,5Hz
-void seg7_setDigits(uint8_t value);			// 0 .. 4	  minimal number of digits shown
+void HT16K33_SetBrightness(uint8_t value);		// 0 .. 15	  0 = off, 15 = max. brightness
+void HT16K33_SetBlinkRate(uint8_t value);      // 0 .. 3     0 = off, 1 = 2Hz, 2 = 1Hz, 3 = 0,5Hz
+void HT16K33_SetDigits(uint8_t value);			// 0 .. 4	  minimal number of digits shown
 
-void seg7_displayClear(void);									// fills display with spaces
-int seg7_displayInt(int n);                   					// -999 .. 9999
-int seg7_displayTime(uint8_t left, uint8_t right, int colon);	// 00:00 .. 99:99, colon can be set to false (e.g. simulate blink)
+void HT16K33_DisplayClear(void);									// fills display with spaces
+int  HT16K33_DisplayInt(int n);                   					// -999 .. 9999
+int  HT16K33_DisplayTime(uint8_t left, uint8_t right, int colon);	// 00:00 .. 99:99, colon can be set to false (e.g. simulate blink)
 
-void seg7_display(uint8_t *array);                  	// displays 4 displayable Character values (stored in array)
-void seg7_displayPoint(uint8_t *array, uint8_t point);  // displays 4 displayable Character values (stored in array), point = digit with . (0..3)
-void seg7_displayColon(uint8_t on);                 	// 0 = off
-void seg7_displayRaw(uint8_t *array, int colon);  		// control the 4 Characters and the colon
+void HT16K33_Display(uint8_t *array);                  	// displays 4 displayable Character values (stored in array)
+void HT16K33_DisplayPoint(uint8_t *array, uint8_t point);  // displays 4 displayable Character values (stored in array), point = digit with . (0..3)
+void HT16K33_DisplayColon(uint8_t on);                 	// 0 = off
+void HT16K33_DisplayRaw(uint8_t *array, int colon);  		// control the 4 Characters and the colon
 
-#endif /* INC_HT16K33_H_ */
+#endif /* USERDRIVERS_HT16K33_H_ */

@@ -106,41 +106,41 @@ void _writePosPoint(uint8_t pos, uint8_t mask, int point) {
 //####################################
 //##### BEGIN: CONTROL-FUNCTIONS #####
 
-void seg7_init() {
-	seg7_reset();
-	seg7_displayOn();
+void HT16K33_Init() {
+	HT16K33_Reset();
+	HT16K33_DisplayOn();
 }
 
-void seg7_reset() {
-	seg7_displayClear();
-	seg7_clearCache();
-	seg7_setBlinkRate(0);
-	seg7_setDigits(4);
-	seg7_setBrightness(15);
+void HT16K33_Reset() {
+	HT16K33_DisplayClear();
+	HT16K33_ClearCache();
+	HT16K33_SetBlinkRate(0);
+	HT16K33_SetDigits(4);
+	HT16K33_SetBrightness(15);
 }
 
-void seg7_clearCache() {
+void HT16K33_ClearCache() {
 	for (uint8_t i = 0; i < 5; i++) {
 		_displayCache[i] = SEG7_NONE;
 	}
 }
 
-void seg7_refresh() {
+void HT16K33_Refresh() {
 	_refresh();
 }
 
-void seg7_displayOn() {
+void HT16K33_DisplayOn() {
 	_writeCmd(HT16K33_ON);
 	_writeCmd(HT16K33_DISPLAYON);
-	seg7_setBrightness(_bright);
+	HT16K33_SetBrightness(_bright);
 }
 
-void seg7_displayOff() {
+void HT16K33_DisplayOff() {
 	_writeCmd(HT16K33_DISPLAYOFF);
 	_writeCmd(HT16K33_STANDBY);
 }
 
-void seg7_setBlinkRate(uint8_t value) {
+void HT16K33_SetBlinkRate(uint8_t value) {
 	if (value > 0x03) {
 		value = 0x00;
 	}
@@ -148,7 +148,7 @@ void seg7_setBlinkRate(uint8_t value) {
 	_writeCmd(HT16K33_BLINKOFF | (value << 1));
 }
 
-void seg7_setBrightness(uint8_t value) {
+void HT16K33_SetBrightness(uint8_t value) {
 	if (value == _bright)
 		return;
 
@@ -160,7 +160,7 @@ void seg7_setBrightness(uint8_t value) {
 	_writeCmd(HT16K33_BRIGHTNESS | _bright);
 }
 
-void seg7_setDigits(uint8_t value) {
+void HT16K33_SetDigits(uint8_t value) {
 	_digits = (value > 4) ? 4 : value;
 }
 
@@ -168,13 +168,13 @@ void seg7_setDigits(uint8_t value) {
 //####################################
 //##### BEGIN: DISPLAY-FUNCTIONS #####
 
-void seg7_displayClear() {
+void HT16K33_DisplayClear() {
 	uint8_t arr[4] = { SEG7_SPACE, SEG7_SPACE, SEG7_SPACE, SEG7_SPACE };
-	seg7_display(arr);
-	seg7_displayColon(0);
+	HT16K33_Display(arr);
+	HT16K33_DisplayColon(0);
 }
 
-int seg7_displayInt(int n) {
+int HT16K33_DisplayInt(int n) {
 	int inRange = ((-1000 < n) && (n < 10000));
 	int neg = (n < 0);
 
@@ -205,12 +205,12 @@ int seg7_displayInt(int n) {
 		}
 	}
 
-	seg7_display(arr);
+	HT16K33_Display(arr);
 
 	return inRange;
 }
 
-int seg7_displayTime(uint8_t left, uint8_t right, int colon) {
+int HT16K33_DisplayTime(uint8_t left, uint8_t right, int colon) {
 	int inRange = ((left < 100) && (right < 100));
 	uint8_t arr[4];
 
@@ -220,13 +220,13 @@ int seg7_displayTime(uint8_t left, uint8_t right, int colon) {
 	arr[2] = right / 10;
 	arr[3] = right - arr[2] * 10;
 
-	seg7_display(arr);
-	seg7_displayColon(colon);
+	HT16K33_Display(arr);
+	HT16K33_DisplayColon(colon);
 
 	return inRange;
 }
 
-void seg7_display(uint8_t *array) {
+void HT16K33_Display(uint8_t *array) {
 	for (uint8_t i = 0; i < (4 - _digits); i++) {
 		if (array[i] != 0) {
 			break;
@@ -240,18 +240,18 @@ void seg7_display(uint8_t *array) {
 	_writePos(4, charmap[array[3]]);
 }
 
-void seg7_displayPoint(uint8_t *array, uint8_t point) {
+void HT16K33_DisplayPoint(uint8_t *array, uint8_t point) {
 	_writePosPoint(0, charmap[array[0]], point == 0);
 	_writePosPoint(1, charmap[array[1]], point == 1);
 	_writePosPoint(3, charmap[array[2]], point == 2);
 	_writePosPoint(4, charmap[array[3]], point == 3);
 }
 
-void seg7_displayColon(uint8_t on) {
+void HT16K33_DisplayColon(uint8_t on) {
 	_writePos(2, on ? 2 : 0);
 }
 
-void seg7_displayRaw(uint8_t *array, int colon) {
+void HT16K33_DisplayRaw(uint8_t *array, int colon) {
 	_writePos(0, array[0]);
 	_writePos(1, array[1]);
 	_writePos(3, array[2]);
