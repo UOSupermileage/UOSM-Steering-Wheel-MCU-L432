@@ -17,7 +17,7 @@ PUBLIC DisplayStatusID_t Seg_Display_Initialize(void) {
 /// @brief Returns the number of digits present in an integer
 /// @param number 
 /// @return uint8_t 
-PRIVATE uint8_t digitCtr(uint8_t number){
+PRIVATE uint8_t Seg_Display_DigitCtr(uint8_t number){
 	int result = 0;
 	while(number!=0){
 		number=number/10; //Integer division by 10 to reduce the number by one digit
@@ -58,7 +58,7 @@ PUBLIC DisplayStatusID_t Seg_Display_Float(float num)
             }
         }
 
-        int size = digitCtr(integerPart); //number of digits of the converted number
+        int size = Seg_Display_DigitCtr(integerPart); //number of digits of the converted number
         int point = (size - decimalPos) - 1; //location of where the point should appear on the display
         uint8_t arr[size];
 

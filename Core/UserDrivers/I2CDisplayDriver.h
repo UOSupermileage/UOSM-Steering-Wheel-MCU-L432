@@ -24,7 +24,7 @@ PUBLIC DisplayStatusID_t Seg_Display_Initialize(void);
 
 PUBLIC DisplayStatusID_t Seg_Display_Float(float number);  //Prints a float number on the 7 segment display
 
-PRIVATE uint8_t digitCtr(uint8_t number); //Returns the number of digits present in an 8 bit integer
+PRIVATE uint8_t Seg_Display_DigitCtr(uint8_t number); //Returns the number of digits present in an 8 bit integer
 
 PUBLIC DisplayStatusID_t Seg_Display_SystemError(char alpha);
 
