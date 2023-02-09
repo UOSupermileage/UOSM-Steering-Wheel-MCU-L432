@@ -11,6 +11,8 @@
 
 #include "ApplicationTypes.h"
 
+#include "ht16k33.h"
+
 typedef enum  {
 	DISPLAY_STATUS_OK,
     DISPLAY_ERROR_CHAR_VALUE_NOT_FOUND,
@@ -19,14 +21,15 @@ typedef enum  {
     DISPLAY_STATUS_UNINTIALIZED,
     DISPLAY_STATUS_INITIALIZED,
 
-}DisplayStatusID_t;
-PUBLIC DisplayStatusID_t Seg_Display_Initialize(void);
+} DisplayStatusID_t;
 
-PUBLIC DisplayStatusID_t Seg_Display_Float(float number);  //Prints a float number on the 7 segment display
+PUBLIC DisplayStatusID_t Seg_Display_Initialize(SegDisplayIndex id);
+
+PUBLIC DisplayStatusID_t Seg_Display_Float(SegDisplayIndex id, float number);  //Prints a float number on the 7 segment display
 
 PRIVATE uint8_t Seg_Display_DigitCtr(uint8_t number); //Returns the number of digits present in an 8 bit integer
 
-PUBLIC DisplayStatusID_t Seg_Display_SystemError(char alpha);
+PUBLIC DisplayStatusID_t Seg_Display_SystemError(SegDisplayIndex id, char alpha);
 
 
 #endif /* USERDRIVERS_I2CDISPLAYDRIVER_H_ */

@@ -8,10 +8,9 @@
 #include "ht16k33.h"
 
 
-PUBLIC DisplayStatusID_t Seg_Display_Initialize(void) {
-	HT16K33_Init();
+PUBLIC DisplayStatusID_t Seg_Display_Initialize(SegDisplayIndex id) {
+	HT16K33_Init(id);
     return DISPLAY_STATUS_INITIALIZED;
-
 }
 
 /// @brief Returns the number of digits present in an integer
@@ -24,8 +23,9 @@ PRIVATE uint8_t Seg_Display_DigitCtr(uint8_t number){
 		result++;
 	}
 	return result;
- }
-PUBLIC DisplayStatusID_t Seg_Display_Float(float num)
+}
+
+PUBLIC DisplayStatusID_t Seg_Display_Float(SegDisplayIndex id, float num)
 {
     if (num < 0){ //check for negative float
         return DISPLAY_ERROR_FLOAT_VALUE;
@@ -33,7 +33,7 @@ PUBLIC DisplayStatusID_t Seg_Display_Float(float num)
 
     else if (num == 0){
         uint8_t zeroArr[4] = {0,0,0,0};
-        HT16K33_Display(zeroArr);
+        HT16K33_Display(id, zeroArr);
         return DISPLAY_STATUS_OK;
     }
 
@@ -86,19 +86,18 @@ PUBLIC DisplayStatusID_t Seg_Display_Float(float num)
                 arr[i] = f;
                 f = temp;
             }
-            HT16K33_DisplayPoint(arr, 0);
+            HT16K33_DisplayPoint(id, arr, 0);
             return DISPLAY_STATUS_OK;
         }
         else
         { // regular float, with decimal placement at value of point
-            HT16K33_DisplayPoint(arr, point);
+            HT16K33_DisplayPoint(id, arr, point);
             return DISPLAY_STATUS_OK;
         }
     }
 }
 
-
-PUBLIC DisplayStatusID_t Seg_Display_SystemError(char letter){
+PUBLIC DisplayStatusID_t Seg_Display_SystemError(SegDisplayIndex id, char letter){
     uint8_t error_codes[5] = {SEG7_A, SEG7_B, SEG7_D, SEG7_E, SEG7_F};
     char access_key[5] = {'A','B','D','E','F'};
 
@@ -114,17 +113,16 @@ PUBLIC DisplayStatusID_t Seg_Display_SystemError(char letter){
     }
     if (found == 1){
     	HAL_Delay(500);
-    	HT16K33_Display(fail);
+    	HT16K33_Display(id, fail);
     	HAL_Delay(500);
-		HT16K33_DisplayColon(1);
-		HT16K33_Display(fault);
+		HT16K33_DisplayColon(id, 1);
+		HT16K33_Display(id, fault);
 		HAL_Delay(1500);
-		HT16K33_DisplayColon(0);
+		HT16K33_DisplayColon(id, 0);
 		return DISPLAY_STATUS_OK;
 
     }
     else {
     	return DISPLAY_ERROR_CHAR_VALUE_NOT_FOUND;
     }
-
 }
