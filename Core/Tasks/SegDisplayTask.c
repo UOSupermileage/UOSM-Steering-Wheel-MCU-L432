@@ -40,8 +40,8 @@ PRIVATE void SegDisplayTask(void *argument)
 
 	DebugPrint("%s 7 segment display", SDT_TAG);
 
-	DisplayStatusID_t statusDisplay0 = DISPLAY_STATUS_UNINTIALIZED;
-	DisplayStatusID_t statusDisplay1 = DISPLAY_STATUS_UNINTIALIZED;
+	Seg_Display_Initialize(DISPLAY_0);
+	Seg_Display_Initialize(DISPLAY_1);
 
 	for(;;)
 	{
@@ -50,20 +50,7 @@ PRIVATE void SegDisplayTask(void *argument)
 
 		DebugPrint("%s 7 seg loop", SDT_TAG);
 
-		if (statusDisplay0 == DISPLAY_STATUS_INITIALIZED) {
-			// Display is initialized. Display necessary data.
-			Seg_Display_Float(DISPLAY_0, 1.234);
-		} else {
-			DebugPrint("%s Initializing Display 0", SDT_TAG);
-			statusDisplay0 = Seg_Display_Initialize(DISPLAY_0);
-		}
-
-		if (statusDisplay1 == DISPLAY_STATUS_INITIALIZED) {
-			// Display is initialized. Display necessary data.
-			Seg_Display_Float(DISPLAY_1, 5.678);
-		} else {
-			DebugPrint("%s Initializing Display 1", SDT_TAG);
-			statusDisplay1 = Seg_Display_Initialize(DISPLAY_1);
-		}
+		HT16K33_DisplayInt(DISPLAY_0, 1234);
+		HT16K33_DisplayInt(DISPLAY_1, 5678);
 	}
 }
