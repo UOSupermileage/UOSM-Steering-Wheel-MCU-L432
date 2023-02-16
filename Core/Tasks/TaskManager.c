@@ -19,9 +19,9 @@ void RunTaskManager( void )
 {
 	InitDataAggregator();
 	InitSystemTask();
-	InitThrottleTask();
-	InitInternalCommsTask();
-	InitSpeedTask();
-	InitLightsTask();
+//	InitThrottleTask();
+//	InitInternalCommsTask();
+//	InitSpeedTask();
+//	InitLightsTask();
 	InitSegDisplayTask();
 }

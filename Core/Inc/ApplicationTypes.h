@@ -29,6 +29,7 @@ typedef uint16_t speed_t;
 typedef uint16_t percentage_t;
 typedef float km_per_second_t;
 typedef uint16_t seconds_t;
+typedef uint32_t ms_t;
 
 
 typedef struct

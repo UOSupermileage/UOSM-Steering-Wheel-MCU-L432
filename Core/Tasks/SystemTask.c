@@ -33,7 +33,7 @@
 
 #define STACK_SIZE 128*4
 #define SYSTEM_PRIORITY (osPriority_t) osPriorityHigh2
-#define TIMER_SYSTEM_TASK 1500UL
+#define TIMER_SYSTEM_TASK 500UL
 
 PUBLIC void InitSystemTask(void);
 PRIVATE void SystemTask(void *argument);

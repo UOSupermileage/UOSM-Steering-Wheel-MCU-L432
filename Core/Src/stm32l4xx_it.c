@@ -170,8 +170,6 @@ void DebugMon_Handler(void)
 void EXTI0_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI0_IRQn 0 */
-	DebugPrint("Timer HI");
-
   /* USER CODE END EXTI0_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(Timer_Start_Stop_Pin);
   /* USER CODE BEGIN EXTI0_IRQn 1 */

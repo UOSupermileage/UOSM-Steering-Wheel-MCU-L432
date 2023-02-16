@@ -6,7 +6,9 @@
  */
 
 #include "ht16k33.h"
+#include "SerialDebugDriver.h"
 
+#define DebugPrint(...) SerialPrintln(__VA_ARGS__)
 /*********************************************************************************
  *
  * 		Commands for display
@@ -262,6 +264,9 @@ int HT16K33_DisplayInt(SegDisplayIndex id, int n) {
 }
 
 int HT16K33_DisplayTime(SegDisplayIndex id, uint8_t left, uint8_t right, int colon) {
+
+	DebugPrint("DisplayTime: [%d:%d]", left, right);
+
 	int inRange = ((left < 100) && (right < 100));
 	uint8_t arr[4];
 

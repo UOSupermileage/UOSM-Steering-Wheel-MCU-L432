@@ -8,6 +8,8 @@
 #include "SegDisplayTask.h"
 
 #include "I2CDisplayDriver.h"
+#include "ClockModule.h"
+#include "DataAggregation.h"
 
 #include "SerialDebugDriver.h"
 
@@ -17,7 +19,7 @@
 #define STACK_SIZE 128*4
 #define SPEED_TASK_PRIORITY (osPriority_t) osPriorityHigh4
 
-#define TIMER_SEGDISPLAY_TASK 250UL
+#define TIMER_SEGDISPLAY_TASK 500UL
 
 const char SDT_TAG[] = "#SDT:";
 
@@ -48,9 +50,9 @@ PRIVATE void SegDisplayTask(void *argument)
 		cycleTick += TIMER_SEGDISPLAY_TASK;
 		osDelayUntil(cycleTick);
 
-		DebugPrint("%s 7 seg loop", SDT_TAG);
+		DebugPrint("%s 7 seg loop. Runtime: %d", SDT_TAG, SystemGetRunTime());
 
-		HT16K33_DisplayInt(DISPLAY_0, 1234);
+		Seg_Display_Time(DISPLAY_0, SystemGetRunTimeSeconds());
 		HT16K33_DisplayInt(DISPLAY_1, 5678);
 	}
 }
