@@ -197,8 +197,6 @@ uint8_t MCP2515_ReadStatus(void)
   
   SPI_Tx(MCP2515_READ_STATUS);
   retVal = SPI_Rx();
-
-  DebugPrint("Return value: [%d]", retVal);
         
   MCP2515_CS_HIGH();
   

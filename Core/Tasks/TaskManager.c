@@ -13,6 +13,7 @@
 #include "InternalCommsTask.h"
 #include "SpeedTask.h"
 #include "LightsTask.h"
+#include "SegDisplayTask.h"
 
 void RunTaskManager( void )
 {
@@ -22,4 +23,5 @@ void RunTaskManager( void )
 	InitInternalCommsTask();
 	InitSpeedTask();
 	InitLightsTask();
+	InitSegDisplayTask();
 }
