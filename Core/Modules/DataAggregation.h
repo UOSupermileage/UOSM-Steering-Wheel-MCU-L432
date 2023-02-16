@@ -26,7 +26,7 @@ typedef struct
 {
 	speed_t speed;
 	throttle_raw_t throttle;
-	seconds_t runTime;
+	ms_t runTime;
 } SystemData_t;
 
 void InitDataAggregator();
@@ -34,14 +34,15 @@ void InitDataAggregator();
 speed_t SystemGetSpeed();
 throttle_raw_t SystemGetThrottleRaw();
 percentage_t SystemGetThrottlePercentage();
-seconds_t SystemGetRunTime();
+ms_t SystemGetRunTime();
+seconds_t SystemGetRunTimeSeconds();
 flag_status_t SystemGetHazardSignal();
 flag_status_t SystemGetTimerRunning();
 
 void SystemSetSpeed(speed_t speed);
 void SystemSetThrottleRaw(throttle_raw_t throttleRaw);
 void SystemClearRunTime();
-void SystemIncrementRunTime(seconds_t time);
+void SystemIncrementRunTime(ms_t time);
 void SystemSetHazardSignal(flag_status_t status);
 void SystemToggleHazardSignal();
 void SystemSetTimerRunning(flag_status_t status);

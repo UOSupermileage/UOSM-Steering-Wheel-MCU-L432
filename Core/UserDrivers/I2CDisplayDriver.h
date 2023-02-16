@@ -31,5 +31,7 @@ PRIVATE uint8_t Seg_Display_DigitCtr(uint8_t number); //Returns the number of di
 
 PUBLIC DisplayStatusID_t Seg_Display_SystemError(SegDisplayIndex id, char alpha);
 
+PUBLIC DisplayStatusID_t Seg_Display_Time(SegDisplayIndex id, seconds_t seconds); // Prints number of seconds in mm:ss format
+
 
 #endif /* USERDRIVERS_I2CDISPLAYDRIVER_H_ */

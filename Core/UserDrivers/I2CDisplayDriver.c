@@ -126,3 +126,14 @@ PUBLIC DisplayStatusID_t Seg_Display_SystemError(SegDisplayIndex id, char letter
     	return DISPLAY_ERROR_CHAR_VALUE_NOT_FOUND;
     }
 }
+
+PUBLIC DisplayStatusID_t Seg_Display_Time(SegDisplayIndex id, seconds_t seconds) {
+	if (seconds <= 0) {
+        uint8_t zeroArr[4] = {0,0,0,0};
+        HT16K33_Display(id, zeroArr);
+        return DISPLAY_STATUS_OK;
+	}
+
+	HT16K33_DisplayTime(id, seconds / 60, seconds % 60, 1);
+	return DISPLAY_STATUS_OK;
+}

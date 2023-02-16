@@ -27,9 +27,14 @@ percentage_t SystemGetThrottlePercentage()
 	return ADCConvertThrottle(SystemData.throttle);
 }
 
-seconds_t SystemGetRunTime()
+ms_t SystemGetRunTime()
 {
 	return SystemData.runTime;
+}
+
+seconds_t SystemGetRunTimeSeconds()
+{
+	return SystemData.runTime / 1000;
 }
 
 flag_status_t SystemGetHazardSignal()
@@ -54,7 +59,7 @@ void SystemClearRunTime()
 {
 	SystemData.runTime = 0;
 }
-void SystemIncrementRunTime(seconds_t time)
+void SystemIncrementRunTime(ms_t time)
 {
 	SystemData.runTime += time;
 }
