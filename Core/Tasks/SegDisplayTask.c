@@ -50,9 +50,9 @@ PRIVATE void SegDisplayTask(void *argument)
 		cycleTick += TIMER_SEGDISPLAY_TASK;
 		osDelayUntil(cycleTick);
 
-		DebugPrint("%s 7 seg loop. Runtime: %d", SDT_TAG, SystemGetRunTime());
+//		DebugPrint("%s 7 seg loop. Runtime: %d", SDT_TAG, SystemGetRunTime());
 
 		Seg_Display_Time(DISPLAY_0, SystemGetRunTimeSeconds());
-		HT16K33_DisplayInt(DISPLAY_1, 5678);
+		HT16K33_DisplayInt(DISPLAY_1, SystemGetSpeed());
 	}
 }

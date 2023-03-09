@@ -14,6 +14,7 @@
 #include "SpeedTask.h"
 #include "LightsTask.h"
 #include "SegDisplayTask.h"
+#include "ClockTask.h"
 
 void RunTaskManager( void )
 {
@@ -23,5 +24,6 @@ void RunTaskManager( void )
 	InitInternalCommsTask();
 	InitSpeedTask();
 	InitLightsTask();
+	InitClockTask();
 	InitSegDisplayTask();
 }

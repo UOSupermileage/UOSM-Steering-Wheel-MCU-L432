@@ -43,14 +43,15 @@ PRIVATE void SpeedTask(void *argument)
 	DebugPrint("speed");
 
 	// Pass 0 as debounce to disable debouncing
-	InteruptRegisterCallback(INTERUPT_GPIO_8_ID, HallPeriodicJob, 0);
+	// InteruptRegisterCallback(INTERUPT_GPIO_8_ID, HallPeriodicJob, 0);
+
+	HallInit();
 
 	for(;;)
 	{
 		cycleTick += TIMER_SPEED_TASK;
 		osDelayUntil(cycleTick);
-		DebugPrint("%s speed loop", SPT_TAG);
-		Speed_UpdateSpeed();
-		DebugPrint("%s Speed: %d", SPT_TAG, SystemGetSpeed());
+		DebugPrint("%s Reading speed from HallDriver: %d", SPT_TAG, HallGetSpeed());
+		SystemSetSpeed(HallGetSpeed());
 	}
 }

@@ -21,11 +21,6 @@
 
 // System info imports
 #include "DataAggregation.h"
-#include "DisplayModule.h"
-#include "ClockModule.h"
-
-// Safety imports
-#include "LightsModule.h"
 
 #include "SerialDebugDriver.h"
 
@@ -57,19 +52,11 @@ PRIVATE void SystemTask(void *argument)
 	uint32_t cycleTick = osKernelGetTickCount();
 	DebugPrint("system");
 
-	ClockModule_Init();
-
 	for(;;)
 	{
 		cycleTick += TIMER_SYSTEM_TASK;
 		osDelayUntil(cycleTick);
 		DebugPrint("sys loop");
-
-		DebugPrint("Timer Running [%d], Time: [%d]", SystemGetTimerRunning() == Set, SystemGetRunTime());
-
-
-		// Check timer
-		ClockModule_Update();
 	}
 }
 

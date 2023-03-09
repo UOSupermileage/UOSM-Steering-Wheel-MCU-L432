@@ -44,5 +44,6 @@ PUBLIC void LightsModule_PeriodicJob() {
 }
 
 static void LightsModule_HazardCallback() {
+	DebugPrint("%s Toggling Hazards", LTM_TAG);
 	SystemToggleHazardSignal();
 }

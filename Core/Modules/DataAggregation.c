@@ -41,9 +41,9 @@ flag_status_t SystemGetHazardSignal()
 {
 	return EventFlags.hazardSignal;
 }
-flag_status_t SystemGetTimerRunning()
+ClockState SystemGetClockState()
 {
-	return EventFlags.timerRunning;
+	return EventFlags.clockState;
 }
 
 
@@ -70,9 +70,9 @@ void SystemSetHazardSignal(flag_status_t status)
 void SystemToggleHazardSignal() {
 	EventFlags.hazardSignal = !EventFlags.hazardSignal;
 }
-void SystemSetTimerRunning(flag_status_t status)
+void SystemSetClockState(ClockState state)
 {
-	EventFlags.timerRunning = status;
+	EventFlags.clockState = state;
 }
 
 void InitDataAggregator()
