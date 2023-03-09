@@ -8,7 +8,6 @@
  */
 #include "TaskManager.h"
 #include "DataAggregation.h"
-#include "SystemTask.h"
 #include "ThrottleTask.h"
 #include "InternalCommsTask.h"
 #include "SpeedTask.h"
@@ -19,7 +18,6 @@
 void RunTaskManager( void )
 {
 	InitDataAggregator();
-	InitSystemTask();
 	InitThrottleTask();
 	InitInternalCommsTask();
 	InitSpeedTask();

@@ -15,7 +15,7 @@
 #define DebugPrint(...) SerialPrintln(__VA_ARGS__)
 
 #define STACK_SIZE 128*8
-#define CLOCK_TASK_PRIORITY (osPriority_t) osPriorityHigh2
+#define CLOCK_TASK_PRIORITY (osPriority_t) osPriorityNormal
 #define TIMER_CLOCK_TASK 500UL
 
 
@@ -42,7 +42,7 @@ PRIVATE void ClockTask(void *argument)
 	uint32_t cycleTick = osKernelGetTickCount();
 	DebugPrint("clock");
 
-	ClockModule_Init();
+//	ClockModule_Init();
 
 	for(;;)
 	{
@@ -50,6 +50,7 @@ PRIVATE void ClockTask(void *argument)
 		osDelayUntil(cycleTick);
 
 		// Check timer
-		ClockModule_Update();
+		DebugPrint("Clock");
+//		ClockModule_Update();
 	}
 }

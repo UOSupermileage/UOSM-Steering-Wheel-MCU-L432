@@ -9,7 +9,6 @@
  */
 
 #include "SpeedTask.h"
-#include "SpeedModule.h"
 #include "DataAggregation.h"
 #include "SerialDebugDriver.h"
 #include "InteruptModule.h"
@@ -19,8 +18,8 @@
 #define DebugPrint(...) SerialPrintln(__VA_ARGS__)
 
 #define STACK_SIZE 128*4
-#define SPEED_TASK_PRIORITY (osPriority_t) osPriorityHigh2
-#define TIMER_SPEED_TASK 100UL
+#define SPEED_TASK_PRIORITY (osPriority_t) osPriorityHigh3
+#define TIMER_SPEED_TASK 300UL
 
 const char SPT_TAG[] = "#SPT:";
 
@@ -42,16 +41,13 @@ PRIVATE void SpeedTask(void *argument)
 	uint32_t cycleTick = osKernelGetTickCount();
 	DebugPrint("speed");
 
-	// Pass 0 as debounce to disable debouncing
-	// InteruptRegisterCallback(INTERUPT_GPIO_8_ID, HallPeriodicJob, 0);
-
 	HallInit();
 
 	for(;;)
 	{
 		cycleTick += TIMER_SPEED_TASK;
 		osDelayUntil(cycleTick);
-		DebugPrint("%s Reading speed from HallDriver: %d", SPT_TAG, HallGetSpeed());
+//		DebugPrint("%s Reading speed from HallDriver: %d", SPT_TAG, HallGetSpeed());
 		SystemSetSpeed(HallGetSpeed());
 	}
 }

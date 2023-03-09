@@ -61,21 +61,28 @@ void Error_Handler(void);
 #define CAN_CS_GPIO_Port GPIOA
 #define Throttle_Pin GPIO_PIN_4
 #define Throttle_GPIO_Port GPIOA
+#define Clock_Action_Pin GPIO_PIN_0
+#define Clock_Action_GPIO_Port GPIOB
 #define Hazard_Lights_Input_Pin GPIO_PIN_1
 #define Hazard_Lights_Input_GPIO_Port GPIOB
 #define Hazard_Lights_Input_EXTI_IRQn EXTI1_IRQn
+#define Hall_Input_Pin GPIO_PIN_8
+#define Hall_Input_GPIO_Port GPIOA
 #define Seven_Segs_Pin GPIO_PIN_9
 #define Seven_Segs_GPIO_Port GPIOA
 #define Seven_SegsA10_Pin GPIO_PIN_10
 #define Seven_SegsA10_GPIO_Port GPIOA
 #define Turn_Signal_Left_Output_Pin GPIO_PIN_11
 #define Turn_Signal_Left_Output_GPIO_Port GPIOA
+#define Turn_Signal_Right_Output_Pin GPIO_PIN_12
+#define Turn_Signal_Right_Output_GPIO_Port GPIOA
 #define LD3_Pin GPIO_PIN_3
 #define LD3_GPIO_Port GPIOB
 #define Turn_Signal_Left_Input_Pin GPIO_PIN_4
 #define Turn_Signal_Left_Input_GPIO_Port GPIOB
 #define Turn_Signal_Right_Input_Pin GPIO_PIN_5
 #define Turn_Signal_Right_Input_GPIO_Port GPIOB
+
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

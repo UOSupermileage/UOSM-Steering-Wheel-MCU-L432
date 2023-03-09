@@ -157,7 +157,6 @@ int main(void)
 
   /* Start scheduler */
   osKernelStart();
-
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -470,26 +469,28 @@ static void MX_USART2_UART_Init(void)
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
+/* USER CODE BEGIN MX_GPIO_Init_1 */
+/* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, CAN_CS_Pin|Turn_Signal_Left_Output_Pin|GPIO_PIN_12, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, CAN_CS_Pin|Turn_Signal_Left_Output_Pin|Turn_Signal_Right_Output_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : CAN_CS_Pin Turn_Signal_Left_Output_Pin PA12 */
-  GPIO_InitStruct.Pin = CAN_CS_Pin|Turn_Signal_Left_Output_Pin|GPIO_PIN_12;
+  /*Configure GPIO pins : CAN_CS_Pin Turn_Signal_Left_Output_Pin Turn_Signal_Right_Output_Pin */
+  GPIO_InitStruct.Pin = CAN_CS_Pin|Turn_Signal_Left_Output_Pin|Turn_Signal_Right_Output_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PB0 Turn_Signal_Left_Input_Pin Turn_Signal_Right_Input_Pin */
-  GPIO_InitStruct.Pin = GPIO_PIN_0|Turn_Signal_Left_Input_Pin|Turn_Signal_Right_Input_Pin;
+  /*Configure GPIO pins : Clock_Action_Pin Turn_Signal_Left_Input_Pin Turn_Signal_Right_Input_Pin */
+  GPIO_InitStruct.Pin = Clock_Action_Pin|Turn_Signal_Left_Input_Pin|Turn_Signal_Right_Input_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
@@ -511,6 +512,8 @@ static void MX_GPIO_Init(void)
   HAL_NVIC_SetPriority(EXTI1_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(EXTI1_IRQn);
 
+/* USER CODE BEGIN MX_GPIO_Init_2 */
+/* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */

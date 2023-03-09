@@ -27,7 +27,6 @@ void HallIRQHandler(void)
   {
     if(__HAL_TIM_GET_IT_SOURCE(&htim1, TIM_IT_CC1) != RESET)
     {
-    	DebugPrint("Triggered IRQ");
       uint32_t hall_capture = HAL_TIM_ReadCapturedValue(&htim1, TIM_CHANNEL_1);
       uint32_t delta_capture = hall_capture - last_capture;
       last_capture = hall_capture;
@@ -38,41 +37,5 @@ void HallIRQHandler(void)
 }
 
 PUBLIC speed_t HallGetSpeed() {
-	DebugPrint("Current frequency: %d", frequency);
-	return (frequency * 60 * HALL_CIRC) / (HALL_BOLTS * 1000);
+	return (frequency * 3600 * HALL_CIRC) / (HALL_BOLTS * 1000);
 }
-
-
-//
-//static uint32_t milisecondsPerRevolution = 0;
-//static uint32_t lastHallTick = 0;
-//
-//PUBLIC void HallPeriodicJob() {
-//
-//	// tick ++  ## Assuming negative edge
-//	// time = 0
-//	// timeout = 0
-//	// while (time < debounceThresh and timeout < timeoutThresh):
-//	//    if (sensorEXTI): time = 0
-//	//    time += timedelta
-//	//    timeout += timedelta
-//
-//	// TODO: What happens when tick overflows and goes back to 0?
-//	milisecondsPerRevolution = (osKernelGetTickCount() - lastHallTick) * HALL_BOLTS;
-//	lastHallTick = osKernelGetTickCount();
-//}
-//
-//PUBLIC result_t HallConvertSpeed() {
-//
-//
-//	DebugPrint("Miliseconds Per Revolution: %d", milisecondsPerRevolution);
-//
-//	DebugPrint("RPM: [%d]", 60000/(milisecondsPerRevolution));
-//
-//	//Angular velocity in radians/second.
-//	speed_t speed = 60000/milisecondsPerRevolution * HALL_CIRC * 60 / 1000 ;
-//
-//	SystemSetSpeed(speed);
-//
-//	return RESULT_OK;
-//}
