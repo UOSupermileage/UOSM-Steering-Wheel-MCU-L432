@@ -37,10 +37,6 @@ seconds_t SystemGetRunTimeSeconds()
 	return SystemData.runTime / 1000;
 }
 
-flag_status_t SystemGetHazardSignal()
-{
-	return EventFlags.hazardSignal;
-}
 ClockState SystemGetClockState()
 {
 	return EventFlags.clockState;
@@ -62,13 +58,6 @@ void SystemClearRunTime()
 void SystemIncrementRunTime(ms_t time)
 {
 	SystemData.runTime += time;
-}
-void SystemSetHazardSignal(flag_status_t status)
-{
-	EventFlags.hazardSignal = status;
-}
-void SystemToggleHazardSignal() {
-	EventFlags.hazardSignal = !EventFlags.hazardSignal;
 }
 void SystemSetClockState(ClockState state)
 {

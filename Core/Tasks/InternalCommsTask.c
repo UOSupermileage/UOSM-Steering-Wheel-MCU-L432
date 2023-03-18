@@ -44,8 +44,6 @@ PRIVATE void InternalCommsTask(void *argument)
 {
 	uint32_t cycleTick = osKernelGetTickCount();
 	DebugPrint("icomms");
-	//ICommsInit();
-//	uint8_t testTxCounter = 0;
 
 	const ICommsMessageInfo* throttleInfo = CANMessageLookUpGetInfo(THROTTLE_DATA_ID);
 	uint8_t throttleTxCounter = 0;
@@ -55,25 +53,6 @@ PRIVATE void InternalCommsTask(void *argument)
 	{
 		cycleTick += TIMER_INTERNAL_COMMS_TASK;
 		osDelayUntil(cycleTick);
-		//DebugPrint("icomms loop");
-//		iCommsMessage_t txMsg;
-//		txMsg.standardMessageID = 0x08;
-//		txMsg.dataLength = 4;
-//		txMsg.data[0] = 0;
-//		txMsg.data[1] = 0;
-//		txMsg.data[2] = 0;
-//		txMsg.data[3] = 4;
-		/*txMsg.data[4] = 5;
-		txMsg.data[5] = 6;
-		txMsg.data[6] = 7;
-		txMsg.data[7] = 8;*/
-//		testTxCounter++;
-//		if(testTxCounter == 25)
-//		{
-//			DebugPrint("#ICT: Sending!");
-//			IComms_Transmit(&txMsg);
-//			testTxCounter =0;
-//		}
 
 		throttleTxCounter++;
 		if (throttleTxCounter == THROTTLE_RATE) {

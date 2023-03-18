@@ -24,7 +24,6 @@ typedef union
 	uint32_t all;
 	struct
 	{
-		uint32_t hazardSignal;
 		ClockState clockState;
 	};
 } Events_t;
@@ -43,15 +42,12 @@ throttle_raw_t SystemGetThrottleRaw();
 percentage_t SystemGetThrottlePercentage();
 ms_t SystemGetRunTime();
 seconds_t SystemGetRunTimeSeconds();
-flag_status_t SystemGetHazardSignal();
 ClockState SystemGetClockState();
 
 void SystemSetSpeed(speed_t speed);
 void SystemSetThrottleRaw(throttle_raw_t throttleRaw);
 void SystemClearRunTime();
 void SystemIncrementRunTime(ms_t time);
-void SystemSetHazardSignal(flag_status_t status);
-void SystemToggleHazardSignal();
 void SystemSetClockState(ClockState state);
 
 #endif /* MODULES_DATAAGGREGATION_H_ */

@@ -37,7 +37,8 @@ static uint8_t TimeElapsed(int32_t now, int32_t before, int32_t length) {
 
 PUBLIC void ClockModule_Update() {
 
-	DebugPrint("%s Current Clock State: %d", SystemGetClockState());
+	DebugPrint("ClockModule_Update");
+	DebugPrint("%s Current Clock State: %d", CKM_TAG, SystemGetClockState());
 
 	switch (SystemGetClockState()) {
 		case CLOCK_WAITING:

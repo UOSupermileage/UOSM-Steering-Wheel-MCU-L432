@@ -63,9 +63,8 @@ void Error_Handler(void);
 #define Throttle_GPIO_Port GPIOA
 #define Clock_Action_Pin GPIO_PIN_0
 #define Clock_Action_GPIO_Port GPIOB
-#define Hazard_Lights_Input_Pin GPIO_PIN_1
-#define Hazard_Lights_Input_GPIO_Port GPIOB
-#define Hazard_Lights_Input_EXTI_IRQn EXTI1_IRQn
+#define Hazards_Pin GPIO_PIN_1
+#define Hazards_GPIO_Port GPIOB
 #define Hall_Input_Pin GPIO_PIN_8
 #define Hall_Input_GPIO_Port GPIOA
 #define Seven_Segs_Pin GPIO_PIN_9

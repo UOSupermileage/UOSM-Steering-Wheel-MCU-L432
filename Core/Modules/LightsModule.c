@@ -21,6 +21,8 @@ static const char LTM_TAG[] = "#LTM:";
 
 #define ReadLeftInput() HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_4)
 #define ReadRightInput() HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_5)
+#define ReadHazardInput() HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_1)
+
 #define WriteLeftLight(ENABLE) 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, ENABLE);
 #define WriteRightLight(ENABLE) HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, ENABLE);
 
@@ -29,21 +31,15 @@ static const char LTM_TAG[] = "#LTM:";
  */
 static flag_status_t lightsOn = Clear;
 
-static void LightsModule_HazardCallback();
 
 PUBLIC void LightsModule_Init() {
-	InteruptRegisterCallback(INTERUPT_GPIO_1_ID, LightsModule_HazardCallback, 1000);
+	DebugPrint("%s Init Lights Module", LTM_TAG);
 }
 
 PUBLIC void LightsModule_PeriodicJob() {
 
 	lightsOn = !lightsOn;
 
-	WriteLeftLight (lightsOn == Set && (SystemGetHazardSignal() == Set || ReadLeftInput() == GPIO_PIN_SET) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-	WriteRightLight(lightsOn == Set && (SystemGetHazardSignal() == Set || ReadRightInput() == GPIO_PIN_SET) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-}
-
-static void LightsModule_HazardCallback() {
-	DebugPrint("%s Toggling Hazards", LTM_TAG);
-	SystemToggleHazardSignal();
+	WriteLeftLight (lightsOn == Set && (ReadHazardInput() == GPIO_PIN_SET || ReadLeftInput() == GPIO_PIN_SET) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+	WriteRightLight(lightsOn == Set && (ReadHazardInput() == GPIO_PIN_SET || ReadRightInput() == GPIO_PIN_SET) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 }
