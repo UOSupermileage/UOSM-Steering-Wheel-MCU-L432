@@ -50,7 +50,7 @@ PRIVATE void ClockTask(void *argument)
 		osDelayUntil(cycleTick);
 
 		// Check timer
-		DebugPrint("Clock tick");
+		DebugPrint("%s Clock tick", CKT_TAG);
 		ClockModule_Update();
 	}
 }

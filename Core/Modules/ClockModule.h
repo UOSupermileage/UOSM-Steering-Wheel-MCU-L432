@@ -13,6 +13,5 @@
 
 PUBLIC void ClockModule_Init();
 PUBLIC void ClockModule_Update();
-//PRIVATE void ClockModule_ToggleCallback();
 
 #endif /* MODULES_CLOCKMODULE_H_ */
