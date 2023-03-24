@@ -18,7 +18,7 @@
 
 #define STACK_SIZE 128*8
 #define INTERNAL_COMMS_TASK_PRIORITY (osPriority_t) osPriorityRealtime
-#define TIMER_INTERNAL_COMMS_TASK 50UL
+#define TIMER_INTERNAL_COMMS_TASK 200UL
 
 #define THROTTLE_RATE 4
 
@@ -58,7 +58,8 @@ PRIVATE void InternalCommsTask(void *argument)
 		if (throttleTxCounter == THROTTLE_RATE) {
 			DebugPrint("%s Sending Throttle!", ICT_TAG);
 			iCommsMessage_t throttleTxMsg = IComms_CreatePercentageMessage(throttleInfo->messageID, SystemGetThrottlePercentage());
-			IComms_Transmit(&throttleTxMsg);
+			result_t r = IComms_Transmit(&throttleTxMsg);
+			DebugPrint("%s Sending Throttle! [Result = %d]", ICT_TAG, r);
 			throttleTxCounter = 0;
 		}
 

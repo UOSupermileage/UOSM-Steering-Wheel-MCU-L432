@@ -16,9 +16,9 @@
 #define DebugPrint(...) SerialPrintln(__VA_ARGS__)
 
 #define STACK_SIZE 128*4
-#define SPEED_TASK_PRIORITY (osPriority_t) osPriorityHigh3
+#define SPEED_TASK_PRIORITY (osPriority_t) osPriorityNormal
 
-#define TIMER_LIGHTS_TASK 250UL
+#define TIMER_LIGHTS_TASK 2000UL
 
 const char LIT_TAG[] = "#LIT:";
 
