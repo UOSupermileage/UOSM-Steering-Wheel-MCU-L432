@@ -10,8 +10,6 @@
 
 #include "ApplicationTypes.h"
 
-typedef enum {Clear = 0, Set = 1} flag_status_t;
-
 typedef enum ClockState
 {
 	CLOCK_WAITING, // Waiting to start counting
@@ -25,6 +23,7 @@ typedef union
 	struct
 	{
 		ClockState clockState;
+		flag_status_t throttleTooHigh;
 	};
 } Events_t;
 
@@ -43,11 +42,13 @@ percentage_t SystemGetThrottlePercentage();
 ms_t SystemGetRunTime();
 seconds_t SystemGetRunTimeSeconds();
 ClockState SystemGetClockState();
+flag_status_t SystemGetThrottleTooHigh();
 
 void SystemSetSpeed(speed_t speed);
 void SystemSetThrottleRaw(throttle_raw_t throttleRaw);
 void SystemClearRunTime();
 void SystemIncrementRunTime(ms_t time);
 void SystemSetClockState(ClockState state);
+void SystemSetThrottleTooHigh(flag_status_t state);
 
 #endif /* MODULES_DATAAGGREGATION_H_ */

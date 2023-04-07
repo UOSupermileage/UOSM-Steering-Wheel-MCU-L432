@@ -41,6 +41,10 @@ ClockState SystemGetClockState()
 {
 	return EventFlags.clockState;
 }
+flag_status_t SystemGetThrottleTooHigh()
+{
+	return EventFlags.throttleTooHigh;
+}
 
 
 void SystemSetSpeed(speed_t speed)
@@ -62,6 +66,10 @@ void SystemIncrementRunTime(ms_t time)
 void SystemSetClockState(ClockState state)
 {
 	EventFlags.clockState = state;
+}
+void SystemSetThrottleTooHigh(flag_status_t state)
+{
+	EventFlags.throttleTooHigh = state;
 }
 
 void InitDataAggregator()

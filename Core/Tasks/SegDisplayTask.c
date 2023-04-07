@@ -53,6 +53,6 @@ PRIVATE void SegDisplayTask(void *argument)
 //		DebugPrint("%s 7 seg loop. Runtime: %d", SDT_TAG, SystemGetRunTime());
 
 		Seg_Display_Time(DISPLAY_0, SystemGetRunTimeSeconds());
-		HT16K33_DisplayInt(DISPLAY_1, SystemGetSpeed());
+		Seg_Display_Speed(DISPLAY_1, SystemGetSpeed(), SystemGetThrottleTooHigh());
 	}
 }

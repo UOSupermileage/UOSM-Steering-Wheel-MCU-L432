@@ -18,7 +18,7 @@
 #define STACK_SIZE 128*4
 #define SPEED_TASK_PRIORITY (osPriority_t) osPriorityNormal
 
-#define TIMER_LIGHTS_TASK 2000UL
+#define TIMER_LIGHTS_TASK 500UL
 
 const char LIT_TAG[] = "#LIT:";
 

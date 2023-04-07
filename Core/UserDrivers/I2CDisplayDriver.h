@@ -33,5 +33,6 @@ PUBLIC DisplayStatusID_t Seg_Display_SystemError(SegDisplayIndex id, char alpha)
 
 PUBLIC DisplayStatusID_t Seg_Display_Time(SegDisplayIndex id, seconds_t seconds); // Prints number of seconds in mm:ss format
 
+PUBLIC DisplayStatusID_t Seg_Display_Speed(SegDisplayIndex id, speed_t speed, flag_status_t throttleTooHigh);
 
 #endif /* USERDRIVERS_I2CDISPLAYDRIVER_H_ */

@@ -38,6 +38,7 @@ PUBLIC void ClockModule_Init() {
 PUBLIC void ClockModule_Update() {
 	if (SystemGetClockState() == CLOCK_COUNTING) {
 		SystemIncrementRunTime(osKernelGetTickCount() - lastTick);
+		DebugPrint("Clock time: %d", SystemGetRunTimeSeconds());
 	}
 
 	lastTick = osKernelGetTickCount();

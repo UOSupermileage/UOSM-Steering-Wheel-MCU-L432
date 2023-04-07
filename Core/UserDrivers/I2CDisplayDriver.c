@@ -137,3 +137,38 @@ PUBLIC DisplayStatusID_t Seg_Display_Time(SegDisplayIndex id, seconds_t seconds)
 	HT16K33_DisplayTime(id, seconds / 60, seconds % 60, 1);
 	return DISPLAY_STATUS_OK;
 }
+
+PUBLIC DisplayStatusID_t Seg_Display_Speed(SegDisplayIndex id, speed_t n, flag_status_t throttleTooHigh) {
+	int inRange = (n >= 0 && n < 1000);
+
+	if (!inRange) {
+		return DISPLAY_ERROR_UNABLE_TO_DISPLAY_FAIL;
+	}
+
+	uint8_t arr[4], h, l;
+
+	h = n / 100;
+	l = n - h * 100;
+
+	// Display the 4 digits
+	arr[0] = h / 10;
+	arr[1] = h - arr[0] * 10;
+	arr[2] = l / 10;
+	arr[3] = l - arr[2] * 10;
+
+	// Replace most significant digit with E or space
+	arr[0] = (throttleTooHigh == Set) ? SEG7_E : SEG7_SPACE;
+
+	if (arr[1] == 0) {
+		arr[1] = SEG7_SPACE;
+
+		if (arr[2] == 0) {
+			arr[2] = SEG7_SPACE;
+		}
+	}
+
+
+	HT16K33_Display(id, arr);
+
+	return DISPLAY_STATUS_OK;
+}
