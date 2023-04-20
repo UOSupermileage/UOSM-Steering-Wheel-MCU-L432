@@ -89,7 +89,7 @@ PRIVATE void InternalCommsTask(void *argument)
 				// handle the case where the message is no recognized by the look up table
 				if(lookupTableIndex < NUMBER_CAN_MESSAGE_IDS)
 				{
-					CANMessageLookUpTable[lookupTableIndex].canMessageCallback(rxMsg);
+					CANMessageLookUpTable[lookupTableIndex].canMessageCallback(&rxMsg);
 				}
 
 
