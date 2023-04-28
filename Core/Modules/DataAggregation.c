@@ -45,7 +45,10 @@ flag_status_t SystemGetThrottleTooHigh()
 {
 	return EventFlags.throttleTooHigh;
 }
-
+flag_status_t SystemGetMotorInitializing()
+{
+	return EventFlags.motorInitializing;
+}
 
 void SystemSetSpeed(speed_t speed)
 {
@@ -71,9 +74,15 @@ void SystemSetThrottleTooHigh(flag_status_t state)
 {
 	EventFlags.throttleTooHigh = state;
 }
+void SystemSetMotorInitializing(flag_status_t state)
+{
+	EventFlags.motorInitializing = state;
+}
 
 void InitDataAggregator()
 {
 	EventFlags.all = 0;
 	SystemData.throttle = 0;
+
+	SystemSetMotorInitializing(Set);
 }

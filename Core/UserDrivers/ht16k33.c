@@ -6,9 +6,7 @@
  */
 
 #include "ht16k33.h"
-#include "SerialDebugDriver.h"
 
-#define DebugPrint(...) SerialPrintln(__VA_ARGS__)
 /*********************************************************************************
  *
  * 		Commands for display
@@ -63,10 +61,22 @@ const uint8_t charmap[] = {
 		0x5E,   // D
 		0x79,   // E
 		0x71,   // F
+		0x3D,	// G
+		0x76,	// H
+		0x30,   // I
+		0x1E,	// J
+		0x38,   // L
+		0x54,	// n
+		0x5C,	// o
+		0x73,	// P
+		0x67,	// q
+		0x50,	// r
+		0x78,	// t
+		0x3E,	// U
+		0x1c,	// u
+		0x6E,	// y
 		0x00,   // space
 		0x40,   // minus
-		0x30,   // I
-		0x38,   // L
 };
 
 /*********************************************************************************

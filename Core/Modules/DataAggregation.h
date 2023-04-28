@@ -22,8 +22,9 @@ typedef union
 	uint32_t all;
 	struct
 	{
-		ClockState clockState;
-		flag_status_t throttleTooHigh;
+		ClockState clockState:2;
+		flag_status_t throttleTooHigh:1;
+		flag_status_t motorInitializing:1;
 	};
 } Events_t;
 
@@ -43,6 +44,7 @@ ms_t SystemGetRunTime();
 seconds_t SystemGetRunTimeSeconds();
 ClockState SystemGetClockState();
 flag_status_t SystemGetThrottleTooHigh();
+flag_status_t SystemGetMotorInitializing();
 
 void SystemSetSpeed(speed_t speed);
 void SystemSetThrottleRaw(throttle_raw_t throttleRaw);
@@ -50,5 +52,6 @@ void SystemClearRunTime();
 void SystemIncrementRunTime(ms_t time);
 void SystemSetClockState(ClockState state);
 void SystemSetThrottleTooHigh(flag_status_t state);
+void SystemSetMotorInitializing(flag_status_t state);
 
 #endif /* MODULES_DATAAGGREGATION_H_ */

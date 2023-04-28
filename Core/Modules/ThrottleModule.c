@@ -9,12 +9,8 @@
 
 #include "ThrottleModule.h"
 #include "ADCDriver.h"
-#include "SerialDebugDriver.h"
 
 const char DBG_TAG[] = "#THM:";
-
-// Function alias - replace with the driver api
-#define DebugPrint(...) SerialPrintln(__VA_ARGS__)
 
 throttle_raw_t adcThrottleRaw;
 

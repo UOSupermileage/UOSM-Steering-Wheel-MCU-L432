@@ -12,10 +12,6 @@
 #include "DataAggregation.h"
 #include "InteruptModule.h"
 
-#include "SerialDebugDriver.h"
-
-#define DebugPrint(...) SerialPrintln(__VA_ARGS__)
-
 static uint32_t lastTick = 0;
 
 static void ClockModule_ToggleCallback() {

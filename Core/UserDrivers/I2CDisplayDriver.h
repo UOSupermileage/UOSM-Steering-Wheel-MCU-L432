@@ -35,4 +35,6 @@ PUBLIC DisplayStatusID_t Seg_Display_Time(SegDisplayIndex id, seconds_t seconds)
 
 PUBLIC DisplayStatusID_t Seg_Display_Speed(SegDisplayIndex id, speed_t speed, flag_status_t throttleTooHigh);
 
+PUBLIC DisplayStatusID_t Seg_Display_Bang(SegDisplayIndex id);
+
 #endif /* USERDRIVERS_I2CDISPLAYDRIVER_H_ */

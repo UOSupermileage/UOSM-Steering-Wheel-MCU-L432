@@ -35,10 +35,22 @@ extern I2C_HandleTypeDef hi2c1;
 #define SEG7_D                13
 #define SEG7_E                14
 #define SEG7_F                15
-#define SEG7_SPACE            16
-#define SEG7_MINUS            17
-#define SEG7_I                18		// I & L, e.g. to write "FAIL"
-#define SEG7_L                19
+#define SEG7_G                16					
+#define SEG7_H                17
+#define SEG7_I                18
+#define SEG7_J                19
+#define SEG7_L                20
+#define SEG7_N                21
+#define SEG7_o                22
+#define SEG7_P                23
+#define SEG7_q                24
+#define SEG7_r                25
+#define SEG7_t                26
+#define SEG7_U                27
+#define SEG7_u                28
+#define SEG7_y                29
+#define SEG7_SPACE            30
+#define SEG7_MINUS            31
 #define SEG7_NONE             99
 
 #define HT16K33_N_DISPLAY 2

@@ -139,7 +139,7 @@ PUBLIC DisplayStatusID_t Seg_Display_Time(SegDisplayIndex id, seconds_t seconds)
 }
 
 PUBLIC DisplayStatusID_t Seg_Display_Speed(SegDisplayIndex id, speed_t n, flag_status_t throttleTooHigh) {
-	int inRange = (n >= 0 && n < 1000);
+    int inRange = (n >= 0 && n < 1000);
 
 	if (!inRange) {
 		return DISPLAY_ERROR_UNABLE_TO_DISPLAY_FAIL;
@@ -171,4 +171,10 @@ PUBLIC DisplayStatusID_t Seg_Display_Speed(SegDisplayIndex id, speed_t n, flag_s
 	HT16K33_Display(id, arr);
 
 	return DISPLAY_STATUS_OK;
+}
+
+PUBLIC DisplayStatusID_t Seg_Display_Bang(SegDisplayIndex id) {
+    static uint8_t bang[4] = {SEG7_B, SEG7_A, SEG7_N, SEG7_G};
+    HT16K33_Display(id, bang);
+    return DISPLAY_STATUS_OK;
 }

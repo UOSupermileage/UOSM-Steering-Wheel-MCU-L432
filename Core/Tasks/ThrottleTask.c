@@ -10,11 +10,7 @@
 
 #include "ThrottleTask.h"
 #include "ThrottleModule.h"
-#include "SerialDebugDriver.h"
 #include "InternalCommsModule.h"
-
-// Function alias - replace with the driver api
-#define DebugPrint(...) SerialPrintln(__VA_ARGS__)
 
 #define STACK_SIZE 128*4
 #define THROTTLE_TASK_PRIORITY (osPriority_t) osPriorityHigh1

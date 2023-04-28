@@ -9,11 +9,6 @@
 
 #include "ClockModule.h"
 
-#include "SerialDebugDriver.h"
-
-// Function alias - replace with the driver api
-#define DebugPrint(...) SerialPrintln(__VA_ARGS__)
-
 #define STACK_SIZE 128*8
 #define CLOCK_TASK_PRIORITY (osPriority_t) osPriorityHigh7
 #define TIMER_CLOCK_TASK 500UL

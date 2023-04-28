@@ -12,12 +12,7 @@
 #include "InteruptModule.h"
 #include "DataAggregation.h"
 
-#include "SerialDebugDriver.h"
-
 static const char LTM_TAG[] = "#LTM:";
-
-// Function alias - replace with the driver api
-#define DebugPrint(...) SerialPrintln(__VA_ARGS__)
 
 #define ReadLeftInput() HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_4)
 #define ReadRightInput() HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_5)

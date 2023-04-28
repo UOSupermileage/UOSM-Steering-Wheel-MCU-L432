@@ -11,11 +11,6 @@
 #include "ClockModule.h"
 #include "DataAggregation.h"
 
-#include "SerialDebugDriver.h"
-
-// Function alias - replace with the driver api
-#define DebugPrint(...) SerialPrintln(__VA_ARGS__)
-
 #define STACK_SIZE 128*4
 #define SPEED_TASK_PRIORITY (osPriority_t) osPriorityHigh4
 
@@ -52,7 +47,13 @@ PRIVATE void SegDisplayTask(void *argument)
 
 //		DebugPrint("%s 7 seg loop. Runtime: %d", SDT_TAG, SystemGetRunTime());
 
-		Seg_Display_Time(DISPLAY_0, SystemGetRunTimeSeconds());
-		Seg_Display_Speed(DISPLAY_1, SystemGetSpeed(), SystemGetThrottleTooHigh());
+		if (SystemGetMotorInitializing() == Set) {
+        	Seg_Display_Bang(DISPLAY_0);
+        	Seg_Display_Bang(DISPLAY_1);
+    	} else {
+			// normal operation
+			Seg_Display_Time(DISPLAY_0, SystemGetRunTimeSeconds());
+			Seg_Display_Speed(DISPLAY_1, SystemGetSpeed(), SystemGetThrottleTooHigh());
+		}
 	}
 }

@@ -7,9 +7,6 @@
 
 #include "HallDriver.h"
 #include "DataAggregation.h"
-#include "SerialDebugDriver.h"
-
-#define DebugPrint(...) SerialPrintln(__VA_ARGS__)
 
 extern TIM_HandleTypeDef htim1;
 

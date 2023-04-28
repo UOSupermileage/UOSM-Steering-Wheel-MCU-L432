@@ -8,10 +8,6 @@
 #include "InteruptModule.h"
 #include "SerialDebugDriver.h"
 
-#include "HallDriver.h"
-
-#define DebugPrint(...) SerialPrintln(__VA_ARGS__)
-
 #define DEBOUNCE
 
 const char ITM_TAG[] = "#ITM:";
