@@ -3,6 +3,9 @@
  *
  *  Created on: Jan. 23, 2023
  *      Author: jeremycote
+ *
+ *  See article:
+ *  https://deepbluembedded.com/stm32-input-capture-frequency-measurement-example-timer-input-capture-mode/
  */
 
 #include "HallDriver.h"
@@ -10,29 +13,37 @@
 
 extern TIM_HandleTypeDef htim1;
 
-uint32_t last_capture = 0;
-uint32_t frequency = 0;
+#define IDLE 0
+#define DONE 1
+#define F_CLK 64000000UL
+#define COUNTER_SIZE 65536
+
+volatile uint8_t state = IDLE;
+volatile uint32_t time1 = 0;
+volatile uint32_t time2 = 0;
+volatile uint32_t nTicks = 0;
+volatile uint16_t overflowCounter = 0;
+volatile uint32_t frequency = 0;
 
 PUBLIC void HallInit() {
-	DebugPrint("Init HallDriver");
-	HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);
+    DebugPrint("Init HallDriver");
+    HAL_TIM_Base_Start_IT(&htim1);
+    HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);
 }
 
-void HallIRQHandler(void)
-{
-  if(__HAL_TIM_GET_FLAG(&htim1, TIM_FLAG_CC1) != RESET)
-  {
-    if(__HAL_TIM_GET_IT_SOURCE(&htim1, TIM_IT_CC1) != RESET)
-    {
-      uint32_t hall_capture = HAL_TIM_ReadCapturedValue(&htim1, TIM_CHANNEL_1);
-      uint32_t delta_capture = hall_capture - last_capture;
-      last_capture = hall_capture;
-      frequency = HAL_RCC_GetPCLK1Freq() / (htim1.Init.Prescaler + 1) / delta_capture;
-      __HAL_TIM_CLEAR_IT(&htim1, TIM_IT_CC1);
+PUBLIC speed_t HallGetSpeed() { return (frequency * 3600 * HALL_CIRC) / (HALL_BOLTS * 1000); }
+
+PUBLIC void HallPeriodElapsedCallback(TIM_HandleTypeDef *htim) { overflowCounter++; }
+
+PUBLIC void HallCaptureCallback(TIM_HandleTypeDef *htim) {
+    if (state == IDLE) {
+        time1 = TIM2->CCR1;
+        overflowCounter = 0;
+        state = DONE;
+    } else if (state == DONE) {
+        time2 = TIM2->CCR1;
+        nTicks = (time2 + (overflowCounter * COUNTER_SIZE)) - time1;
+        frequency = (uint32_t)(F_CLK / nTicks);
+        state = IDLE;
     }
-  }
-}
-
-PUBLIC speed_t HallGetSpeed() {
-	return (frequency * 3600 * HALL_CIRC) / (HALL_BOLTS * 1000);
 }
