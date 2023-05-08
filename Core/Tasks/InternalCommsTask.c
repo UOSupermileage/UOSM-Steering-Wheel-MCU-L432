@@ -17,6 +17,7 @@
 #define TIMER_INTERNAL_COMMS_TASK 200UL
 
 #define THROTTLE_RATE 4
+#define SPEED_RATE 4
 
 const char ICT_TAG[] = "#ICT:";
 
@@ -44,6 +45,9 @@ PRIVATE void InternalCommsTask(void *argument)
 	const ICommsMessageInfo* throttleInfo = CANMessageLookUpGetInfo(THROTTLE_DATA_ID);
 	uint8_t throttleTxCounter = 0;
 
+	const ICommsMessageInfo* speedInfo = CANMessageLookUpGetInfo(SPEED_DATA_ID);
+	uint8_t speedTxCounter = 0;
+
 	IComms_Init();
 	for(;;)
 	{
@@ -57,6 +61,15 @@ PRIVATE void InternalCommsTask(void *argument)
 			result_t r = IComms_Transmit(&throttleTxMsg);
 			DebugPrint("%s Sending Throttle! [Result = %d]", ICT_TAG, r);
 			throttleTxCounter = 0;
+		}
+
+		speedTxCounter++;
+		if (speedTxCounter == SPEED_RATE) {
+			DebugPrint("%s Sending Speed!", ICT_TAG);
+			iCommsMessage_t speedTxMsg = IComms_Create32BitMessage(speedInfo->messageID, SystemGetSpeed());
+			result_t r = IComms_Transmit(&speedTxMsg);
+			DebugPrint("%s Sending Speed! [Result = %d]", ICT_TAG, r);
+			speedTxCounter = 0;
 		}
 
 		IComms_PeriodicReceive();

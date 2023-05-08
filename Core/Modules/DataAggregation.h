@@ -10,29 +10,25 @@
 
 #include "ApplicationTypes.h"
 
-typedef enum ClockState
-{
-	CLOCK_WAITING, // Waiting to start counting
-	CLOCK_COUNTING, // Counting the time
-	CLOCK_PAUSED // Paused, waiting to reset
+typedef enum ClockState {
+    CLOCK_WAITING,  // Waiting to start counting
+    CLOCK_COUNTING, // Counting the time
+    CLOCK_PAUSED    // Paused, waiting to reset
 } ClockState;
 
-typedef union
-{
-	uint32_t all;
-	struct
-	{
-		ClockState clockState:2;
-		flag_status_t throttleTooHigh:1;
-		flag_status_t motorInitializing:1;
-	};
+typedef union {
+    uint32_t all;
+    struct {
+        ClockState clockState : 2;
+        flag_status_t throttleTooHigh : 1;
+        flag_status_t motorInitializing : 1;
+    };
 } Events_t;
 
-typedef struct
-{
-	speed_t speed;
-	throttle_raw_t throttle;
-	ms_t runTime;
+typedef struct {
+    speed_t speed;
+    throttle_raw_t throttle;
+    ms_t runTime;
 } SystemData_t;
 
 void InitDataAggregator();
