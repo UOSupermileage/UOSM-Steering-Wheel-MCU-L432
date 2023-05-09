@@ -66,8 +66,9 @@ void Error_Handler(void);
 #define Clock_Action_EXTI_IRQn EXTI0_IRQn
 #define Hazards_Pin GPIO_PIN_1
 #define Hazards_GPIO_Port GPIOB
-#define Hall_Input_Pin GPIO_PIN_8
-#define Hall_Input_GPIO_Port GPIOA
+#define HALL_Pin GPIO_PIN_8
+#define HALL_GPIO_Port GPIOA
+#define HALL_EXTI_IRQn EXTI9_5_IRQn
 #define Seven_Segs_Pin GPIO_PIN_9
 #define Seven_Segs_GPIO_Port GPIOA
 #define Seven_SegsA10_Pin GPIO_PIN_10

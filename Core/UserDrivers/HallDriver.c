@@ -10,6 +10,7 @@
 
 #include "HallDriver.h"
 #include "DataAggregation.h"
+#include "InteruptModule.h"
 
 extern TIM_HandleTypeDef htim1;
 
@@ -22,34 +23,22 @@ volatile uint8_t state = IDLE;
 volatile uint32_t time1 = 0;
 volatile uint32_t time2 = 0;
 volatile uint32_t nTicks = 0;
-volatile uint16_t overflowCounter = 0;
 volatile uint32_t hallFrequency = 0;
 
 volatile uint32_t lastSample;
 
 PUBLIC void HallInit() {
     DebugPrint("Init HallDriver");
-    HAL_TIM_Base_Start_IT(&htim1);
-    HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);
+    InteruptRegisterCallback(INTERUPT_GPIO_8_ID, HallCaptureCallback, 0);
 }
 
 PUBLIC speed_t HallGetSpeed() {
-
-//	uint32_t t = osKernelGetTickCount();
-//	if (t > lastSample && t - lastSample > 2000) {
-//		hallFrequency = 0;
-//	}
-	DebugPrint("Time1: %d, Time2: %d, overflowCounter: %d", time1, time2, overflowCounter);
-
 	return (hallFrequency * 36 * HALL_CIRC) / (HALL_BOLTS);
 }
 
-PUBLIC void HallPeriodElapsedCallback(TIM_HandleTypeDef *htim) { overflowCounter++; }
-
-PUBLIC void HallCaptureCallback(TIM_HandleTypeDef *htim) {
+PUBLIC void HallCaptureCallback() {
     if (state == IDLE) {
         time1 = osKernelGetTickCount();//TIM1->CCR1;
-        overflowCounter = 0;
         state = DONE;
         return;
     }

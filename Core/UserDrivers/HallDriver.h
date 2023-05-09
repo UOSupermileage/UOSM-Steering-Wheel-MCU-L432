@@ -20,7 +20,6 @@ PUBLIC void HallInit();
 PUBLIC speed_t HallGetSpeed();
 
 // The following two functions must be called by interupts. See HAL_TIM_IC_CaptureCallback and HAL_TIM_PeriodElapsedCallback in main.c
-PUBLIC void HallPeriodElapsedCallback(TIM_HandleTypeDef *htim);
-PUBLIC void HallCaptureCallback(TIM_HandleTypeDef *htim);
+PUBLIC void HallCaptureCallback();
 
 #endif /* USERDRIVERS_HALLDRIVER_H_ */
