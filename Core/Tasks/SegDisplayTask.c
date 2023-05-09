@@ -53,7 +53,7 @@ PRIVATE void SegDisplayTask(void *argument)
     	} else {
 			// normal operation
 			Seg_Display_Time(DISPLAY_0, SystemGetRunTimeSeconds());
-			Seg_Display_Speed(DISPLAY_1, SystemGetSpeed() / 1000, SystemGetThrottleTooHigh());
+			Seg_Display_Speed(DISPLAY_1, SystemGetSpeed(), SystemGetThrottleTooHigh());
 		}
 	}
 }

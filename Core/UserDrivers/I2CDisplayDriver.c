@@ -138,8 +138,14 @@ PUBLIC DisplayStatusID_t Seg_Display_Time(SegDisplayIndex id, seconds_t seconds)
 	return DISPLAY_STATUS_OK;
 }
 
-PUBLIC DisplayStatusID_t Seg_Display_Speed(SegDisplayIndex id, speed_t n, flag_status_t throttleTooHigh) {
-    int inRange = (n >= 0 && n < 1000);
+/**
+ * Takes speed in meters / hour
+ */
+PUBLIC DisplayStatusID_t Seg_Display_Speed(SegDisplayIndex id, speed_t speed, flag_status_t throttleTooHigh) {
+
+	int n = speed / 100;
+
+	int inRange = (n >= 0 && n < 1000);
 
 	if (!inRange) {
 		return DISPLAY_ERROR_UNABLE_TO_DISPLAY_FAIL;
@@ -169,6 +175,9 @@ PUBLIC DisplayStatusID_t Seg_Display_Speed(SegDisplayIndex id, speed_t n, flag_s
 
 
 	HT16K33_Display(id, arr);
+
+	// Turn off the colon
+	HT16K33_DisplayColon(id, 0);
 
 	return DISPLAY_STATUS_OK;
 }
