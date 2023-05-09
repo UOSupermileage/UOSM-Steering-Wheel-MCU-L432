@@ -141,7 +141,7 @@ PUBLIC DisplayStatusID_t Seg_Display_Time(SegDisplayIndex id, seconds_t seconds)
 /**
  * Takes speed in km / hour
  */
-PUBLIC DisplayStatusID_t Seg_Display_Speed(SegDisplayIndex id, speed_t speed, flag_status_t throttleTooHigh) {
+PUBLIC DisplayStatusID_t Seg_Display_Speed(SegDisplayIndex id, speed_t n, flag_status_t throttleTooHigh) {
 
 	int inRange = (n >= 0 && n < 1000);
 

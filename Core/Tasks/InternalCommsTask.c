@@ -66,7 +66,7 @@ PRIVATE void InternalCommsTask(void *argument)
 		speedTxCounter++;
 		if (speedTxCounter == SPEED_RATE) {
 			DebugPrint("%s Sending Speed!", ICT_TAG);
-			iCommsMessage_t speedTxMsg = IComms_Create32BitMessage(speedInfo->messageID, SystemGetSpeed());
+			iCommsMessage_t speedTxMsg = IComms_CreateUint32BitMessage(speedInfo->messageID, SystemGetSpeed());
 			result_t r = IComms_Transmit(&speedTxMsg);
 			DebugPrint("%s Sending Speed! [Result = %d]", ICT_TAG, r);
 			speedTxCounter = 0;
