@@ -52,7 +52,10 @@ PRIVATE void SegDisplayTask(void *argument)
         	Seg_Display_Bang(DISPLAY_1);
     	} else {
 			// normal operation
-			Seg_Display_Time(DISPLAY_0, SystemGetRunTimeSeconds());
+			// Seg_Display_Time(DISPLAY_0, SystemGetRunTimeSeconds());
+
+			HT16K33_DisplayInt(DISPLAY_0, SystemGetMotorRPM());
+
 			Seg_Display_Speed(DISPLAY_1, SystemGetSpeed() / 1000, SystemGetThrottleTooHigh());
 		}
 	}

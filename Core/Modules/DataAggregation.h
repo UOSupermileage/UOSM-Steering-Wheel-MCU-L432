@@ -41,6 +41,7 @@ seconds_t SystemGetRunTimeSeconds();
 ClockState SystemGetClockState();
 flag_status_t SystemGetThrottleTooHigh();
 flag_status_t SystemGetMotorInitializing();
+int32_t SystemGetMotorRPM();
 
 void SystemSetSpeed(speed_t speed);
 void SystemSetThrottleRaw(throttle_raw_t throttleRaw);
@@ -49,5 +50,6 @@ void SystemIncrementRunTime(ms_t time);
 void SystemSetClockState(ClockState state);
 void SystemSetThrottleTooHigh(flag_status_t state);
 void SystemSetMotorInitializing(flag_status_t state);
+void SystemSetMotorRPM(int32_t r);
 
 #endif /* MODULES_DATAAGGREGATION_H_ */

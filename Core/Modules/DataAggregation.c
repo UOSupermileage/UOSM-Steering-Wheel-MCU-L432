@@ -11,6 +11,7 @@
 // Global Variables
 SystemData_t SystemData;
 Events_t EventFlags;
+int32_t rpm;
 
 speed_t SystemGetSpeed()
 {
@@ -77,6 +78,13 @@ void SystemSetThrottleTooHigh(flag_status_t state)
 void SystemSetMotorInitializing(flag_status_t state)
 {
 	EventFlags.motorInitializing = state;
+}
+
+PUBLIC void SystemSetMotorRPM(int32_t r) {
+	rpm = r;
+}
+PUBLIC int32_t SystemGetMotorRPM() {
+	return rpm;
 }
 
 void InitDataAggregator()
