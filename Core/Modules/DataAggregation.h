@@ -22,6 +22,7 @@ typedef union {
         ClockState clockState : 2;
         flag_status_t throttleTooHigh : 1;
         flag_status_t motorInitializing : 1;
+        flag_status_t undervoltage: 1;
     };
 } Events_t;
 
@@ -42,6 +43,7 @@ ClockState SystemGetClockState();
 flag_status_t SystemGetThrottleTooHigh();
 flag_status_t SystemGetMotorInitializing();
 int32_t SystemGetMotorRPM();
+flag_status_t SystemGetUndervoltage();
 
 void SystemSetSpeed(speed_t speed);
 void SystemSetThrottleRaw(throttle_raw_t throttleRaw);
@@ -51,5 +53,6 @@ void SystemSetClockState(ClockState state);
 void SystemSetThrottleTooHigh(flag_status_t state);
 void SystemSetMotorInitializing(flag_status_t state);
 void SystemSetMotorRPM(int32_t r);
+void SystemSetUndervoltage(flag_status_t state);
 
 #endif /* MODULES_DATAAGGREGATION_H_ */

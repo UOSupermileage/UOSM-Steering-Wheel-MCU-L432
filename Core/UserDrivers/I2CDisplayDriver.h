@@ -37,4 +37,6 @@ PUBLIC DisplayStatusID_t Seg_Display_Speed(SegDisplayIndex id, speed_t speed, fl
 
 PUBLIC DisplayStatusID_t Seg_Display_Bang(SegDisplayIndex id);
 
+PUBLIC DisplayStatusID_t Seg_Display_Volt(SegDisplayIndex id);
+
 #endif /* USERDRIVERS_I2CDISPLAYDRIVER_H_ */

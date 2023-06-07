@@ -33,6 +33,8 @@ void EventDataCallback(iCommsMessage_t *msg) {
         case MOTOR_INITIALIZING:
             SystemSetMotorInitializing(status);
             break;
+        case UNDERVOLTAGE:
+        	SystemSetUndervoltage(status);
         default:
             break;
         }

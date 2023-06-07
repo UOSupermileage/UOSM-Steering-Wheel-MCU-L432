@@ -50,6 +50,10 @@ flag_status_t SystemGetMotorInitializing()
 {
 	return EventFlags.motorInitializing;
 }
+flag_status_t SystemGetUndervoltage()
+{
+	return EventFlags.undervoltage;
+}
 
 void SystemSetSpeed(speed_t speed)
 {
@@ -78,6 +82,10 @@ void SystemSetThrottleTooHigh(flag_status_t state)
 void SystemSetMotorInitializing(flag_status_t state)
 {
 	EventFlags.motorInitializing = state;
+}
+void SystemSetUndervoltage(flag_status_t state)
+{
+	EventFlags.undervoltage = state;
 }
 
 PUBLIC void SystemSetMotorRPM(int32_t r) {

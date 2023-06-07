@@ -185,3 +185,9 @@ PUBLIC DisplayStatusID_t Seg_Display_Bang(SegDisplayIndex id) {
     HT16K33_Display(id, bang);
     return DISPLAY_STATUS_OK;
 }
+
+PUBLIC DisplayStatusID_t Seg_Display_Volt(SegDisplayIndex id) {
+	static uint8_t volt[4] = {SEG7_U, SEG7_0, SEG7_L, SEG7_t};
+	HT16K33_Display(id, volt);
+	return DISPLAY_STATUS_OK;
+}

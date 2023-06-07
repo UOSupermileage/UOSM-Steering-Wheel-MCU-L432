@@ -27,9 +27,7 @@ const osThreadAttr_t SegDisplayTask_attributes = {
 
 PUBLIC void InitSegDisplayTask(void)
 {
-
 	SegDisplayTaskHandle = osThreadNew(SegDisplayTask, NULL, &SegDisplayTask_attributes);
-
 }
 PRIVATE void SegDisplayTask(void *argument)
 {
@@ -49,14 +47,16 @@ PRIVATE void SegDisplayTask(void *argument)
 
 		if (SystemGetMotorInitializing() == Set) {
         	Seg_Display_Bang(DISPLAY_0);
-        	Seg_Display_Bang(DISPLAY_1);
+    	} else if (SystemGetUndervoltage() == Set) {
+    		Seg_Display_Volt(DISPLAY_0);
     	} else {
 			// normal operation
 			// Seg_Display_Time(DISPLAY_0, SystemGetRunTimeSeconds());
 
-			HT16K33_DisplayInt(DISPLAY_0, SystemGetMotorRPM());
-
-			Seg_Display_Speed(DISPLAY_1, SystemGetSpeed() / 1000, SystemGetThrottleTooHigh());
+			HT16K33_DisplayInt(DISPLAY_0, SystemGetMotorRPM() < 0 ? SystemGetMotorRPM() * -1 : SystemGetMotorRPM());
 		}
+
+		Seg_Display_Speed(DISPLAY_1, SystemGetSpeed() / 1000, SystemGetThrottleTooHigh());
+
 	}
 }
