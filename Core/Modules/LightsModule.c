@@ -37,4 +37,5 @@ PUBLIC void LightsModule_PeriodicJob() {
 
 	WriteLeftLight (lightsOn == Set && (ReadHazardInput() == GPIO_PIN_SET || ReadLeftInput() == GPIO_PIN_SET) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 	WriteRightLight(lightsOn == Set && (ReadHazardInput() == GPIO_PIN_SET || ReadRightInput() == GPIO_PIN_SET) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+	SystemSetDriverEnabled(ReadHazardInput() == GPIO_PIN_SET ? Set : Clear);
 }

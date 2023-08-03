@@ -24,6 +24,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "I2CDisplayDriver.h"
 
 /* USER CODE END Includes */
 

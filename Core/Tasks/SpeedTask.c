@@ -43,7 +43,7 @@ PRIVATE void SpeedTask(void *argument)
 	{
 		cycleTick += TIMER_SPEED_TASK;
 		osDelayUntil(cycleTick);
-		DebugPrint("%s Reading speed from HallDriver: %d", SPT_TAG, HallGetSpeed());
+//		DebugPrint("%s Reading speed from HallDriver: %d", SPT_TAG, HallGetSpeed());
 		SystemSetSpeed(HallGetSpeed());
 	}
 }

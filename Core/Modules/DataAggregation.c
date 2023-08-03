@@ -12,6 +12,7 @@
 SystemData_t SystemData;
 Events_t EventFlags;
 int32_t rpm;
+voltage_t voltage;
 
 speed_t SystemGetSpeed()
 {
@@ -88,12 +89,30 @@ void SystemSetUndervoltage(flag_status_t state)
 	EventFlags.undervoltage = state;
 }
 
+voltage_t SystemGetBatteryVoltage() {
+	return voltage;
+}
+
+void SystemSetBatteryVoltage(voltage_t v) {
+	voltage = v;
+	SystemSetUndervoltage(v < 3100 ? Set : Clear);
+}
+
 PUBLIC void SystemSetMotorRPM(int32_t r) {
 	rpm = r;
 }
 PUBLIC int32_t SystemGetMotorRPM() {
 	return rpm;
 }
+
+flag_status_t SystemGetDriverEnabled() {
+	return EventFlags.driverEnabled;
+}
+
+void SystemSetDriverEnabled(flag_status_t enabled) {
+	EventFlags.driverEnabled = enabled;
+}
+
 
 void InitDataAggregator()
 {

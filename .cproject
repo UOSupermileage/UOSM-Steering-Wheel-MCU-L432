@@ -61,11 +61,11 @@
 									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/include"/>
 									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2"/>
 									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Core/Src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/UOSM-Core-MCU-L432}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/UOSM-Core-MCU-L432/Drivers}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/UOSM-Core-MCU-L432/Inc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/UOSM-Core-MCU-L432/Modules}&quot;"/>
+									<listOptionValue builtIn="false" value="../Core/Src"/>
+									<listOptionValue builtIn="false" value="../UOSM-Core-MCU-L432"/>
+									<listOptionValue builtIn="false" value="../UOSM-Core-MCU-L432/Drivers"/>
+									<listOptionValue builtIn="false" value="../UOSM-Core-MCU-L432/Inc"/>
+									<listOptionValue builtIn="false" value="../UOSM-Core-MCU-L432/Modules"/>
 								</option>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.2078953531" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c"/>
 							</tool>
@@ -101,6 +101,7 @@
 							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_board.2118304048.2113298696" name="Board" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_board.2118304048"/>
 							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.defaults.2063980741.296724113" name="Defaults" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.defaults.2063980741"/>
 							<option id="com.st.stm32cube.ide.mcu.debug.option.cpuclock.364911614.1036298441" name="Cpu clock frequence" superClass="com.st.stm32cube.ide.mcu.debug.option.cpuclock.364911614"/>
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.targetplatform" isAbstract="false" osList="all" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.targetplatform"/>
 							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.573187945" name="MCU GCC Assembler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.62708335">
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.input.1821228352" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.input"/>
 							</tool>

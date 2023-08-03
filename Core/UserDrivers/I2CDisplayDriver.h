@@ -39,4 +39,9 @@ PUBLIC DisplayStatusID_t Seg_Display_Bang(SegDisplayIndex id);
 
 PUBLIC DisplayStatusID_t Seg_Display_Volt(SegDisplayIndex id);
 
+PUBLIC DisplayStatusID_t Seg_Display_Stack(SegDisplayIndex id);
+
+
+PUBLIC DisplayStatusID_t Seg_Display_Voltage(SegDisplayIndex id, voltage_t n);
+
 #endif /* USERDRIVERS_I2CDISPLAYDRIVER_H_ */

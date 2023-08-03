@@ -12,12 +12,14 @@
 #include "CANMessageLookUpModule.h"
 #include "DataAggregation.h"
 
-#define STACK_SIZE 128*8
+#define STACK_SIZE 128*4
 #define INTERNAL_COMMS_TASK_PRIORITY (osPriority_t) osPriorityRealtime
 #define TIMER_INTERNAL_COMMS_TASK 200UL
 
 #define THROTTLE_RATE 4
 #define SPEED_RATE 4
+#define DRIVER_RATE 2
+
 
 const char ICT_TAG[] = "#ICT:";
 
@@ -48,6 +50,9 @@ PRIVATE void InternalCommsTask(void *argument)
 	const ICommsMessageInfo* speedInfo = CANMessageLookUpGetInfo(SPEED_DATA_ID);
 	uint8_t speedTxCounter = 0;
 
+	const ICommsMessageInfo* eventInfo = CANMessageLookUpGetInfo(EVENT_DATA_ID);
+	uint8_t driverTxCounter = 0;
+
 	IComms_Init();
 	for(;;)
 	{
@@ -70,6 +75,14 @@ PRIVATE void InternalCommsTask(void *argument)
 			result_t r = IComms_Transmit(&speedTxMsg);
 			DebugPrint("%s Sending Speed! [Result = %d]", ICT_TAG, r);
 			speedTxCounter = 0;
+		}
+
+		driverTxCounter++;
+		if (driverTxCounter == DRIVER_RATE) {
+			DebugPrint("%s Sending Driver = %d!", ICT_TAG, SystemGetDriverEnabled());
+			iCommsMessage_t driverTxMsg = IComms_CreateEventMessage(eventInfo->messageID, DRIVER_ENABLED, SystemGetDriverEnabled());
+			result_t r = IComms_Transmit(&driverTxMsg);
+			driverTxCounter = 0;
 		}
 
 		IComms_PeriodicReceive();

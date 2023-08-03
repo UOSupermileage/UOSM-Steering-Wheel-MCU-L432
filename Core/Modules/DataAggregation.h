@@ -23,6 +23,7 @@ typedef union {
         flag_status_t throttleTooHigh : 1;
         flag_status_t motorInitializing : 1;
         flag_status_t undervoltage: 1;
+        flag_status_t driverEnabled: 1;
     };
 } Events_t;
 
@@ -37,6 +38,7 @@ void InitDataAggregator();
 speed_t SystemGetSpeed();
 throttle_raw_t SystemGetThrottleRaw();
 percentage_t SystemGetThrottlePercentage();
+voltage_t SystemGetBatteryVoltage();
 ms_t SystemGetRunTime();
 seconds_t SystemGetRunTimeSeconds();
 ClockState SystemGetClockState();
@@ -44,9 +46,11 @@ flag_status_t SystemGetThrottleTooHigh();
 flag_status_t SystemGetMotorInitializing();
 int32_t SystemGetMotorRPM();
 flag_status_t SystemGetUndervoltage();
+flag_status_t SystemGetDriverEnabled();
 
 void SystemSetSpeed(speed_t speed);
 void SystemSetThrottleRaw(throttle_raw_t throttleRaw);
+void SystemSetBatteryVoltage(voltage_t voltage);
 void SystemClearRunTime();
 void SystemIncrementRunTime(ms_t time);
 void SystemSetClockState(ClockState state);
@@ -54,5 +58,6 @@ void SystemSetThrottleTooHigh(flag_status_t state);
 void SystemSetMotorInitializing(flag_status_t state);
 void SystemSetMotorRPM(int32_t r);
 void SystemSetUndervoltage(flag_status_t state);
+void SystemSetDriverEnabled(flag_status_t enabled);
 
 #endif /* MODULES_DATAAGGREGATION_H_ */
