@@ -3,6 +3,7 @@
 #include "CANMessageLookUpModule.h"
 #include "DataAggregation.h"
 #include "InternalCommsModule.h"
+#include "CANDriver.h"
 
 void ErrorDataCallback(iCommsMessage_t *msg) {
     DebugPrint("ErrorDataCallback! %d", msg->standardMessageID);
@@ -49,9 +50,12 @@ void MotorRPMDataCallback(iCommsMessage_t* msg) {
 	DebugPrint("CAN rpm received: %d", rpm);
 	SystemSetMotorRPM(rpm);
 }
-//
-void VoltageDataCallback(iCommsMessage_t* msg) {
-	int32_t voltage = readMsg(msg);
-	DebugPrint("CAN voltage received: %d", voltage);
-	SystemSetBatteryVoltage(voltage);
+
+void CurrentVoltageDataCallback(iCommsMessage_t* msg) {
+
+        uint16_pair_t pair = readMsgPairUInt16Bit(msg);
+
+        DebugPrint("CAN current received: %d", pair.a);
+	DebugPrint("CAN voltage received: %d", pair.b);
+	SystemSetBatteryVoltage(pair.b);
 }
