@@ -59,3 +59,6 @@ void CurrentVoltageDataCallback(iCommsMessage_t* msg) {
 	DebugPrint("CAN voltage received: %d", pair.b);
 	SystemSetBatteryVoltage(pair.b);
 }
+
+void ThrottleDataCallback(iCommsMessage_t *msg) { DebugPrint("ThrottleDataCallback not implemented! %d", msg->standardMessageID); }
+void SpeedDataCallback(iCommsMessage_t *msg) { DebugPrint("SpeedDataCallback not implemented! %d", msg->standardMessageID); }
