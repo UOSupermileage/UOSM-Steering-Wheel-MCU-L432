@@ -15,6 +15,7 @@ extern "C" {
 #endif
 
 #include "SerialDebugDriver.h"
+
 #define DebugPrint(...) SerialPrintln(__VA_ARGS__)
 
 #include <stdint.h>
@@ -33,6 +34,11 @@ typedef enum {
 } result_t;
 
 typedef enum {
+    CAN_DECIMAL,
+    CAN_HEX
+} CANLogEntryFormat;
+
+typedef enum {
     MOTOR_LOW_SPEED,
     MOTOR_HIGH_SPEED
 } MotorCode;
@@ -43,7 +49,7 @@ typedef enum {
 
 typedef enum {
     DEADMAN,
-    TIMER,
+    EVENT_TIMER,
     MOTOR_INITIALIZING,
     UNDERVOLTAGE,
     DRIVER_ENABLED
@@ -71,12 +77,28 @@ typedef uint16_t seconds_t;
 typedef uint32_t ms_t;
 typedef uint16_t current_t;
 typedef uint16_t watt_hour_t;
+typedef uint32_t pressure_raw_t;
+typedef uint32_t temperature_raw_t;
 
 typedef struct {
     uint16_t standardMessageID; // 11 bit max
     uint8_t dataLength;            // max 8
     uint8_t data[8];
 } iCommsMessage_t;
+
+typedef struct {
+    float x;
+    float y;
+    float z;
+} acceleration_t;
+
+typedef struct {
+    float latitude;
+    float longitude;
+    float speed_kmh;
+    float heading;
+    float altitude;
+} gps_coordinate_t;
 
 #ifdef __cplusplus
 }
