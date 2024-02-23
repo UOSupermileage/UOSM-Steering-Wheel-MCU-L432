@@ -60,5 +60,12 @@ void CurrentVoltageDataCallback(iCommsMessage_t* msg) {
 	SystemSetBatteryVoltage(pair.b);
 }
 
+void SpeedDataCallback(iCommsMessage_t *msg) {
+    uint32_t speed = readMsg(msg);
+    DebugPrint("CAN speed received: %d", speed);
+    SystemSetSpeed(speed);
+}
+
 void ThrottleDataCallback(iCommsMessage_t *msg) { DebugPrint("ThrottleDataCallback not implemented! %d", msg->standardMessageID); }
-void SpeedDataCallback(iCommsMessage_t *msg) { DebugPrint("SpeedDataCallback not implemented! %d", msg->standardMessageID); }
+void PressureDataCallback(iCommsMessage_t *msg) { DebugPrint("SpeedDataCallback not implemented! %d", msg->standardMessageID); }
+void TemperatureDataCallback(iCommsMessage_t *msg) { DebugPrint("SpeedDataCallback not implemented! %d", msg->standardMessageID); }
