@@ -6,7 +6,6 @@
  */
 #include "DataAggregation.h"
 #include "ADCDriver.h"
-#include "HallDriver.h"
 
 // Global Variables
 SystemData_t SystemData;

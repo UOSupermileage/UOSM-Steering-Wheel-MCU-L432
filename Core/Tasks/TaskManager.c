@@ -10,7 +10,6 @@
 #include "DataAggregation.h"
 #include "ThrottleTask.h"
 #include "InternalCommsTask.h"
-#include "SpeedTask.h"
 #include "LightsTask.h"
 #include "SegDisplayTask.h"
 #include "ClockTask.h"
@@ -20,7 +19,6 @@ void RunTaskManager( void )
 	InitDataAggregator();
 	InitThrottleTask();
 	InitInternalCommsTask();
-	InitSpeedTask();
 	InitLightsTask();
 	InitClockTask();
 	InitSegDisplayTask();
