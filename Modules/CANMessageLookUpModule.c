@@ -16,6 +16,7 @@ extern void MotorRPMDataCallback(iCommsMessage_t *msg);
 extern void CurrentVoltageDataCallback(iCommsMessage_t *msg);
 extern void PressureDataCallback(iCommsMessage_t *msg);
 extern void TemperatureDataCallback(iCommsMessage_t *msg);
+extern void LightsDataCallback(iCommsMessage_t *msg);
 
 /*********************************************************************************
  *
@@ -32,6 +33,7 @@ const ICommsMessageInfo CANMessageLookUpTable[NUMBER_CAN_MESSAGE_IDS] = {
     {CURRENT_VOLTAGE_DATA_ID, 0x0004, 2, &CurrentVoltageDataCallback},
     {PRESSURE_DATA_ID, 0x0005, 4, &PressureDataCallback},
     {TEMPERATURE_DATA_ID, 0x0006, 4, &TemperatureDataCallback},
+    {LIGHT_DATA_ID,0x0305,2,&LightsDataCallback}
 };
 
 PUBLIC const ICommsMessageInfo *CANMessageLookUpGetInfo(ICommsMessageLookUpIndex id) { return &CANMessageLookUpTable[id]; }
