@@ -12,6 +12,7 @@ SystemData_t SystemData;
 Events_t EventFlags;
 int32_t rpm;
 voltage_t voltage;
+static volatile lights_status_t lights;
 
 speed_t SystemGetSpeed()
 {
@@ -112,6 +113,24 @@ void SystemSetDriverEnabled(flag_status_t enabled) {
 	EventFlags.driverEnabled = enabled;
 }
 
+
+void SystemSetLightsTurningLeft(flag_status_t enabled) {
+        lights.left_turn_enabled = enabled;
+}
+
+void SystemSetLightsTurningRight(flag_status_t enabled) {
+        lights.right_turn_enabled = enabled;
+}
+void SystemSetLightsTurningHazards(flag_status_t enabled) {
+        lights.hazards_enabled = enabled;
+}
+void SystemSetLightsTurningHeadLights(flag_status_t enabled) {
+        lights.headlights_enabled = enabled;
+}
+
+lights_status_t SystemGetLightsStatus() {
+        return lights;
+}
 
 void InitDataAggregator()
 {
