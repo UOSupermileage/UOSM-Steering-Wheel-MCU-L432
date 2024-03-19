@@ -57,28 +57,19 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define CAN_CS_Pin GPIO_PIN_3
-#define CAN_CS_GPIO_Port GPIOA
-#define Throttle_Pin GPIO_PIN_4
-#define Throttle_GPIO_Port GPIOA
-#define Clock_Action_Pin GPIO_PIN_0
-#define Clock_Action_GPIO_Port GPIOB
-#define Clock_Action_EXTI_IRQn EXTI0_IRQn
-#define Hazards_Pin GPIO_PIN_1
-#define Hazards_GPIO_Port GPIOB
-#define HALL_Pin GPIO_PIN_8
-#define HALL_GPIO_Port GPIOA
-#define HALL_EXTI_IRQn EXTI9_5_IRQn
+#define Clock_Input_Pin GPIO_PIN_3
+#define Clock_Input_GPIO_Port GPIOA
+#define Clock_Input_EXTI_IRQn EXTI3_IRQn
+#define Throttle_ADC_Pin GPIO_PIN_4
+#define Throttle_ADC_GPIO_Port GPIOA
+#define CAN_CS_Pin GPIO_PIN_0
+#define CAN_CS_GPIO_Port GPIOB
+#define Hazards_Input_Pin GPIO_PIN_1
+#define Hazards_Input_GPIO_Port GPIOB
 #define Seven_Segs_Pin GPIO_PIN_9
 #define Seven_Segs_GPIO_Port GPIOA
 #define Seven_SegsA10_Pin GPIO_PIN_10
 #define Seven_SegsA10_GPIO_Port GPIOA
-#define Turn_Signal_Left_Output_Pin GPIO_PIN_11
-#define Turn_Signal_Left_Output_GPIO_Port GPIOA
-#define Turn_Signal_Right_Output_Pin GPIO_PIN_12
-#define Turn_Signal_Right_Output_GPIO_Port GPIOA
-#define LD3_Pin GPIO_PIN_3
-#define LD3_GPIO_Port GPIOB
 #define Turn_Signal_Left_Input_Pin GPIO_PIN_4
 #define Turn_Signal_Left_Input_GPIO_Port GPIOB
 #define Turn_Signal_Right_Input_Pin GPIO_PIN_5

@@ -28,7 +28,7 @@ static void ClockModule_ToggleCallback() {
 }
 
 PUBLIC void ClockModule_Init() {
-	InteruptRegisterCallback(INTERUPT_GPIO_0_ID, ClockModule_ToggleCallback, 1000);
+	InteruptRegisterCallback(INTERUPT_GPIO_3_ID, ClockModule_ToggleCallback, 1000);
 }
 
 PUBLIC void ClockModule_Update() {

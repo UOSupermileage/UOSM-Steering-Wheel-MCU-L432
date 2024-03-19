@@ -36,6 +36,7 @@ void EventDataCallback(iCommsMessage_t *msg) {
             SystemSetMotorInitializing(status);
             break;
         case UNDERVOLTAGE:
+                // TODO: This could be moved into the voltage callback
         	SystemSetUndervoltage(status);
         default:
             break;

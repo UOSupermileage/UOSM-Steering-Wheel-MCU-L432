@@ -20,6 +20,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
@@ -117,10 +118,10 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
     /**ADC1 GPIO Configuration
     PA4     ------> ADC1_IN9
     */
-    GPIO_InitStruct.Pin = Throttle_Pin;
+    GPIO_InitStruct.Pin = Throttle_ADC_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG_ADC_CONTROL;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(Throttle_GPIO_Port, &GPIO_InitStruct);
+    HAL_GPIO_Init(Throttle_ADC_GPIO_Port, &GPIO_InitStruct);
 
   /* USER CODE BEGIN ADC1_MspInit 1 */
 
@@ -148,7 +149,7 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
     /**ADC1 GPIO Configuration
     PA4     ------> ADC1_IN9
     */
-    HAL_GPIO_DeInit(Throttle_GPIO_Port, Throttle_Pin);
+    HAL_GPIO_DeInit(Throttle_ADC_GPIO_Port, Throttle_ADC_Pin);
 
   /* USER CODE BEGIN ADC1_MspDeInit 1 */
 

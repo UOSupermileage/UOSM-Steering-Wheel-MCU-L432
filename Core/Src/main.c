@@ -153,6 +153,7 @@ int main(void)
 
   /* Start scheduler */
   osKernelStart();
+
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -412,49 +413,30 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, CAN_CS_Pin|Turn_Signal_Left_Output_Pin|Turn_Signal_Right_Output_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(CAN_CS_GPIO_Port, CAN_CS_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
+  /*Configure GPIO pin : Clock_Input_Pin */
+  GPIO_InitStruct.Pin = Clock_Input_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(Clock_Input_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : CAN_CS_Pin Turn_Signal_Left_Output_Pin Turn_Signal_Right_Output_Pin */
-  GPIO_InitStruct.Pin = CAN_CS_Pin|Turn_Signal_Left_Output_Pin|Turn_Signal_Right_Output_Pin;
+  /*Configure GPIO pin : CAN_CS_Pin */
+  GPIO_InitStruct.Pin = CAN_CS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  HAL_GPIO_Init(CAN_CS_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : Clock_Action_Pin */
-  GPIO_InitStruct.Pin = Clock_Action_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(Clock_Action_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : Hazards_Pin Turn_Signal_Left_Input_Pin Turn_Signal_Right_Input_Pin */
-  GPIO_InitStruct.Pin = Hazards_Pin|Turn_Signal_Left_Input_Pin|Turn_Signal_Right_Input_Pin;
+  /*Configure GPIO pins : Hazards_Input_Pin Turn_Signal_Left_Input_Pin Turn_Signal_Right_Input_Pin */
+  GPIO_InitStruct.Pin = Hazards_Input_Pin|Turn_Signal_Left_Input_Pin|Turn_Signal_Right_Input_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : HALL_Pin */
-  GPIO_InitStruct.Pin = HALL_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(HALL_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : LD3_Pin */
-  GPIO_InitStruct.Pin = LD3_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(LD3_GPIO_Port, &GPIO_InitStruct);
-
   /* EXTI interrupt init*/
-  HAL_NVIC_SetPriority(EXTI0_IRQn, 5, 0);
-  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-
-  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 5, 0);
-  HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+  HAL_NVIC_SetPriority(EXTI3_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(EXTI3_IRQn);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
