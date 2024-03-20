@@ -11,37 +11,16 @@
 
 #include "ApplicationTypes.h"
 
-#include "ht16k33.h"
+PUBLIC result_t Seg_Display_Initialize();
 
-typedef enum  {
-	DISPLAY_STATUS_OK,
-    DISPLAY_ERROR_CHAR_VALUE_NOT_FOUND,
-    DISPLAY_ERROR_FLOAT_VALUE,
-    DISPLAY_ERROR_UNABLE_TO_DISPLAY_FAIL,
-    DISPLAY_STATUS_UNINTIALIZED,
-    DISPLAY_STATUS_INITIALIZED,
+PUBLIC result_t Seg_Display_Speed(speed_t speed, flag_status_t throttleTooHigh, flag_status_t motor_initializing);
 
-} DisplayStatusID_t;
+PUBLIC result_t Seg_Display_Bang();
 
-PUBLIC DisplayStatusID_t Seg_Display_Initialize(SegDisplayIndex id);
+PUBLIC result_t Seg_Display_LowVoltageError();
 
-PUBLIC DisplayStatusID_t Seg_Display_Float(SegDisplayIndex id, float number);  //Prints a float number on the 7 segment display
+PUBLIC result_t Seg_Display_Int(int32_t value);
 
-PRIVATE uint8_t Seg_Display_DigitCtr(uint8_t number); //Returns the number of digits present in an 8 bit integer
-
-PUBLIC DisplayStatusID_t Seg_Display_SystemError(SegDisplayIndex id, char alpha);
-
-PUBLIC DisplayStatusID_t Seg_Display_Time(SegDisplayIndex id, seconds_t seconds); // Prints number of seconds in mm:ss format
-
-PUBLIC DisplayStatusID_t Seg_Display_Speed(SegDisplayIndex id, speed_t speed, flag_status_t throttleTooHigh);
-
-PUBLIC DisplayStatusID_t Seg_Display_Bang(SegDisplayIndex id);
-
-PUBLIC DisplayStatusID_t Seg_Display_Volt(SegDisplayIndex id);
-
-PUBLIC DisplayStatusID_t Seg_Display_Stack(SegDisplayIndex id);
-
-
-PUBLIC DisplayStatusID_t Seg_Display_Voltage(SegDisplayIndex id, voltage_t n);
+PUBLIC result_t Seg_Display_Voltage(voltage_t n);
 
 #endif /* USERDRIVERS_I2CDISPLAYDRIVER_H_ */

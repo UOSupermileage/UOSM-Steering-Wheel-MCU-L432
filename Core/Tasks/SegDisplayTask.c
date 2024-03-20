@@ -31,15 +31,13 @@ PUBLIC void InitSegDisplayTask(void)
 	SegDisplayTaskHandle = osThreadNew(SegDisplayTask, NULL, &SegDisplayTask_attributes);
 }
 
-static volatile int8_t showVoltage = 0;
+enum ScreenState {
+    ScreenVoltage,
+    ScreenRPM,
+    ScreenSpeed
+};
 
-static void Voltage_ToggleCallback() {
-	if (showVoltage == 0) {
-		showVoltage = 1;
-	} else {
-		showVoltage = 0;
-	}
-}
+static volatile enum ScreenState state = ScreenSpeed;
 
 PRIVATE void SegDisplayTask(void *argument)
 {
@@ -47,10 +45,9 @@ PRIVATE void SegDisplayTask(void *argument)
 
 	DebugPrint("%s 7 segment display", SDT_TAG);
 
-	Seg_Display_Initialize(DISPLAY_0);
-	Seg_Display_Initialize(DISPLAY_1);
+	Seg_Display_Initialize();
 
-	InteruptRegisterCallback(INTERUPT_GPIO_0_ID, Voltage_ToggleCallback, 750);
+        // TODO: Set state using encoder wheel
 
 	for(;;)
 	{
@@ -58,22 +55,17 @@ PRIVATE void SegDisplayTask(void *argument)
 		osDelayUntil(cycleTick);
 
 		DebugPrint("%s 7 seg loop. Runtime: %d", SDT_TAG, SystemGetRunTime());
-		if (SystemGetUndervoltage() == Set) {
-		    Seg_Display_Volt(DISPLAY_1);
+
+                if (SystemGetUndervoltage() == Set) {
+		    Seg_Display_LowVoltageError();
+		} else if (state == ScreenVoltage) {
+                    Seg_Display_Voltage(SystemGetBatteryVoltage());
+                } else if (state == ScreenSpeed) {
+                    Seg_Display_Speed(SystemGetSpeed() / 1000, SystemGetThrottleTooHigh(), SystemGetMotorInitializing());
+                } else if (SystemGetMotorInitializing() == Set) {
+                    Seg_Display_Bang();
+    	        } else {
+                    Seg_Display_Int(SystemGetMotorRPM());
 		}
-		else if (showVoltage == 1) {
-		    		Seg_Display_Voltage(DISPLAY_1, SystemGetBatteryVoltage());
-		    	}
-		else if (SystemGetMotorInitializing() == Set) {
-        	Seg_Display_Bang(DISPLAY_1);
-    	}  else {
-			// normal operation
-			// Seg_Display_Time(DISPLAY_0, SystemGetRunTimeSeconds());
-
-			HT16K33_DisplayInt(DISPLAY_1, SystemGetMotorRPM() < 0 ? SystemGetMotorRPM() * -1 : SystemGetMotorRPM());
-		}
-
-		Seg_Display_Speed(DISPLAY_0, SystemGetSpeed() / 1000, SystemGetThrottleTooHigh());
-
 	}
 }
