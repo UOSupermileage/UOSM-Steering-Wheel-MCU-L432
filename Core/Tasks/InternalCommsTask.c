@@ -49,11 +49,16 @@ PRIVATE void InternalCommsTask(void *argument)
 	const ICommsMessageInfo* eventInfo = CANMessageLookUpGetInfo(EVENT_DATA_ID);
 	uint8_t driverTxCounter = 0;
 
+        flag_status_t ledOn = Clear;
+
 	IComms_Init();
 	for(;;)
 	{
 		cycleTick += TIMER_INTERNAL_COMMS_TASK;
 		osDelayUntil(cycleTick);
+
+                ledOn = !ledOn;
+                HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, ledOn ? GPIO_PIN_SET : GPIO_PIN_RESET);
 
 		throttleTxCounter++;
 		if (throttleTxCounter == THROTTLE_RATE) {

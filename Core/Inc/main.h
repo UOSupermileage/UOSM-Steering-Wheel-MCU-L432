@@ -57,9 +57,6 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define Clock_Input_Pin GPIO_PIN_3
-#define Clock_Input_GPIO_Port GPIOA
-#define Clock_Input_EXTI_IRQn EXTI3_IRQn
 #define Throttle_ADC_Pin GPIO_PIN_4
 #define Throttle_ADC_GPIO_Port GPIOA
 #define CAN_CS_Pin GPIO_PIN_0
@@ -70,6 +67,8 @@ void Error_Handler(void);
 #define Seven_Segs_GPIO_Port GPIOA
 #define Seven_SegsA10_Pin GPIO_PIN_10
 #define Seven_SegsA10_GPIO_Port GPIOA
+#define GREEN_LED_Pin GPIO_PIN_3
+#define GREEN_LED_GPIO_Port GPIOB
 #define Turn_Signal_Left_Input_Pin GPIO_PIN_4
 #define Turn_Signal_Left_Input_GPIO_Port GPIOB
 #define Turn_Signal_Right_Input_Pin GPIO_PIN_5

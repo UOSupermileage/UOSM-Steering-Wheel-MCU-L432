@@ -45,7 +45,7 @@ PRIVATE void SegDisplayTask(void *argument)
 
 	DebugPrint("%s 7 segment display", SDT_TAG);
 
-	Seg_Display_Initialize();
+        result_t isInitialized = Seg_Display_Initialize();
 
         // TODO: Set state using encoder wheel
 
@@ -53,6 +53,12 @@ PRIVATE void SegDisplayTask(void *argument)
 	{
 		cycleTick += TIMER_SEGDISPLAY_TASK;
 		osDelayUntil(cycleTick);
+
+                if (!isInitialized) {
+                    isInitialized = Seg_Display_Initialize();
+                    continue;
+                }
+
 
 		DebugPrint("%s 7 seg loop. Runtime: %d", SDT_TAG, SystemGetRunTime());
 

@@ -66,9 +66,17 @@ static result_t ReadRegister(uint8_t reg, uint8_t* data, uint8_t len) {
 }
 
 result_t MAX6955_Init() {
-    WriteRegister(MAX6955_GlobalIntensityRegister, MAX6955_Intensity);
-    WriteRegister(MAX6955_DigitTypeRegister, MAX6955_DigitType);
-    WriteRegister(MAX6955_ScanLimitRegister, MAX6955_ScanLimit);
+    if (!WriteRegister(MAX6955_GlobalIntensityRegister, MAX6955_Intensity)) {
+        return RESULT_FAIL;
+    }
+
+    if (!WriteRegister(MAX6955_DigitTypeRegister, MAX6955_DigitType)) {
+        return RESULT_FAIL;
+    }
+
+    if (!WriteRegister(MAX6955_ScanLimitRegister, MAX6955_ScanLimit)) {
+        return RESULT_FAIL;
+    }
 
     // Ensure intensity register
     uint8_t intensity_data_buffer[1] = { 0xFF };

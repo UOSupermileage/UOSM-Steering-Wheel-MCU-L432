@@ -20,6 +20,6 @@ void RunTaskManager( void )
 	InitThrottleTask();
 	InitInternalCommsTask();
 	InitLightsTask();
-	InitClockTask();
+//	InitClockTask();
 	InitSegDisplayTask();
 }
