@@ -124,7 +124,7 @@ void SystemSetLightsTurningRight(flag_status_t enabled) {
 void SystemSetLightsTurningHazards(flag_status_t enabled) {
         lights.hazards_enabled = enabled;
 }
-void SystemSetLightsTurningHeadLights(flag_status_t enabled) {
+void SystemSetLightsHeadLights(flag_status_t enabled) {
         lights.headlights_enabled = enabled;
 }
 

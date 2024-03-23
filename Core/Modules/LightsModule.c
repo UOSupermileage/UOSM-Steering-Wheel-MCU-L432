@@ -42,5 +42,6 @@ PUBLIC void LightsModule_PeriodicJob() {
         SystemSetLightsTurningLeft(ReadLeftInput() == GPIO_PIN_SET);
         SystemSetLightsTurningRight(ReadRightInput() == GPIO_PIN_SET);
         SystemSetLightsTurningHazards(ReadHazardInput() == GPIO_PIN_SET);
+        SystemSetLightsHeadLights(ReadHazardInput() == GPIO_PIN_SET);
 
 }

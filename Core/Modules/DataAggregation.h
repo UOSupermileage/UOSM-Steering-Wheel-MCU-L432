@@ -63,7 +63,7 @@ void SystemSetDriverEnabled(flag_status_t enabled);
 void SystemSetLightsTurningLeft(flag_status_t enabled);
 void SystemSetLightsTurningRight(flag_status_t enabled);
 void SystemSetLightsTurningHazards(flag_status_t enabled);
-void SystemSetLightsTurningHeadLights(flag_status_t enabled);
+void SystemSetLightsHeadLights(flag_status_t enabled);
 
 lights_status_t SystemGetLightsStatus();
 
