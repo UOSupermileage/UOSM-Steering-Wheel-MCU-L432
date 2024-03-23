@@ -43,7 +43,6 @@ PRIVATE void ThrottleTask(void *argument)
 	{
 		cycleTick += TIMER_THROTTLE_TASK;
 		osDelayUntil(cycleTick);
-		DebugPrint("%s throttle loop", THT_TAG);
 		Throttle_UpdateThrottle();
 	}
 }

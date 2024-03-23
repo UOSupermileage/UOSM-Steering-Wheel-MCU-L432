@@ -67,7 +67,8 @@ void SpeedDataCallback(iCommsMessage_t *msg) {
     SystemSetSpeed(speed);
 }
 
-void ThrottleDataCallback(iCommsMessage_t *msg) { DebugPrint("ThrottleDataCallback not implemented! %d", msg->standardMessageID); }
-void PressureDataCallback(iCommsMessage_t *msg) { DebugPrint("SpeedDataCallback not implemented! %d", msg->standardMessageID); }
-void TemperatureDataCallback(iCommsMessage_t *msg) { DebugPrint("SpeedDataCallback not implemented! %d", msg->standardMessageID); }
-void LightsDataCallback(iCommsMessage_t *msg) { DebugPrint("LightsDataCallback not implemented! %d", msg->standardMessageID); }
+void ThrottleDataCallback(iCommsMessage_t *msg) {}
+void PressureDataCallback(iCommsMessage_t *msg) {}
+void TemperatureDataCallback(iCommsMessage_t *msg) {}
+void LightsDataCallback(iCommsMessage_t *msg) {}
+void EfficiencyDataCallback(iCommsMessage_t *msg) {}

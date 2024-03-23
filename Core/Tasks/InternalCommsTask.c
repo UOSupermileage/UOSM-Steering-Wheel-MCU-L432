@@ -18,6 +18,7 @@
 
 #define THROTTLE_RATE 4
 #define DRIVER_RATE 2
+#define NEW_LAP_RATE 5
 
 
 const char ICT_TAG[] = "#ICT:";
@@ -49,6 +50,8 @@ PRIVATE void InternalCommsTask(void *argument)
 	const ICommsMessageInfo* eventInfo = CANMessageLookUpGetInfo(EVENT_DATA_ID);
 	uint8_t driverTxCounter = 0;
 
+        uint8_t lapTxCounter = 0;
+
         flag_status_t ledOn = Clear;
 
 	IComms_Init();
@@ -76,6 +79,18 @@ PRIVATE void InternalCommsTask(void *argument)
 			result_t r = IComms_Transmit(&driverTxMsg);
 			driverTxCounter = 0;
 		}
+
+                lapTxCounter++;
+                if (lapTxCounter == NEW_LAP_RATE) {
+                    if (SystemGetNewLap() == Set) {
+                        DebugPrint("Sending New Lap");
+                        iCommsMessage_t lapTxMsg = IComms_CreateEventMessage(eventInfo->messageID, NEW_LAP, 1);
+                        result_t r = IComms_Transmit(&lapTxMsg);
+                        SystemSetNewLap(Clear);
+                    }
+
+                    lapTxCounter = 0;
+                }
 
 		IComms_PeriodicReceive();
 	}

@@ -9,7 +9,7 @@
 
 // Global Variables
 SystemData_t SystemData;
-Events_t EventFlags;
+volatile Events_t EventFlags;
 int32_t rpm;
 voltage_t voltage;
 static volatile lights_status_t lights;
@@ -107,6 +107,13 @@ PUBLIC int32_t SystemGetMotorRPM() {
 
 flag_status_t SystemGetDriverEnabled() {
 	return EventFlags.driverEnabled;
+}
+
+flag_status_t SystemGetNewLap() {
+    return EventFlags.newLap;
+}
+void SystemSetNewLap(flag_status_t enabled) {
+    EventFlags.newLap = enabled;
 }
 
 void SystemSetDriverEnabled(flag_status_t enabled) {

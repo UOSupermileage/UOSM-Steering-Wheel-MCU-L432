@@ -42,7 +42,6 @@ PRIVATE void LightsTask(void *argument)
 	{
 		cycleTick += TIMER_LIGHTS_TASK;
 		osDelayUntil(cycleTick);
-		DebugPrint("%s lights loop", LIT_TAG);
 		LightsModule_PeriodicJob();
 	}
 }

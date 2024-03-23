@@ -24,6 +24,7 @@ typedef union {
         flag_status_t motorInitializing : 1;
         flag_status_t undervoltage: 1;
         flag_status_t driverEnabled: 1;
+        flag_status_t newLap: 1;
     };
 } Events_t;
 
@@ -47,6 +48,7 @@ flag_status_t SystemGetMotorInitializing();
 int32_t SystemGetMotorRPM();
 flag_status_t SystemGetUndervoltage();
 flag_status_t SystemGetDriverEnabled();
+flag_status_t SystemGetNewLap();
 
 void SystemSetSpeed(speed_t speed);
 void SystemSetThrottleRaw(throttle_raw_t throttleRaw);
@@ -59,6 +61,7 @@ void SystemSetMotorInitializing(flag_status_t state);
 void SystemSetMotorRPM(int32_t r);
 void SystemSetUndervoltage(flag_status_t state);
 void SystemSetDriverEnabled(flag_status_t enabled);
+void SystemSetNewLap(flag_status_t enabled);
 
 void SystemSetLightsTurningLeft(flag_status_t enabled);
 void SystemSetLightsTurningRight(flag_status_t enabled);
