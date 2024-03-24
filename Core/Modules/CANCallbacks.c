@@ -66,9 +66,3 @@ void SpeedDataCallback(iCommsMessage_t *msg) {
     DebugPrint("CAN speed received: %d", speed);
     SystemSetSpeed(speed);
 }
-
-void ThrottleDataCallback(iCommsMessage_t *msg) {}
-void PressureDataCallback(iCommsMessage_t *msg) {}
-void TemperatureDataCallback(iCommsMessage_t *msg) {}
-void LightsDataCallback(iCommsMessage_t *msg) {}
-void EfficiencyDataCallback(iCommsMessage_t *msg) {}
