@@ -18,8 +18,24 @@ static void ClockModule_ToggleCallback() {
     SystemSetNewLap(Set);
 }
 
+static void ToggleDisplayCallback() {
+    switch (SystemGetScreenState()) {
+
+    case ScreenVoltage:
+        SystemSetScreenState(ScreenRPM);
+        break;
+    case ScreenRPM:
+        SystemSetScreenState(ScreenSpeed);
+        break;
+    case ScreenSpeed:
+        SystemSetScreenState(ScreenVoltage);
+        break;
+    }
+}
+
 PUBLIC void ClockModule_Init() {
-	InteruptRegisterCallback(INTERUPT_GPIO_11_ID, ClockModule_ToggleCallback, 1000);
+    InteruptRegisterCallback(INTERUPT_GPIO_0_ID, ToggleDisplayCallback, 750);
+    InteruptRegisterCallback(INTERUPT_GPIO_11_ID, ClockModule_ToggleCallback, 1000);
 }
 
 PUBLIC void ClockModule_Update() {

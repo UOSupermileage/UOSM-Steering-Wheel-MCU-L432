@@ -57,6 +57,9 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define Toggle_Screen_Pin GPIO_PIN_0
+#define Toggle_Screen_GPIO_Port GPIOA
+#define Toggle_Screen_EXTI_IRQn EXTI0_IRQn
 #define Throttle_ADC_Pin GPIO_PIN_4
 #define Throttle_ADC_GPIO_Port GPIOA
 #define CAN_CS_Pin GPIO_PIN_0

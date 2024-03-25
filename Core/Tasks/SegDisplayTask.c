@@ -31,14 +31,6 @@ PUBLIC void InitSegDisplayTask(void)
 	SegDisplayTaskHandle = osThreadNew(SegDisplayTask, NULL, &SegDisplayTask_attributes);
 }
 
-enum ScreenState {
-    ScreenVoltage,
-    ScreenRPM,
-    ScreenSpeed
-};
-
-static volatile enum ScreenState state = ScreenSpeed;
-
 PRIVATE void SegDisplayTask(void *argument)
 {
 	uint32_t cycleTick = osKernelGetTickCount();
@@ -62,9 +54,14 @@ PRIVATE void SegDisplayTask(void *argument)
 
 		DebugPrint("%s 7 seg loop. Runtime: %d", SDT_TAG, SystemGetRunTime());
 
-                if (SystemGetUndervoltage() == Set) {
-		    Seg_Display_LowVoltageError();
-		} else if (state == ScreenVoltage) {
+                ScreenState state = SystemGetScreenState();
+                DebugPrint("Display State: %d", state);
+
+//                if (SystemGetUndervoltage() == Set) {
+//		    Seg_Display_LowVoltageError();
+//		} else
+
+                if (state == ScreenVoltage) {
                     Seg_Display_Voltage(SystemGetBatteryVoltage());
                 } else if (state == ScreenSpeed) {
                     Seg_Display_Speed(SystemGetSpeed() / 1000, SystemGetThrottleTooHigh(), SystemGetMotorInitializing());

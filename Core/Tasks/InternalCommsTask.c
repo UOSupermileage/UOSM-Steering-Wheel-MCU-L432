@@ -19,6 +19,7 @@
 #define THROTTLE_RATE 4
 #define DRIVER_RATE 2
 #define NEW_LAP_RATE 5
+#define LIGHTS_RATE 2
 
 
 const char ICT_TAG[] = "#ICT:";
@@ -49,6 +50,9 @@ PRIVATE void InternalCommsTask(void *argument)
 
 	const ICommsMessageInfo* eventInfo = CANMessageLookUpGetInfo(EVENT_DATA_ID);
 	uint8_t driverTxCounter = 0;
+
+        const ICommsMessageInfo* lightsInfo = CANMessageLookUpGetInfo(LIGHT_DATA_ID);
+        uint8_t lightsTxCounter = 0;
 
         uint8_t lapTxCounter = 0;
 
@@ -90,6 +94,14 @@ PRIVATE void InternalCommsTask(void *argument)
                     }
 
                     lapTxCounter = 0;
+                }
+
+                lightsTxCounter++;
+                if (lightsTxCounter == LIGHTS_RATE) {
+                    DebugPrint("Sending New Lights %04x", SystemGetLightsStatus().all);
+                    iCommsMessage_t lightsTxMsg = IComms_CreateUint32BitMessage(lightsInfo->messageID, SystemGetLightsStatus().all);
+                    result_t r = IComms_Transmit(&lightsTxMsg);
+                    lightsTxCounter = 0;
                 }
 
 		IComms_PeriodicReceive();

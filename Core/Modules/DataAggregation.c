@@ -13,6 +13,7 @@ volatile Events_t EventFlags;
 int32_t rpm;
 voltage_t voltage;
 static volatile lights_status_t lights;
+static volatile ScreenState screenState = ScreenSpeed;
 
 speed_t SystemGetSpeed()
 {
@@ -133,6 +134,12 @@ void SystemSetLightsTurningHazards(flag_status_t enabled) {
 }
 void SystemSetLightsTurningHeadLights(flag_status_t enabled) {
         lights.headlights_enabled = enabled;
+}
+void SystemSetScreenState(ScreenState state) {
+    screenState = state;
+}
+ScreenState SystemGetScreenState() {
+    return screenState;
 }
 
 lights_status_t SystemGetLightsStatus() {

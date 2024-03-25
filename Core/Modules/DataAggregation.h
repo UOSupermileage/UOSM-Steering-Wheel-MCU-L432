@@ -34,6 +34,12 @@ typedef struct {
     ms_t runTime;
 } SystemData_t;
 
+typedef enum {
+    ScreenVoltage,
+    ScreenRPM,
+    ScreenSpeed
+} ScreenState;
+
 void InitDataAggregator();
 
 speed_t SystemGetSpeed();
@@ -67,6 +73,9 @@ void SystemSetLightsTurningLeft(flag_status_t enabled);
 void SystemSetLightsTurningRight(flag_status_t enabled);
 void SystemSetLightsTurningHazards(flag_status_t enabled);
 void SystemSetLightsTurningHeadLights(flag_status_t enabled);
+
+void SystemSetScreenState(ScreenState state);
+ScreenState SystemGetScreenState();
 
 lights_status_t SystemGetLightsStatus();
 
