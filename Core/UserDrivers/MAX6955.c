@@ -28,7 +28,7 @@ enum MAX6955_Address {
 #define MAX6955_ScanLimit 0x4
 
 // TODO: Double check this, but this should be a very safe 12.5mA out of 28mA maximum
-#define MAX6955_Intensity 0x04
+#define MAX6955_Intensity 0x08
 #define MAX6955_AbsoluteMaximumIntensity 0x0A
 
 /*
