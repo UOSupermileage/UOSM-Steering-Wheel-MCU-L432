@@ -96,7 +96,9 @@ voltage_t SystemGetBatteryVoltage() {
 
 void SystemSetBatteryVoltage(voltage_t v) {
 	voltage = v;
-	SystemSetUndervoltage(v < 3100 ? Set : Clear);
+
+        // Undervolt if battery is bellow 44V
+	SystemSetUndervoltage(v < 4400 ? Set : Clear);
 }
 
 PUBLIC void SystemSetMotorRPM(int32_t r) {

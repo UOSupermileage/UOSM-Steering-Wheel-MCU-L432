@@ -67,14 +67,12 @@ PUBLIC result_t Seg_Display_Int(int32_t value) {
     return MAX6955_DisplayDigits(MAX6955_P0, digits);
 }
 
-PUBLIC result_t Seg_Display_Voltage(voltage_t n) {
-    voltage_t displayed_voltage = n <= 999 ? n : 999;
-
+PUBLIC result_t Seg_Display_Voltage(voltage_t voltage) {
     uint8_t digits[5] = {
         MAX6955_Char_Blank,
-        displayed_voltage / 100,
-        (displayed_voltage / 10) % 10,
-        (displayed_voltage % 10) | MAX6955_Char_Period,
+        voltage / 1000,
+        ((voltage / 100) % 10) | MAX6955_Char_Period,
+        (voltage / 10) % 10,
         MAX6955_Char_V
     };
 

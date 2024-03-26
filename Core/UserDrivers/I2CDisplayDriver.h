@@ -21,6 +21,6 @@ PUBLIC result_t Seg_Display_LowVoltageError();
 
 PUBLIC result_t Seg_Display_Int(int32_t value);
 
-PUBLIC result_t Seg_Display_Voltage(voltage_t n);
+PUBLIC result_t Seg_Display_Voltage(voltage_t voltage);
 
 #endif /* USERDRIVERS_I2CDISPLAYDRIVER_H_ */
