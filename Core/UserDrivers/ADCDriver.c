@@ -22,7 +22,7 @@ PUBLIC result_t ADCGetThrottleRaw(throttle_raw_t * throttleRaw)
 	{
 		return RESULT_FAIL;
 	}
-	*throttleRaw = HAL_ADC_GetValue(&hadc1);
+	*throttleRaw = ADC_MAX_THROTTLE - HAL_ADC_GetValue(&hadc1);
 
 	return RESULT_OK;
 }
@@ -37,5 +37,11 @@ PUBLIC percentage_t ADCConvertThrottle(throttle_raw_t throttleRaw) {
 		return ADC_MIN_PERCENTAGE;
 	}
 
-	return (throttleRaw - ADC_MIN_THROTTLE) * ADC_MAX_PERCENTAGE / ADC_MAX_THROTTLE;
+        percentage_t throttle = (throttleRaw - ADC_MIN_THROTTLE) * ADC_MAX_PERCENTAGE / ADC_MAX_THROTTLE;
+
+        if (throttle < 20) {
+            throttle = 0;
+        }
+
+	return throttle;
 }
