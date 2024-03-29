@@ -6,6 +6,7 @@
  */
 
 #include "SegDisplayTask.h"
+#include <stdlib.h>
 
 #include "I2CDisplayDriver.h"
 #include "ClockModule.h"
@@ -68,7 +69,7 @@ PRIVATE void SegDisplayTask(void *argument)
                 } else if (SystemGetMotorInitializing() == Set) {
                     Seg_Display_Bang();
     	        } else {
-                    Seg_Display_Int(SystemGetMotorRPM());
+                    Seg_Display_Int(abs(SystemGetMotorRPM()));
 		}
 	}
 }
