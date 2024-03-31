@@ -14,7 +14,7 @@
 
 static uint32_t lastTick = 0;
 
-static void ClockModule_ToggleCallback() {
+static void NewLapCallback() {
     SystemSetNewLap(Set);
 }
 
@@ -34,8 +34,8 @@ static void ToggleDisplayCallback() {
 }
 
 PUBLIC void ClockModule_Init() {
-    InteruptRegisterCallback(INTERUPT_GPIO_0_ID, ToggleDisplayCallback, 750);
-    InteruptRegisterCallback(INTERUPT_GPIO_11_ID, ClockModule_ToggleCallback, 1000);
+    InteruptRegisterCallback(INTERUPT_GPIO_3_ID, ToggleDisplayCallback, 500);
+    InteruptRegisterCallback(INTERUPT_GPIO_11_ID, NewLapCallback, 1000);
 }
 
 PUBLIC void ClockModule_Update() {

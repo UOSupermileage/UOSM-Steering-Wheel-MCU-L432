@@ -38,6 +38,8 @@ void EventDataCallback(iCommsMessage_t *msg) {
         case UNDERVOLTAGE:
                 // TODO: This could be moved into the voltage callback
         	SystemSetUndervoltage(status);
+        case BRAKES_ENABLED:
+            DebugPrint("Brakes enabled: %d", status);
         default:
             break;
         }

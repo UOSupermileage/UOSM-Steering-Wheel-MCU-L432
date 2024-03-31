@@ -57,9 +57,13 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define Toggle_Screen_Pin GPIO_PIN_0
-#define Toggle_Screen_GPIO_Port GPIOA
-#define Toggle_Screen_EXTI_IRQn EXTI0_IRQn
+#define Low_Beams_Input_Pin GPIO_PIN_0
+#define Low_Beams_Input_GPIO_Port GPIOA
+#define High_Beams_Input_Pin GPIO_PIN_2
+#define High_Beams_Input_GPIO_Port GPIOA
+#define Timer_Input_Pin GPIO_PIN_3
+#define Timer_Input_GPIO_Port GPIOA
+#define Timer_Input_EXTI_IRQn EXTI3_IRQn
 #define Throttle_ADC_Pin GPIO_PIN_4
 #define Throttle_ADC_GPIO_Port GPIOA
 #define CAN_CS_Pin GPIO_PIN_0
@@ -70,6 +74,9 @@ void Error_Handler(void);
 #define Seven_Segs_GPIO_Port GPIOA
 #define Seven_SegsA10_Pin GPIO_PIN_10
 #define Seven_SegsA10_GPIO_Port GPIOA
+#define Extra_Momentary_Input_Pin GPIO_PIN_11
+#define Extra_Momentary_Input_GPIO_Port GPIOA
+#define Extra_Momentary_Input_EXTI_IRQn EXTI15_10_IRQn
 #define GREEN_LED_Pin GPIO_PIN_3
 #define GREEN_LED_GPIO_Port GPIOB
 #define Turn_Signal_Left_Input_Pin GPIO_PIN_4
