@@ -13,6 +13,7 @@
 #include "LightsTask.h"
 #include "SegDisplayTask.h"
 #include "ClockTask.h"
+#include "EncoderModule.h"
 
 void RunTaskManager( void )
 {
@@ -22,4 +23,5 @@ void RunTaskManager( void )
 	InitLightsTask();
 	InitClockTask();
 	InitSegDisplayTask();
+	InitEncoderTask();
 }
