@@ -70,9 +70,9 @@ PUBLIC result_t Seg_Display_Int(int32_t value) {
 PUBLIC result_t Seg_Display_Voltage(voltage_t voltage) {
     uint8_t digits[5] = {
         MAX6955_Char_Blank,
-        voltage / 1000,
-        ((voltage / 100) % 10) | MAX6955_Char_Period,
-        (voltage / 10) % 10,
+        voltage / 10000,
+        ((voltage / 1000) % 10) | MAX6955_Char_Period,
+        (voltage / 100) % 10,
         MAX6955_Char_V
     };
 

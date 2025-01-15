@@ -15,6 +15,8 @@ voltage_t voltage;
 static volatile lights_status_t lights;
 static volatile ScreenState screenState = ScreenSpeed;
 
+static volatile uint8_t lapCount = 0;
+
 speed_t SystemGetSpeed()
 {
 	return SystemData.speed;
@@ -98,7 +100,7 @@ void SystemSetBatteryVoltage(voltage_t v) {
 	voltage = v;
 
         // Undervolt if battery is bellow 44V
-	SystemSetUndervoltage(v < 4400 ? Set : Clear);
+	SystemSetUndervoltage(v < 44000 ? Set : Clear);
 }
 
 PUBLIC void SystemSetMotorRPM(int32_t r) {
@@ -112,11 +114,11 @@ flag_status_t SystemGetDriverEnabled() {
 	return EventFlags.driverEnabled;
 }
 
-flag_status_t SystemGetNewLap() {
-    return EventFlags.newLap;
+uint8_t SystemGetLap() {
+    return lapCount;
 }
-void SystemSetNewLap(flag_status_t enabled) {
-    EventFlags.newLap = enabled;
+void SystemIncrementLap() {
+    lapCount += 1;
 }
 
 void SystemSetDriverEnabled(flag_status_t enabled) {

@@ -86,13 +86,9 @@ PRIVATE void InternalCommsTask(void *argument)
 
                 lapTxCounter++;
                 if (lapTxCounter == NEW_LAP_RATE) {
-                    if (SystemGetNewLap() == Set) {
-                        DebugPrint("Sending New Lap");
-                        iCommsMessage_t lapTxMsg = IComms_CreateEventMessage(eventInfo->messageID, NEW_LAP, 1);
-                        result_t r = IComms_Transmit(&lapTxMsg);
-                        SystemSetNewLap(Clear);
-                    }
-
+                    DebugPrint("Sending New Lap");
+                    iCommsMessage_t lapTxMsg = IComms_CreateEventMessage(eventInfo->messageID, NEW_LAP, SystemGetLap());
+                    result_t r = IComms_Transmit(&lapTxMsg);
                     lapTxCounter = 0;
                 }
 
