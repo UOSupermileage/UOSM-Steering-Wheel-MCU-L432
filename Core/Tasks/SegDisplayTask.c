@@ -8,10 +8,11 @@
 #include "SegDisplayTask.h"
 #include <stdlib.h>
 
-#include "I2CDisplayDriver.h"
 #include "ClockModule.h"
 #include "DataAggregation.h"
+#include "I2CDisplayDriver.h"
 #include "InteruptModule.h"
+#include "Knob.h"
 
 #define STACK_SIZE 128*4
 #define SPEED_TASK_PRIORITY (osPriority_t) osPriorityHigh4
@@ -39,6 +40,7 @@ void SegDisplayTask(void *argument)
 	DebugPrint("%s 7 segment display", SDT_TAG);
 
         result_t isInitialized = Seg_Display_Initialize();
+        KnobInit();
 
         // TODO: Set state using encoder wheel
 
@@ -52,8 +54,24 @@ void SegDisplayTask(void *argument)
                     continue;
                 }
 
-
 		DebugPrint("%s 7 seg loop. Runtime: %d", SDT_TAG, SystemGetRunTime());
+
+                if (KnobGetValue() > 0) {
+                    switch (SystemGetScreenState()) {
+                    case ScreenVoltage:
+                        SystemSetScreenState(ScreenRPM);
+                        break;
+                    case ScreenRPM:
+                        SystemSetScreenState(ScreenSpeed);
+                        break;
+                    case ScreenSpeed:
+                        SystemSetScreenState(ScreenVoltage);
+                        break;
+                    }
+
+                    KnobClearValue();
+                }
+
 
                 ScreenState state = SystemGetScreenState();
                 DebugPrint("Display State: %d", state);
