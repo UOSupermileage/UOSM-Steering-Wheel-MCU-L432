@@ -18,8 +18,8 @@
 
 const char THT_TAG[] = "#THT:";
 
-PUBLIC void InitThrottleTask(void);
-PRIVATE void ThrottleTask(void *argument);
+void InitThrottleTask(void);
+void ThrottleTask(void *argument);
 
 osThreadId_t ThrottleTaskHandle;
 const osThreadAttr_t ThrottleTask_attributes = {
@@ -28,13 +28,13 @@ const osThreadAttr_t ThrottleTask_attributes = {
 	.priority = THROTTLE_TASK_PRIORITY,
 };
 
-PUBLIC void InitThrottleTask(void)
+void InitThrottleTask(void)
 {
 
 	ThrottleTaskHandle = osThreadNew(ThrottleTask, NULL, &ThrottleTask_attributes);
 
 }
-PRIVATE void ThrottleTask(void *argument)
+void ThrottleTask(void *argument)
 {
 	uint32_t cycleTick = osKernelGetTickCount();
 	DebugPrint("throttle");

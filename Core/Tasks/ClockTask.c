@@ -16,8 +16,8 @@
 
 const char CKT_TAG[] = "#CKT:";
 
-PUBLIC void InitClockTask(void);
-PRIVATE void ClockTask(void *argument);
+void InitClockTask(void);
+void ClockTask(void *argument);
 
 osThreadId_t ClockTaskHandle;
 const osThreadAttr_t ClockTask_attributes = {
@@ -26,13 +26,13 @@ const osThreadAttr_t ClockTask_attributes = {
 	.priority = CLOCK_TASK_PRIORITY,
 };
 
-PUBLIC void InitClockTask(void)
+void InitClockTask(void)
 {
 
 	ClockTaskHandle = osThreadNew(ClockTask, NULL, &ClockTask_attributes);
 
 }
-PRIVATE void ClockTask(void *argument)
+void ClockTask(void *argument)
 {
 	uint32_t cycleTick = osKernelGetTickCount();
 	DebugPrint("clock");

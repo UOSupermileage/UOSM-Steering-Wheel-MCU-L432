@@ -8,7 +8,7 @@
 
 extern ADC_HandleTypeDef hadc1;
 
-PUBLIC result_t ADCGetThrottleRaw(throttle_raw_t * throttleRaw)
+result_t ADCGetThrottleRaw(throttle_raw_t * throttleRaw)
 {
 	HAL_StatusTypeDef returnStatus;
 	returnStatus = HAL_ADC_Start(&hadc1);
@@ -27,7 +27,7 @@ PUBLIC result_t ADCGetThrottleRaw(throttle_raw_t * throttleRaw)
 	return RESULT_OK;
 }
 
-PUBLIC percentage_t ADCConvertThrottle(throttle_raw_t throttleRaw) {
+percentage_t ADCConvertThrottle(throttle_raw_t throttleRaw) {
 
 	if (throttleRaw > ADC_MAX_THROTTLE) {
 		return ADC_MAX_PERCENTAGE;

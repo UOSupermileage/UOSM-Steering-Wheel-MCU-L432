@@ -8,14 +8,14 @@
 #include "MAX6955.h"
 
 
-PUBLIC result_t Seg_Display_Initialize() {
+result_t Seg_Display_Initialize() {
     return MAX6955_Init();
 }
 
 /**
  * Takes speed in km / hour
  */
-PUBLIC result_t Seg_Display_Speed(speed_t n, flag_status_t throttleTooHigh, flag_status_t motor_initializing) {
+result_t Seg_Display_Speed(speed_t n, flag_status_t throttleTooHigh, flag_status_t motor_initializing) {
     speed_t displayed_speed = n <= 100 ? n : 100;
 
     uint8_t digits[5] = {
@@ -29,7 +29,7 @@ PUBLIC result_t Seg_Display_Speed(speed_t n, flag_status_t throttleTooHigh, flag
     return MAX6955_DisplayDigits(MAX6955_P0, digits);
 }
 
-PUBLIC result_t Seg_Display_Bang() {
+result_t Seg_Display_Bang() {
     uint8_t digits[5] = {
         MAX6955_Char_Blank,
         MAX6955_Char_B,
@@ -41,7 +41,7 @@ PUBLIC result_t Seg_Display_Bang() {
     return MAX6955_DisplayDigits(MAX6955_P0, digits);
 }
 
-PUBLIC result_t Seg_Display_LowVoltageError() {
+result_t Seg_Display_LowVoltageError() {
     uint8_t digits[5] = {
         MAX6955_Char_L,
         MAX6955_Char_O,
@@ -53,7 +53,7 @@ PUBLIC result_t Seg_Display_LowVoltageError() {
     return MAX6955_DisplayDigits(MAX6955_P0, digits);
 }
 
-PUBLIC result_t Seg_Display_Int(int32_t value) {
+result_t Seg_Display_Int(int32_t value) {
     int32_t displayed_int = (value > 9999 ? 9999 : (value < -9999 ? -9999 : value));
 
     uint8_t digits[5] = {
@@ -67,7 +67,7 @@ PUBLIC result_t Seg_Display_Int(int32_t value) {
     return MAX6955_DisplayDigits(MAX6955_P0, digits);
 }
 
-PUBLIC result_t Seg_Display_Voltage(voltage_t voltage) {
+result_t Seg_Display_Voltage(voltage_t voltage) {
     uint8_t digits[5] = {
         MAX6955_Char_Blank,
         voltage / 10000,

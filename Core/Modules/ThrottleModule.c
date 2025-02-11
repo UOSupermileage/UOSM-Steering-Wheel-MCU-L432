@@ -14,7 +14,7 @@ const char DBG_TAG[] = "#THM:";
 
 throttle_raw_t adcThrottleRaw;
 
-PUBLIC result_t Throttle_UpdateThrottle()
+result_t Throttle_UpdateThrottle()
 {
 	result_t resultStatus;
 	resultStatus = ADCGetThrottleRaw(&adcThrottleRaw);

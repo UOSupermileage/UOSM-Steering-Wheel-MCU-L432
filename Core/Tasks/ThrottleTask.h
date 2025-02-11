@@ -15,7 +15,7 @@
 // Our headers
 #include "ApplicationTypes.h"
 
-PUBLIC void InitThrottleTask(void);
-PRIVATE void ThrottleTask(void *argument);
+void InitThrottleTask(void);
+void ThrottleTask(void *argument);
 
 #endif /* TASKS_THROTTLETASK_H_ */

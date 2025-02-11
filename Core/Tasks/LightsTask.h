@@ -15,8 +15,8 @@
 // Our headers
 #include "ApplicationTypes.h"
 
-PUBLIC void InitLightsTask(void);
-PRIVATE void LightsTask(void *argument);
+void InitLightsTask(void);
+void LightsTask(void *argument);
 
 
 #endif /* TASKS_LIGHTSTASK_H_ */

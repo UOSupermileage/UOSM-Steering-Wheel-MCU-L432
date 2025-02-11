@@ -12,6 +12,6 @@
 #include "ApplicationTypes.h"
 #include "DataAggregation.h"
 
-PUBLIC result_t Throttle_UpdateThrottle();
+result_t Throttle_UpdateThrottle();
 
 #endif /* MODULES_THROTTLEMODULE_H_ */

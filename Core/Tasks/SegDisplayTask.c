@@ -27,12 +27,12 @@ const osThreadAttr_t SegDisplayTask_attributes = {
 	.priority = SPEED_TASK_PRIORITY,
 };
 
-PUBLIC void InitSegDisplayTask(void)
+void InitSegDisplayTask(void)
 {
 	SegDisplayTaskHandle = osThreadNew(SegDisplayTask, NULL, &SegDisplayTask_attributes);
 }
 
-PRIVATE void SegDisplayTask(void *argument)
+void SegDisplayTask(void *argument)
 {
 	uint32_t cycleTick = osKernelGetTickCount();
 

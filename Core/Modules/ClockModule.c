@@ -33,12 +33,12 @@ static void ToggleDisplayCallback() {
     }
 }
 
-PUBLIC void ClockModule_Init() {
+void ClockModule_Init() {
     InteruptRegisterCallback(INTERUPT_GPIO_3_ID, ToggleDisplayCallback, 500);
     InteruptRegisterCallback(INTERUPT_GPIO_11_ID, NewLapCallback, 500);
 }
 
-PUBLIC void ClockModule_Update() {
+void ClockModule_Update() {
 	if (SystemGetClockState() == CLOCK_COUNTING) {
 		SystemIncrementRunTime(osKernelGetTickCount() - lastTick);
 		DebugPrint("Clock time: %d", SystemGetRunTimeSeconds());

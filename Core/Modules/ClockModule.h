@@ -11,7 +11,7 @@
 #include "ApplicationTypes.h"
 #include "cmsis_os.h"
 
-PUBLIC void ClockModule_Init();
-PUBLIC void ClockModule_Update();
+void ClockModule_Init();
+void ClockModule_Update();
 
 #endif /* MODULES_CLOCKMODULE_H_ */

@@ -16,8 +16,8 @@
 #include "ApplicationTypes.h"
 
 
-PUBLIC void InitClockTask(void);
-PRIVATE void ClockTask(void *argument);
+void InitClockTask(void);
+void ClockTask(void *argument);
 
 
 #endif /* TASKS_CLOCKTASK_H_ */

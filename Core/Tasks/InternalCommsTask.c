@@ -24,8 +24,8 @@
 
 const char ICT_TAG[] = "#ICT:";
 
-PUBLIC void InitInternalCommsTask(void);
-PRIVATE void InternalCommsTask(void *argument);
+void InitInternalCommsTask(void);
+void InternalCommsTask(void *argument);
 
 osThreadId_t InternalCommsTaskHandle;
 const osThreadAttr_t InternalCommsTask_attributes = {
@@ -34,13 +34,13 @@ const osThreadAttr_t InternalCommsTask_attributes = {
 	.priority = INTERNAL_COMMS_TASK_PRIORITY,
 };
 
-PUBLIC void InitInternalCommsTask(void)
+void InitInternalCommsTask(void)
 {
 
 	InternalCommsTaskHandle = osThreadNew(InternalCommsTask, NULL, &InternalCommsTask_attributes);
 
 }
-PRIVATE void InternalCommsTask(void *argument)
+void InternalCommsTask(void *argument)
 {
 	uint32_t cycleTick = osKernelGetTickCount();
 	DebugPrint("icomms");
@@ -70,7 +70,7 @@ PRIVATE void InternalCommsTask(void *argument)
 		throttleTxCounter++;
 		if (throttleTxCounter == THROTTLE_RATE) {
 			DebugPrint("%s Sending Throttle!", ICT_TAG);
-			iCommsMessage_t throttleTxMsg = IComms_CreatePercentageMessage(throttleInfo->messageID, SystemGetThrottlePercentage());
+			iCommsMessage_t throttleTxMsg = IComms_CreatePercentageMessage(THROTTLE_DATA_ID, SystemGetThrottlePercentage());
 			result_t r = IComms_Transmit(&throttleTxMsg);
 			DebugPrint("%s Sending Throttle! [Result = %d]", ICT_TAG, r);
 			throttleTxCounter = 0;
@@ -79,7 +79,7 @@ PRIVATE void InternalCommsTask(void *argument)
 		driverTxCounter++;
 		if (driverTxCounter == DRIVER_RATE) {
 			DebugPrint("%s Sending Driver = %d!", ICT_TAG, SystemGetDriverEnabled());
-			iCommsMessage_t driverTxMsg = IComms_CreateEventMessage(eventInfo->messageID, DRIVER_ENABLED, SystemGetDriverEnabled());
+			iCommsMessage_t driverTxMsg = IComms_CreateEventMessage(DRIVER_ENABLED, SystemGetDriverEnabled());
 			result_t r = IComms_Transmit(&driverTxMsg);
 			driverTxCounter = 0;
 		}
@@ -87,7 +87,7 @@ PRIVATE void InternalCommsTask(void *argument)
                 lapTxCounter++;
                 if (lapTxCounter == NEW_LAP_RATE) {
                     DebugPrint("Sending New Lap");
-                    iCommsMessage_t lapTxMsg = IComms_CreateEventMessage(eventInfo->messageID, NEW_LAP, SystemGetLap());
+                    iCommsMessage_t lapTxMsg = IComms_CreateEventMessage(NEW_LAP, SystemGetLap());
                     result_t r = IComms_Transmit(&lapTxMsg);
                     lapTxCounter = 0;
                 }
@@ -95,7 +95,7 @@ PRIVATE void InternalCommsTask(void *argument)
                 lightsTxCounter++;
                 if (lightsTxCounter == LIGHTS_RATE) {
                     DebugPrint("Sending New Lights %04x", SystemGetLightsStatus().all);
-                    iCommsMessage_t lightsTxMsg = IComms_CreateUint32BitMessage(lightsInfo->messageID, SystemGetLightsStatus().all);
+                    iCommsMessage_t lightsTxMsg = IComms_CreateLightsMessage(SystemGetLightsStatus());
                     result_t r = IComms_Transmit(&lightsTxMsg);
                     lightsTxCounter = 0;
                 }

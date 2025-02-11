@@ -24,13 +24,13 @@ const osThreadAttr_t LightsTask_attributes = {
 	.priority = SPEED_TASK_PRIORITY,
 };
 
-PUBLIC void InitLightsTask(void)
+void InitLightsTask(void)
 {
 
 	LightsTaskHandle = osThreadNew(LightsTask, NULL, &LightsTask_attributes);
 
 }
-PRIVATE void LightsTask(void *argument)
+void LightsTask(void *argument)
 {
 	uint32_t cycleTick = osKernelGetTickCount();
 

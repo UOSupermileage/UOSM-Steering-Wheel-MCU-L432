@@ -45,15 +45,15 @@ typedef struct
 	uint32_t lastTriggered;
 } InteruptInfo;
 
-PUBLIC void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin);
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin);
 
 /**
  * Register a callback function with an interupt. This will override existing registered function callback.
  */
-PUBLIC void InteruptRegisterCallback(InteruptLookUpIndex id, InteruptCallback callback, uint16_t debounce);
+void InteruptRegisterCallback(InteruptLookUpIndex id, InteruptCallback callback, uint16_t debounce);
 
-PRIVATE void InteruptTriggerCallback(InteruptLookUpIndex id);
+void InteruptTriggerCallback(InteruptLookUpIndex id);
 
-PRIVATE InteruptLookUpIndex ConvertPinToLookupIndex(uint16_t pin);
+InteruptLookUpIndex ConvertPinToLookupIndex(uint16_t pin);
 
 #endif /* MODULES_INTERUPTMODULE_H_ */

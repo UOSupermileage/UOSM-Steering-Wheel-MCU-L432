@@ -103,10 +103,10 @@ void SystemSetBatteryVoltage(voltage_t v) {
 	SystemSetUndervoltage(v < 44000 ? Set : Clear);
 }
 
-PUBLIC void SystemSetMotorRPM(int32_t r) {
+void SystemSetMotorRPM(int32_t r) {
 	rpm = r;
 }
-PUBLIC int32_t SystemGetMotorRPM() {
+int32_t SystemGetMotorRPM() {
 	return rpm;
 }
 

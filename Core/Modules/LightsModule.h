@@ -14,11 +14,11 @@
 /**
  * Initialize lights module and interupts.
  */
-PUBLIC void LightsModule_Init();
+void LightsModule_Init();
 
 /**
  * Action upon state of lights in the Data Aggregate
  */
-PUBLIC void LightsModule_PeriodicJob();
+void LightsModule_PeriodicJob();
 
 #endif /* MODULES_LIGHTSMODULE_H_ */

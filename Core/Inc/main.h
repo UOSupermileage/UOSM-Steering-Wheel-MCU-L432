@@ -77,12 +77,18 @@ void Error_Handler(void);
 #define Extra_Momentary_Input_Pin GPIO_PIN_11
 #define Extra_Momentary_Input_GPIO_Port GPIOA
 #define Extra_Momentary_Input_EXTI_IRQn EXTI15_10_IRQn
+#define EncoderA_Pin GPIO_PIN_12
+#define EncoderA_GPIO_Port GPIOA
+#define EncoderA_EXTI_IRQn EXTI15_10_IRQn
 #define GREEN_LED_Pin GPIO_PIN_3
 #define GREEN_LED_GPIO_Port GPIOB
 #define Turn_Signal_Left_Input_Pin GPIO_PIN_4
 #define Turn_Signal_Left_Input_GPIO_Port GPIOB
 #define Turn_Signal_Right_Input_Pin GPIO_PIN_5
 #define Turn_Signal_Right_Input_GPIO_Port GPIOB
+#define EncoderB_Pin GPIO_PIN_7
+#define EncoderB_GPIO_Port GPIOB
+#define EncoderB_EXTI_IRQn EXTI9_5_IRQn
 
 /* USER CODE BEGIN Private defines */
 

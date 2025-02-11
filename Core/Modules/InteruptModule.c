@@ -39,7 +39,7 @@ static InteruptInfo interuptLookUpTable[NUMBER_INTERUPT_IDS] =
 			{INTERUPT_GPIO_15_ID,			NULL,	0,			0}
 	};
 
-PUBLIC void InteruptRegisterCallback(InteruptLookUpIndex id, InteruptCallback callback, uint16_t debounce)
+void InteruptRegisterCallback(InteruptLookUpIndex id, InteruptCallback callback, uint16_t debounce)
 {
 	interuptLookUpTable[id].callback = callback;
 	interuptLookUpTable[id].debounce = debounce;
@@ -47,7 +47,7 @@ PUBLIC void InteruptRegisterCallback(InteruptLookUpIndex id, InteruptCallback ca
 }
 
 
-PRIVATE void InteruptTriggerCallback(InteruptLookUpIndex id) {
+void InteruptTriggerCallback(InteruptLookUpIndex id) {
 
 	if (interuptLookUpTable[id].callback == NULL) {
 		DebugPrint("%s No interupt register for GPIO [%d]", ITM_TAG, id);
@@ -90,7 +90,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	InteruptTriggerCallback(index);
 }
 
-PRIVATE InteruptLookUpIndex ConvertPinToLookupIndex(uint16_t pin) {
+InteruptLookUpIndex ConvertPinToLookupIndex(uint16_t pin) {
 	switch (pin) {
 			case GPIO_PIN_0:
 				return INTERUPT_GPIO_0_ID;

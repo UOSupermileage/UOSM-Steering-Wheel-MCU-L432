@@ -16,8 +16,8 @@
 #include "ApplicationTypes.h"
 
 
-PUBLIC void InitInternalCommsTask(void);
-PRIVATE void InternalCommsTask(void *argument);
+void InitInternalCommsTask(void);
+void InternalCommsTask(void *argument);
 
 
 #endif /* TASKS_INTERNALCOMMSTASK_H_ */

@@ -15,7 +15,7 @@
 // Our headers
 #include "ApplicationTypes.h"
 
-PUBLIC void InitSegDisplayTask(void);
-PRIVATE void SegDisplayTask(void *argument);
+void InitSegDisplayTask(void);
+void SegDisplayTask(void *argument);
 
 #endif /* TASKS_SEGDISPLAYTASK_H_ */
