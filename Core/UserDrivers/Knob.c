@@ -1,22 +1,26 @@
 //
 // Created by Pc on 2025-01-31.
 //
-#include "knob.h"
-#include <stdio.h>
+#include "Knob.h"
 #include "InteruptModule.h"
+#include <stdio.h>
 
-static int knob_position = 0;  // Store the current knob position
+static volatile uint16_t knob_position = 0;  // Store the current knob position
 
 void KnobHandler(void) {
-    knob_position++;  // Adjust based on knob direction (modify if needed)
-
-   // update_display(knob_position);  // Update the display
-
-    printf("Knob turned! Position: %d\n", knob_position);  // Debugging
+    knob_position++;
 }
 
-void knob_init(void) {
-    // If the knob requires additional initialization, we add it here
-    InteruptRegisterCallback(INTERUPT_GPIO_12_ID, KnobHandler, 500);
+uint16_t KnobGetValue() {
+    return knob_position;
+}
 
+void KnobClearValue() {
+    knob_position = 0;
+}
+
+void KnobInit(void) {
+    // Register knob interrupts
+    InteruptRegisterCallback(INTERUPT_GPIO_12_ID, KnobHandler, 500);
+    InteruptRegisterCallback(INTERUPT_GPIO_7_ID, KnobHandler, 500);
 }

@@ -5,10 +5,10 @@
 #ifndef UOSM_STEERINGWHEEL_L432_KNOB_H
 #define UOSM_STEERINGWHEEL_L432_KNOB_H
 
-
 #include "stm32l4xx_hal.h"
 
-void knob_init(void);  // Initialize the knob (if needed)
-void knob_handler(void);  // Handle the knob turn event
+void KnobInit(void);  // Initialize the knob
+uint16_t KnobGetValue();
+void KnobClearValue();
 
 #endif // UOSM_STEERINGWHEEL_L432_KNOB_H
