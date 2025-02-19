@@ -82,12 +82,6 @@ void SegDisplayTask(void *argument)
 
                 if (state == ScreenVoltage) {
                     Seg_Display_Voltage(SystemGetBatteryVoltage());
-                } else if (state == ScreenSpeed) {
-                    Seg_Display_Speed(SystemGetSpeed() / 1000, SystemGetThrottleTooHigh(), SystemGetMotorInitializing());
-                } else if (SystemGetMotorInitializing() == Set) {
-                    Seg_Display_Bang();
-    	        } else {
-                    Seg_Display_Int(abs(SystemGetMotorRPM()));
-		}
+                }
 	}
 }
