@@ -19,6 +19,7 @@ static const char LTM_TAG[] = "#LTM:";
 #define ReadRightInput() HAL_GPIO_ReadPin(Turn_Signal_Left_Input_GPIO_Port, Turn_Signal_Left_Input_Pin)
 #define ReadHazardInput() HAL_GPIO_ReadPin(Hazards_Input_GPIO_Port, Hazards_Input_Pin)
 #define ReadHighBeamsInput() HAL_GPIO_ReadPin(High_Beams_Input_GPIO_Port, High_Beams_Input_Pin)
+#define ReadLowBeamsInput() HAL_GPIO_ReadPin(Low_Beams_Input_GPIO_Port, Low_Beams_Input_Pin)
 
 void LightsModule_Init() {
 	DebugPrint("%s Init Lights Module", LTM_TAG);
@@ -29,4 +30,5 @@ void LightsModule_PeriodicJob() {
         SystemSetLightsTurningRight(ReadRightInput() == GPIO_PIN_SET);
         SystemSetLightsTurningHazards(ReadHazardInput() == GPIO_PIN_SET);
         SystemSetLightsTurningHeadLights(ReadHighBeamsInput() == GPIO_PIN_SET);
+        SystemSetLightsLowBeams(ReadLowBeamsInput() == GPIO_PIN_SET);
 }

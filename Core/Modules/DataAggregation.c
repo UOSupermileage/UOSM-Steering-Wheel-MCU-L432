@@ -139,6 +139,10 @@ void SystemSetLightsTurningHazards(flag_status_t enabled) {
 void SystemSetLightsTurningHeadLights(flag_status_t enabled) {
         lights.headlights_enabled = enabled;
 }
+void SystemSetLightsLowBeams(flag_status_t enabled) {
+	lights.low_beams_enabled = enabled;
+}
+
 void SystemSetScreenState(ScreenState state) {
     screenState = state;
 }

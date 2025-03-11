@@ -74,6 +74,7 @@ void SystemSetLightsTurningLeft(flag_status_t enabled);
 void SystemSetLightsTurningRight(flag_status_t enabled);
 void SystemSetLightsTurningHazards(flag_status_t enabled);
 void SystemSetLightsTurningHeadLights(flag_status_t enabled);
+void SystemSetLightsLowBeams(flag_status_t enabled);
 
 void SystemSetScreenState(ScreenState state);
 ScreenState SystemGetScreenState();
