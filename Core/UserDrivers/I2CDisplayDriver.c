@@ -67,6 +67,8 @@ result_t Seg_Display_Int(int32_t value) {
     return MAX6955_DisplayDigits(MAX6955_P0, digits);
 }
 
+
+
 result_t Seg_Display_Voltage(voltage_t voltage) {
     uint8_t digits[5] = {
         MAX6955_Char_Blank,
@@ -78,3 +80,4 @@ result_t Seg_Display_Voltage(voltage_t voltage) {
 
     return MAX6955_DisplayDigits(MAX6955_P0, digits);
 }
+

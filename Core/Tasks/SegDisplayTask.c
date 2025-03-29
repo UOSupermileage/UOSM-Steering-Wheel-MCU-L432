@@ -13,6 +13,7 @@
 #include "I2CDisplayDriver.h"
 #include "InteruptModule.h"
 #include "Knob.h"
+#include "main.h"
 
 #define STACK_SIZE 128*4
 #define SPEED_TASK_PRIORITY (osPriority_t) osPriorityHigh4
@@ -57,18 +58,36 @@ void SegDisplayTask(void *argument)
 		DebugPrint("%s 7 seg loop. Runtime: %d", SDT_TAG, SystemGetRunTime());
 
                 if (KnobGetValue() > 0) {
-                    switch (SystemGetScreenState()) {
-                    case ScreenVoltage:
-                        SystemSetScreenState(ScreenRPM);
-                        break;
-                    case ScreenRPM:
-                        SystemSetScreenState(ScreenSpeed);
-                        break;
-                    case ScreenSpeed:
-                        SystemSetScreenState(ScreenVoltage);
-                        break;
-                    }
 
+
+
+                    switch (SystemGetScreenState()) {
+                        case ScreenVoltage:
+                            SystemSetScreenState(ScreenRPM);
+                        break;
+                        case ScreenRPM:
+                            SystemSetScreenState(ScreenSpeed);
+                        break;
+                        case ScreenSpeed:
+                            SystemSetScreenState(ScreenVoltage);
+                        break;
+                        case ScreenRed: {
+                            static long num;
+                            if (KnobGetValue() == 2) {
+                                num++;
+                            } else {
+                                num--;
+                            }
+                            if (num > 255) {
+                                num = 255;
+                            } else if (num < 0) {
+                                num = 0;
+                            }
+                            SystemSetRed(num);
+                            break;
+                        }
+
+                    }
                     KnobClearValue();
                 }
 
@@ -84,10 +103,15 @@ void SegDisplayTask(void *argument)
                     Seg_Display_Voltage(SystemGetBatteryVoltage());
                 } else if (state == ScreenSpeed) {
                     Seg_Display_Speed(SystemGetSpeed() / 1000, SystemGetThrottleTooHigh(), SystemGetMotorInitializing());
-                } else if (SystemGetMotorInitializing() == Set) {
-                    Seg_Display_Bang();
+                } else if (state == ScreenRed) {
+                    Seg_Display_Int(SystemGetRed());
+                } else if (state == ScreenGreen) {
+                    Seg_Display_Int(SystemGetGreen());
+                } else if (state == ScreenBlue) {
+                    Seg_Display_Int(SystemGetBlue());
     	        } else {
-                    Seg_Display_Int(abs(SystemGetMotorRPM()));
+                    Seg_Display_Int(abs(20));
 		}
+
 	}
 }

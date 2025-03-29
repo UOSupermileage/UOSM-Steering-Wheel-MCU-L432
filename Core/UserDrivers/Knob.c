@@ -7,20 +7,28 @@
 
 static volatile uint16_t knob_position = 0;  // Store the current knob position
 
-void KnobHandler(void) {
-    knob_position++;
+void KnobHandlerLeft(void) {
+    knob_position = 2;
+}
+void KnobHandlerRight(void) {
+    knob_position = 1;
 }
 
 uint16_t KnobGetValue() {
-    return knob_position;
+    int knob_pos = knob_position;
+    return knob_pos;
 }
 
 void KnobClearValue() {
     knob_position = 0;
 }
 
+uint16_t KnobClicked() {
+
+}
+
 void KnobInit(void) {
     // Register knob interrupts
-    InteruptRegisterCallback(INTERUPT_GPIO_12_ID, KnobHandler, 500);
-    InteruptRegisterCallback(INTERUPT_GPIO_7_ID, KnobHandler, 500);
+    InteruptRegisterCallback(INTERUPT_GPIO_12_ID, KnobHandlerLeft, 500);
+    InteruptRegisterCallback(INTERUPT_GPIO_7_ID, KnobHandlerRight, 500);
 }

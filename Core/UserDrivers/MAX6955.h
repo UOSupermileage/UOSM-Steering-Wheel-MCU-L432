@@ -39,6 +39,7 @@ typedef enum {
     MAX6955_Char_G = 0x67,
     MAX6955_Char_K = 0x6B,
     MAX6955_Char_E = 0x65,
+    MAX6955_Char_R = 0x6C,
     MAX6955_Char_Blank = 0x10,
     MAX6955_Char_Minus = 0x2D,
     MAX6955_Char_Period = 0x80

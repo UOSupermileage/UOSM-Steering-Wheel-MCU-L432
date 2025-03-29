@@ -11,6 +11,8 @@
 #include "ApplicationTypes.h"
 #include "cmsis_os.h"
 
+static uint32_t colorPicker;
+
 void ClockModule_Init();
 void ClockModule_Update();
 

@@ -36,7 +36,10 @@ typedef struct {
 typedef enum {
     ScreenVoltage,
     ScreenRPM,
-    ScreenSpeed
+    ScreenSpeed,
+    ScreenRed,
+    ScreenGreen,
+    ScreenBlue
 } ScreenState;
 
 void InitDataAggregator();
@@ -55,6 +58,10 @@ flag_status_t SystemGetUndervoltage();
 flag_status_t SystemGetDriverEnabled();
 
 uint8_t SystemGetLap();
+
+uint32_t SystemGetRed();
+uint32_t SystemGetGreen();
+uint32_t SystemGetBlue();
 
 void SystemSetSpeed(speed_t speed);
 void SystemSetThrottleRaw(throttle_raw_t throttleRaw);
@@ -78,6 +85,10 @@ void SystemSetLightsLowBeams(flag_status_t enabled);
 
 void SystemSetScreenState(ScreenState state);
 ScreenState SystemGetScreenState();
+
+void SystemSetRed(uint32_t red);
+void SystemSetGreen(uint32_t green);
+void SystemSetBlue(uint32_t blue);
 
 lights_status_t SystemGetLightsStatus();
 

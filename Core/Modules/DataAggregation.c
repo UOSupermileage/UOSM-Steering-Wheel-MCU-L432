@@ -96,6 +96,18 @@ voltage_t SystemGetBatteryVoltage() {
 	return voltage;
 }
 
+uint32_t SystemGetRed() {
+	uint32_t i = lights.r;
+	return i;
+}
+
+uint32_t SystemGetGreen() {
+	return lights.g;
+}
+uint32_t SystemGetBlue() {
+	return lights.b;
+}
+
 void SystemSetBatteryVoltage(voltage_t v) {
 	voltage = v;
 
@@ -146,6 +158,19 @@ void SystemSetLightsLowBeams(flag_status_t enabled) {
 void SystemSetScreenState(ScreenState state) {
     screenState = state;
 }
+
+void SystemSetRed(uint32_t red) {
+	lights.r = red;
+}
+
+void SystemSetGreen(uint32_t green) {
+	lights.g = green;
+}
+
+void SystemSetBlue(uint32_t blue) {
+	lights.b = blue;
+}
+
 ScreenState SystemGetScreenState() {
     return screenState;
 }
