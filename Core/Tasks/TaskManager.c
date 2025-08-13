@@ -16,7 +16,8 @@
 
 void RunTaskManager( void )
 {
-	InitDataAggregator();
+        InitDataAggregator();
+        //DebugPrint("Peekaboo");
 	InitThrottleTask();
 	InitInternalCommsTask();
 	InitLightsTask();

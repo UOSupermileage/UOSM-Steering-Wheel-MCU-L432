@@ -16,7 +16,7 @@
 #define INTERNAL_COMMS_TASK_PRIORITY (osPriority_t) osPriorityRealtime
 #define TIMER_INTERNAL_COMMS_TASK 200UL
 
-#define THROTTLE_RATE 4
+#define THROTTLE_RATE 1 //4
 #define DRIVER_RATE 2
 #define NEW_LAP_RATE 5
 #define LIGHTS_RATE 2

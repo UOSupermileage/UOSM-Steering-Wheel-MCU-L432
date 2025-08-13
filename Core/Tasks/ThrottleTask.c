@@ -41,7 +41,8 @@ void ThrottleTask(void *argument)
 
 	for(;;)
 	{
-		cycleTick += TIMER_THROTTLE_TASK;
+                //DebugPrint("Waka waka eh eh.");
+	        cycleTick += TIMER_THROTTLE_TASK;
 		osDelayUntil(cycleTick);
 		Throttle_UpdateThrottle();
 	}
